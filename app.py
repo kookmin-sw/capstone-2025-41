@@ -1,43 +1,66 @@
 import streamlit as st
-from modules.data_manager import DataManager
+from modules.user_manager import UserManager
+from modules.account_manager import AccountManager
 from modules.visualization import Visualization
 
-st.title("계좌 불러오기")
+class App():
+    def __init__(self):
+        if "page" not in st.session_state:
+            st.session_state["page"] = "login"
+        if "logged_in" not in st.session_state:
+            st.session_state["logged_in"] = False
+        if "username" not in st.session_state:
+            st.session_state["username"] = None
+        if "stock_df" not in st.session_state:
+            st.session_state["stock_df"] = None
+        if "account_df" not in st.session_state:
+            st.session_state["account_df"] = None
 
-# 주식 데이터, 계좌 데이터 초기화
-stock_df = None
-account_df = None
+        # 개인정보 관리 (ID, 패스워드, API KEY 등)
+        self.user_manager = UserManager()
 
-# API_KEY, SECRET_KEY, 계좌번호 등 입력 (이 부분은 이후에 "회원 가입" 페이지와 "계좌 불러오기" 페이지로 이동)
-with st.form("inform_input"):
-    KEY = st.text_input("한국투자증권의 APP Key를 입력하세요")
-    SECRET = st.text_input("한국투자증권의 APP Secret를 입력하세요")
-    acc_no = st.text_input("한국투자증권의 계좌번호를 입력하세요")
+    def run(self):
+        # 로그인 페이지
+        if st.session_state["page"] == "login":
+            self.user_manager.login()
 
-    if st.checkbox("모의투자 계좌입니다"):
-        mock = True
-    else:
-        mock = False
+        # 회원가입 페이지
+        elif st.session_state["page"] == "sign_up":
+            self.user_manager.sign_up()
 
-    if st.form_submit_button("저장"):
-        try:
-            data_manager = DataManager(KEY, SECRET, acc_no, mock)
-            stock_df = data_manager.get_stock()
-            account_df = data_manager.get_account()
-        except:
-            st.write("**⚠️데이터를 불러오는 데 실패했습니다**")
+        # 메인 페이지
+        elif st.session_state["page"] == "main":
+            user = self.user_manager.load_user()
 
-if account_df is not None and stock_df is not None:
-    total = int(account_df.loc[0, '총평가금액'])
-    profit = int(account_df.loc[0, '평가손익합계금액'])
-    
-    st.subheader("📜나의 포트폴리오")
-    st.metric("총자산", f"{total:,}원",
-                f"{int(account_df.loc[0, '평가손익합계금액']):,}원  |  "\
-                f"{round(profit/(total-profit) * 100, 2):,.2f}%")
+            # 계좌 데이터 불러오기
+            try:
+                key = user["KEY"]
+                secret = user["SECRET"]
+                acc_no = user["ACC_NO"]
+                mock = user["MOCK"]
 
-    #---------------- 메인 페이지 시각화 ----------------#
-    visualization = Visualization(stock_df, account_df)
+                account_manager = AccountManager(key, secret, acc_no, mock)
+                st.session_state["stock_df"] = account_manager.get_stock()
+                st.session_state["account_df"] = account_manager.get_account()
+            except:
+                st.error("**⚠️데이터를 불러오는 데 실패했습니다**")
 
-    # 포트폴리오 도넛 차트 시각화
-    visualization.portfolio_doughnut_chart()
+            if st.session_state["stock_df"] is not None and st.session_state["account_df"] is not None:
+                total = int(st.session_state["account_df"].loc[0, '총평가금액'])
+                profit = int(st.session_state["account_df"].loc[0, '평가손익합계금액'])
+
+                st.header("📜나의 포트폴리오")
+                st.metric("총자산", f"{total:,}원",
+                          f"{int(st.session_state['account_df'].loc[0, '평가손익합계금액']):,}원  |  " \
+                          f"{round(profit / (total - profit) * 100, 2):,.2f}%")
+
+                # ---------------- 메인 페이지 시각화 ----------------#
+                visualization = Visualization(st.session_state["stock_df"], st.session_state["account_df"])
+
+                # 포트폴리오 도넛 차트 시각화
+                visualization.portfolio_doughnut_chart()
+
+
+if __name__ == "__main__":
+    app = App()
+    app.run()
