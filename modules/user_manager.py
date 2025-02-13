@@ -44,6 +44,7 @@ class UserManager:
             st.rerun()
 
     def sign_up(self):
+        """회원가입 페이지"""
         with st.form("personal_information"):
             st.header("📝회원가입")
 

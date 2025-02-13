@@ -3,15 +3,16 @@ import plotly.graph_objects as go
 from plotly.colors import qualitative
 
 class Visualization:
-    def __init__(self, stock_df, account_df):
+    def __init__(self, stock_df, account_df, cash):
         self.stock_df = stock_df
         self.account_df = account_df
+        self.cash = cash
 
     def portfolio_doughnut_chart(self):
         # label: 상품명, short_label: 축약 상품명, balance: 평가금액
-        label = list(self.stock_df["상품명"])
-        short_label = list(map(lambda x: x[:10] + "..." if len(x) > 10 else x, list(self.stock_df["상품명"])))
-        balance = list(self.stock_df["평가금액"])
+        label = list(self.stock_df["상품명"]) + ["현금(₩)"]
+        short_label = list(map(lambda x: x[:10] + "..." if len(x) > 10 else x, list(self.stock_df["상품명"]))) + ["현금(₩)"]
+        balance = list(self.stock_df["평가금액"]) + [self.cash]
 
         # plotly
         fig = go.Figure(data=[go.Pie(
@@ -36,7 +37,7 @@ class Visualization:
 
         # 도넛 중앙에 텍스트 추가
         fig.add_annotation(
-            text=f"₩{int(self.account_df.loc[0, '총평가금액']):,}",
+            text=f"₩{int(self.account_df.loc[0, '총평가금액'] + st.session_state['cash']):,}",
             x=0.5, y=0.5,
             font={"size": 25, "color": "black"},
             showarrow=False

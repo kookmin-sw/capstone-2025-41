@@ -54,7 +54,7 @@ class KoreaInvestmentAPI:
         stock_df = stock_df[["상품번호", "상품명", "보유수량", "매입금액", "현재가", "평가금액",
                             "평가손익금액", "평가손익률", "등락률"]]
 
-        stock_df = stock_df.set_index("상품번호")
+        account_df = account_df[["자산증감액", "자산증감수익률", "총평가금액", "평가손익합계금액"]]
 
         return stock_df, account_df
 
