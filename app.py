@@ -3,6 +3,7 @@ import pandas as pd
 from modules.user_manager import UserManager
 from modules.account_manager import AccountManager
 from modules.visualization import Visualization
+from modules.etf import ETFAnalyzer
 
 class App():
     def __init__(self):
@@ -18,11 +19,28 @@ class App():
             st.session_state["account_df"] = None
         if "cash" not in st.session_state:
             st.session_state["cash"] = None
+        if "etf_loaded" not in st.session_state:
+            st.session_state["etf_loaded"] = False
 
         # 개인정보 관리 (ID, 패스워드, API KEY 등)
         self.user_manager = UserManager()
 
     def run(self):
+        # 사이드바 추가
+        if st.session_state["logged_in"]:
+            st.sidebar.title("📌 메뉴뉴")
+            menu = st.sidebar.radio("메뉴 선택", ["자산 관리", "ETF 분석", "로그아웃"])
+            
+            if menu == "자산 관리":
+                st.session_state["page"] = "main"
+            elif menu == "ETF 분석":
+                st.session_state["page"] = "etf_analysis"
+            elif menu == "로그아웃":
+                st.session_state.clear()
+                st.session_state["page"] = "login"
+                st.experimental_rerun()
+
+
         # 로그인 페이지
         if st.session_state["page"] == "login":
             self.user_manager.login()
@@ -73,6 +91,19 @@ class App():
                 if st.button("저장"):
                     account_manager.modify_cash(cash)
                     st.rerun()
+
+        # ETF 분석 페이지
+        if st.session_state["page"] == "etf_analysis":
+            st.title("📈 ETF 섹터별 분석")
+            st.write("ETF 데이터를 분석할 수 있는 페이지입니다.")
+
+            if not st.session_state["etf_loaded"]:
+                with st.spinner("ETF 데이터를 수집하는 중... ⏳"):
+                    ETFAnalyzer.save_etf_data()
+                st.session_state["etf_loaded"] = True  # 데이터 로드 완료 상태 변경
+
+            # ✅ 자동으로 ETF 데이터 시각화
+            ETFAnalyzer.visualize_etf()
 
 
 if __name__ == "__main__":
