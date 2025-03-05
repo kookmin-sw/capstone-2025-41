@@ -98,18 +98,17 @@ class App():
                     account_manager.modify_cash(cash)
                     st.rerun()
 
-        # ETF 분석 페이지
+        # ETF 분석 페이지 (트리맵 적용)
         if st.session_state["page"] == "etf_analysis":
-            st.title("📈 ETF 섹터별 분석")
-            st.write("ETF 데이터를 분석할 수 있는 페이지입니다.")
-
+            
             if not st.session_state["etf_loaded"]:
                 with st.spinner("ETF 데이터를 수집하는 중... ⏳"):
                     ETFAnalyzer.save_etf_data()
                 st.session_state["etf_loaded"] = True  # 데이터 로드 완료 상태 변경
 
-            # ✅ 자동으로 ETF 데이터 시각화
+            # ✅ 트리맵으로 변경
             ETFAnalyzer.visualize_etf()
+
 
         # 경제 뉴스 페이지
         if st.session_state["page"] == "economic_news":
