@@ -35,9 +35,11 @@ class Visualization:
             }
         )
 
+        total_value = int(float(self.account_df.loc[0, '총평가금액'])) + int(float(st.session_state['cash']))
+
         # 도넛 중앙에 텍스트 추가
         fig.add_annotation(
-            text=f"₩{int(self.account_df.loc[0, '총평가금액'] + st.session_state['cash']):,}",
+            text=f"₩{total_value:,}",
             x=0.5, y=0.5,
             font={"size": 25, "color": "black"},
             showarrow=False

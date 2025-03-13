@@ -1,26 +1,17 @@
 import streamlit as st
-import json
-import os
+from modules.DB import SupabaseDB
 
-# 사용자 데이터 저장 파일
-USER_DATA_FILE = "data/user.json"
+
 
 class UserManager:
     def __init__(self):
-        self.user = self.load_user()
+        self.db = SupabaseDB()
 
-    def load_user(self):
-        """사용자 데이터 로드"""
-        if os.path.exists(USER_DATA_FILE):
-            with open(USER_DATA_FILE, "r") as f:
-                return json.load(f)
-        return {"ID": None, "PASSWORD": None, "KEY": None, "SECRET": None,
-                "ACC_NO": None, "MOCK": None}
+    def get_user_info(self, username):
+        """Supabase에서 사용자 정보 가져오기"""
+        user = self.db.get_user(username)  # ✅ Supabase에서 데이터 조회
+        return user[0] if user else None  # ✅ 첫 번째 사용자 정보 반환 (없으면 None)
 
-    def save_user(self):
-        """사용자 데이터 저장"""
-        with open(USER_DATA_FILE, "w") as f:
-            json.dump(self.user, f)
 
     def login(self):
         """로그인 페이지"""
@@ -30,14 +21,16 @@ class UserManager:
         password = st.text_input("비밀번호", type="password")
 
         if st.button("로그인"):
-            if self.user["ID"] == id and self.user["PASSWORD"] == password:
-                st.success("✅로그인 성공!")
+            user = self.db.get_user(id)
+            
+            if user and user[0]["password"] == password:
+                st.success(f"✅ 로그인 성공! {id}님 환영합니다.")
                 st.session_state["logged_in"] = True
                 st.session_state["id"] = id
                 st.session_state["page"] = "main"
                 st.rerun()
             else:
-                st.error("⚠️아이디 또는 비밀번호가 올바르지 않습니다")
+                st.error("❌ 아이디 또는 비밀번호가 올바르지 않습니다.")
 
         if st.button("회원가입"):
             st.session_state["page"] = "sign_up"
@@ -67,14 +60,16 @@ class UserManager:
                 elif not key or not secret:
                     st.error("⚠️한국투자증권 API를 입력해주세요")
                 else:
-                    self.user["ID"] = new_id
-                    self.user["PASSWORD"] = new_password
-                    self.user["KEY"] = key
-                    self.user["SECRET"] = secret
-                    self.user["ACC_NO"] = acc_no
-                    self.user["MOCK"] = mock
-                    self.save_user()
-                    st.success("✅회원가입 완료!")
+                    user_data = {
+                        "username": new_id,
+                        "password": new_password,
+                        "api_key": key,
+                        "api_secret": secret,
+                        "account_no": acc_no,
+                        "mock": mock
+                    }
+                    self.db.insert_user(user_data)
+                    st.success("✅ 회원가입 완료!")
                     st.session_state["page"] = "login"
                     st.session_state["id"] = new_id
                     st.rerun()
