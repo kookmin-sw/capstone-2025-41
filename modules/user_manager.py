@@ -9,8 +9,8 @@ class UserManager:
 
     def get_user_info(self, username):
         """Supabase에서 사용자 정보 가져오기"""
-        user = self.db.get_user(username)  # ✅ Supabase에서 데이터 조회
-        return user[0] if user else None  # ✅ 첫 번째 사용자 정보 반환 (없으면 None)
+        user = self.db.get_user(username)  # Supabase에서 데이터 조회
+        return user[0] if user else None  # 첫 번째 사용자 정보 반환 (없으면 None)
 
 
     def login(self):

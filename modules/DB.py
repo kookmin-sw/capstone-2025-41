@@ -21,14 +21,14 @@ class SupabaseDB:
     def insert_stock_data(self, user_id, stock_data):
         """주식 데이터 Supabase에 저장 (중복되면 업데이트)"""
         for stock in stock_data:
-            stock["user_id"] = user_id  # ✅ `user_id` 추가
-        self.client.table("stocks").upsert(stock_data).execute()  # ✅ 중복되면 업데이트
+            stock["user_id"] = user_id  # `user_id` 추가
+        self.client.table("stocks").upsert(stock_data).execute()  # 중복되면 업데이트
 
     def insert_account_data(self, user_id, account_data):
         """계좌 데이터 Supabase에 저장 (리스트 처리)"""
         for account in account_data:
-            account["user_id"] = user_id  # ✅ `user_id` 추가
-        self.client.table("accounts").upsert(account_data).execute()  # ✅ 중복되면 업데이트
+            account["user_id"] = user_id  # `user_id` 추가
+        self.client.table("accounts").upsert(account_data).execute()  # 중복되면 업데이트
 
     def insert_cash_data(self, user_id, cash_amount):
         """현금 데이터 Supabase에 저장 (중복되면 업데이트)"""

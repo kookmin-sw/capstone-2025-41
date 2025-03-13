@@ -55,7 +55,7 @@ class App():
 
         # 메인 페이지 (자산 관리)
         if st.session_state["page"] == "main":
-            user = self.user_manager.get_user_info(st.session_state["id"])  # ✅ Supabase에서 사용자 정보 가져오기
+            user = self.user_manager.get_user_info(st.session_state["id"])  # Supabase에서 사용자 정보 가져오기
 
             if not user:
                 st.error("⚠️ 사용자 정보를 불러올 수 없습니다. 다시 로그인해 주세요.")
@@ -70,18 +70,18 @@ class App():
                 secret = user["api_secret"]
                 acc_no = user["account_no"]
                 mock = user["mock"]
-                user_id = user["id"]  # ✅ `user_id` 가져오기
+                user_id = user["id"]  # `user_id` 가져오기
 
-                # ✅ `user_id`를 추가하여 AccountManager 객체 생성
+                # `user_id`를 추가하여 AccountManager 객체 생성
                 account_manager = AccountManager(key, secret, acc_no, mock, user_id)    
-                # ✅ 기존 데이터 확인 후 저장 (중복 삽입 방지)
+                # 기존 데이터 확인 후 저장 (중복 삽입 방지)
                 existing_stocks = account_manager.db.get_stock_data(user_id)
                 existing_accounts = account_manager.db.get_account_data(user_id)
                 existing_cash = account_manager.db.get_cash_data(user_id)
 
-                # ✅ 데이터가 없을 경우에만 저장 실행
+                # 데이터가 없을 경우에만 저장 실행
                 if not existing_stocks or not existing_accounts or existing_cash is None:
-                    account_manager.save_data(user_id)  # ✅ S
+                    account_manager.save_data(user_id)  # S
 
                 st.session_state["stock_df"] = account_manager.get_stock()
                 st.session_state["account_df"] = account_manager.get_account()
@@ -123,7 +123,7 @@ class App():
                     ETFAnalyzer.save_etf_data()
                 st.session_state["etf_loaded"] = True  # 데이터 로드 완료 상태 변경
 
-            # ✅ 트리맵으로 변경
+            # 트리맵으로 변경
             ETFAnalyzer.visualize_etf()
 
         # 경제 뉴스 페이지
