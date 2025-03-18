@@ -1,5 +1,6 @@
 import streamlit as st
 from supabase import create_client
+import json
 
 class SupabaseDB:
     def __init__(self):
@@ -49,3 +50,16 @@ class SupabaseDB:
         """Supabase에서 특정 사용자의 현금 데이터 가져오기"""
         response = self.client.table("cash").select("현금").eq("user_id", user_id).execute()
         return response.data[0]["현금"] if response.data else 0
+
+    def insert_etf_data_json(self, etf_data):
+        """ETF 데이터를 Supabase에 JSON 형태로 저장"""
+        data_to_store = [{"etf_name": name, "data": json.dumps(data)} for name, data in etf_data.items()]
+        print("📌 Supabase에 업로드할 데이터:", data_to_store)  # 🔍 업로드할 데이터 확인
+
+        response = self.client.table("etf_data_json").upsert(data_to_store).execute()
+        print("📌 Supabase 응답:", response)  # 🔍 Supabase 응답 출력
+
+    def get_etf_data_json(self):
+        """Supabase에서 ETF JSON 데이터를 불러오기"""
+        response = self.client.table("etf_data_json").select("*").execute()
+        return {row["etf_name"]: json.loads(row["data"]) for row in response.data} if response.data else {}

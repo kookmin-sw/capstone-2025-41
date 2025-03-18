@@ -117,14 +117,14 @@ class App():
 
         # ETF 분석 페이지 (트리맵 적용)
         if st.session_state["page"] == "etf_analysis":
-            
+            analyzer = ETFAnalyzer()  # ✅ 인스턴스 생성
             if not st.session_state["etf_loaded"]:
-                with st.spinner("ETF 데이터를 수집하는 중... ⏳"):
-                    ETFAnalyzer.save_etf_data()
+                with st.spinner("ETF 데이터를 수집하는 중... ⏳"):            
+                    analyzer.save_etf_data()  # ✅ 인스턴스에서 메서드 호출
                 st.session_state["etf_loaded"] = True  # 데이터 로드 완료 상태 변경
 
             # 트리맵으로 변경
-            ETFAnalyzer.visualize_etf()
+            analyzer.visualize_etf()  # ✅ 트리맵 시각화
 
         # 경제 뉴스 페이지
         if st.session_state["page"] == "economic_news":

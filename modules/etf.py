@@ -6,6 +6,7 @@ import os
 import FinanceDataReader as fdr
 from datetime import timedelta
 import datetime
+from modules.DB import SupabaseDB
 
 # 데이터 저장 경로
 ETF_DATA_FILE = "data/etf_data.json"
@@ -43,43 +44,65 @@ sector_short_names = {
 
 
 class ETFAnalyzer:
-    @staticmethod
-    def save_etf_data():
-        """ ETF 데이터 수집 및 저장 (전체 기간 데이터 저장) """
+    
+    def __init__(self):
+        """Supabase 연결"""
+        self.db = SupabaseDB()
+
+    def save_etf_data(self):
+        """ETF 데이터를 Supabase에 JSON 형태로 저장"""
         etf_data = {}
+
         for name, code in ETF_LIST.items():
             df = fdr.DataReader(code)
-
+            
+            print(f"📌 {name}({code})에서 가져온 데이터 (상위 5개):")
+            print(df.head())  # 🔍 ETF 데이터가 정상적으로 로드되는지 확인
+            
             if df.empty:
+                print(f"⚠️ {name}({code})의 데이터를 가져오지 못했습니다.")
                 continue  # 데이터가 없으면 건너뜀
 
-            df.index = df.index.strftime('%Y-%m-%d')  #  Timestamp를 문자열로 변환
-            etf_data[name] = df[['Close']].to_dict(orient='index')  #  JSON 저장 가능
+            df.index = pd.to_datetime(df.index, errors='coerce')  # ✅ 날짜 변환
+            df.index = df.index.strftime('%Y-%m-%d')  # ✅ Timestamp → 문자열 변환
 
-        # JSON 파일로 저장
-        with open(ETF_DATA_FILE, "w", encoding="utf-8") as f:
-            json.dump(etf_data, f, ensure_ascii=False, indent=4)
+            etf_data[name] = df[['Close']].to_dict(orient='index')  # 🔥 JSON 저장 가능
+
+            print(f"✅ {name}({code}) 데이터 저장 완료. 저장된 데이터 개수: {len(etf_data[name])}")  # 🔍 저장된 데이터 개수 확인
+
+        print("📌 Supabase에 저장할 데이터 (최종):", etf_data)  # 🔍 Supabase에 저장할 전체 데이터 확인
+
+        if not etf_data:
+            print("📌 저장할 ETF 데이터가 없습니다.")
+            return
+
+        self.db.insert_etf_data_json(etf_data)
+        print("✅ ETF 데이터가 Supabase에 JSON 형태로 저장되었습니다.")
 
 
-    @staticmethod
-    def load_etf_data():
-        """ 저장된 ETF 데이터 로드 """
-        if os.path.exists(ETF_DATA_FILE):
-            with open(ETF_DATA_FILE, "r", encoding="utf-8") as f:
-                data = json.load(f)
+    def load_etf_data(self):
+        """Supabase에서 JSON 형태의 ETF 데이터를 불러옴"""
+        etf_data = self.db.get_etf_data_json()
 
-            #  문자열 날짜를 Timestamp로 변환
-            for sector in data:
-                data[sector] = {pd.to_datetime(date): values for date, values in data[sector].items()}
+        if not etf_data:
+            print("📌 Supabase에 ETF 데이터가 없습니다.")
+            return {}
 
-            return data
-        return {}
-
+        return etf_data
+ 
 
     @staticmethod
     def visualize_etf():
         """ ETF 데이터 트리맵 시각화 (섹터별 비중 유지 + 증감률 표시) """
         st.title("📊 S&P500 섹터 트리맵")
+
+        analyzer = ETFAnalyzer()  # ✅ 인스턴스 생성
+        etf_data = analyzer.load_etf_data()  # ✅ Supabase에서 데이터 불러오기
+
+        if not etf_data:
+            st.warning("ETF 데이터가 없습니다. 먼저 데이터를 수집해주세요!")
+            return
+
         
         # ETF 선택 기능 추가
         # ETF 이름을 짧은 이름으로 변환하여 표시
@@ -99,7 +122,7 @@ class ETFAnalyzer:
 
         if period_mode == "설정된 기간":
             period_options = {
-                "1일": 2,
+                "1일": 1,
                 "1주": 7,
                 "1개월": 30,
                 "3개월": 90,
@@ -130,7 +153,7 @@ class ETFAnalyzer:
 
 
         # ETF 데이터 로드
-        etf_data = ETFAnalyzer.load_etf_data()  # 기존에 있는 ETF 데이터 로드 함수
+        etf_data = analyzer.load_etf_data()  # ✅ 인스턴스에서 호출
         if not etf_data:
             st.warning("ETF 데이터가 없습니다. 먼저 데이터를 수집해주세요!")
             return
@@ -165,7 +188,7 @@ class ETFAnalyzer:
             # 선택한 날짜 범위 내 데이터만 필터링
             df_filtered = df.loc[start_date:end_date]
 
-            if len(df_filtered) < 2:
+            if len(df_filtered) < 1:
                 continue  # 데이터가 부족하면 건너뜀
 
             latest_price = df_filtered['Close'].iloc[-1]
@@ -216,3 +239,4 @@ class ETFAnalyzer:
 
 
         st.plotly_chart(fig)
+        
