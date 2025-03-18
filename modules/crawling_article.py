@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 import streamlit as st
+from collections import Counter
 
 class crawlingArticle:
     def __init__(self):
@@ -65,8 +66,11 @@ class crawlingArticle:
     def visualize_wordcloud(self):
         font_path = '/usr/share/fonts/truetype/nanumfont/NanumGothic.ttf'
 
-        text = " ".join(self.article_df["title"]) + " ".join(self.article_df["main"])
-        wordcloud = WordCloud(width=800, height=400, background_color='white', font_path=font_path).generate(text)
+        text = " ".join(self.article_df["title"])
+        word_counts = Counter(text.split())
+        wordcloud = WordCloud(
+            width=800, height=400, background_color='white', font_path=font_path
+        ).generate_from_frequencies(word_counts)
 
         fig = plt.figure()
         plt.imshow(wordcloud, interpolation='bilinear')
