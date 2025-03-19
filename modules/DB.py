@@ -34,7 +34,6 @@ class SupabaseDB:
         """현금 데이터 Supabase에 저장 (중복되면 업데이트)"""
         self.client.table("cash").upsert({"user_id": user_id, "현금": cash_amount}).execute()
 
-
     def get_stock_data(self, user_id):
         """Supabase에서 특정 사용자의 주식 데이터 가져오기"""
         response = self.client.table("stocks").select("*").eq("user_id", user_id).execute()
