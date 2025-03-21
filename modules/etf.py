@@ -65,7 +65,7 @@ class ETFAnalyzer:
 
             etf_data[name] = df[['Close']].to_dict(orient='index')  # JSON 저장
 
-            print(f"✅ {name}({code}) 데이터 저장 완료. 저장된 데이터 개수: {len(etf_data[name])}")  # 디버깅/ 저장된 데이터 개수 확인
+            print(f"{name}({code}) 데이터 저장 완료. 저장된 데이터 개수: {len(etf_data[name])}")  # 디버깅/ 저장된 데이터 개수 확인
 
         print("📌 Supabase에 저장할 데이터 (최종):", etf_data)  # 🔍 디버깅/ Supabase에 저장할 전체 데이터 확인
 
@@ -74,7 +74,7 @@ class ETFAnalyzer:
             return
 
         self.db.insert_etf_data_json(etf_data)
-        print("✅ ETF 데이터가 Supabase에 JSON 형태로 저장되었습니다.")
+        print("ETF 데이터가 Supabase에 JSON 형태로 저장되었습니다.")
 
 
     def load_etf_data(self):
@@ -93,8 +93,10 @@ class ETFAnalyzer:
         """ ETF 데이터 트리맵 시각화 (섹터별 비중 유지 + 증감률 표시) """
         st.title("📊 S&P500 섹터 트리맵")
 
-        analyzer = ETFAnalyzer()  # ✅ 인스턴스 생성
-        etf_data = analyzer.load_etf_data()  # ✅ Supabase에서 데이터 불러오기
+        days_ago = None
+
+        analyzer = ETFAnalyzer()  # 인스턴스 생성
+        etf_data = analyzer.load_etf_data()  # Supabase에서 데이터 불러오기
 
         if not etf_data:
             st.warning("ETF 데이터가 없습니다. 먼저 데이터를 수집해주세요!")
@@ -140,6 +142,7 @@ class ETFAnalyzer:
             # 사용자가 선택한 날짜를 변수로 저장
             if len(date_range) == 2:
                 start_date, end_date = date_range
+                days_ago = None
             else:
                 st.error("날짜 범위를 올바르게 선택하세요.")
                 st.stop()  # 🚨 날짜가 없으면 코드 실행 중단
@@ -190,7 +193,7 @@ class ETFAnalyzer:
 
             latest_price = df_filtered['Close'].iloc[-1]
             # 1일 기준일 경우 전날 데이터와 비교
-            if days_ago == 1:
+            if period_mode == "설정된 기간" and days_ago == 1:
                 prev_date = start_date - timedelta(days=1)
                 
                 # 전날 데이터 찾기 (이전 거래일 탐색)
