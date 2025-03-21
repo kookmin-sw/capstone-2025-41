@@ -5,11 +5,13 @@ from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 import streamlit as st
 from collections import Counter
+from modules.DB import SupabaseDB
+
 
 class crawlingArticle:
     def __init__(self):
-        self.article_file = "data/article_data.json"
-        self.article_df = self.collect_article()
+        self.db = SupabaseDB()
+        self.article_df = self.load_article()
 
     def collect_article(self):
         # 네이버 경제 뉴스 웹 페이지 파싱
@@ -77,8 +79,19 @@ class crawlingArticle:
         plt.axis("off")
         st.pyplot(fig)
 
+    def save_article(self):
+        """Supabase에 기사 데이터 저장"""
+        article_data = self.article_df.to_dict(orient="records")
+        self.db.insert_article_data_json(article_data)
+        print("뉴스 기사 데이터가 Supabase에 저장되었습니다.")
+
+    def load_article(self):
+        """Supabase에서 기사 데이터 불러오기"""
+        data = self.db.get_article_data_json()
+        if not data:
+            print("Supabase에 저장된 데이터가 없습니다. 새로 수집합니다.")
+            return self.collect_article()
+        return pd.DataFrame(data)
+
     def get_article(self):
         return self.article_df
-
-    def save_article(self):
-        self.article_df.to_json(self.article_file, orient="records", force_ascii=False, indent=4)

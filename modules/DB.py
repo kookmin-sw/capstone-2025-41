@@ -62,3 +62,15 @@ class SupabaseDB:
         """Supabase에서 ETF JSON 데이터를 불러오기"""
         response = self.client.table("etf_data_json").select("*").execute()
         return {row["etf_name"]: json.loads(row["data"]) for row in response.data} if response.data else {}
+    
+    def insert_article_data_json(self, article_data):
+        """뉴스 기사 데이터를 JSON 형식으로 Supabase에 저장"""
+        data = {"id": "naver_articles", "json_data": json.dumps(article_data, ensure_ascii=False)}
+        return self.client.table("article_data_json").upsert(data).execute()
+
+    def get_article_data_json(self):
+        """뉴스 기사 JSON 데이터를 Supabase에서 불러오기"""
+        response = self.client.table("article_data_json").select("json_data").eq("id", "naver_articles").execute()
+        if response.data:
+            return json.loads(response.data[0]["json_data"])
+        return []
