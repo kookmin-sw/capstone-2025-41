@@ -35,10 +35,12 @@ class App():
         # 사이드바 추가
         if st.session_state["logged_in"]:
             st.sidebar.title("📌 메뉴")
-            menu = st.sidebar.radio("메뉴 선택", ["자산 관리", "ETF 분석", "경제 뉴스", "경제 지표", "로그아웃"])
+            menu = st.sidebar.radio("메뉴 선택", ["자산 관리", "마이페이지", "ETF 분석", "경제 뉴스", "경제 지표", "로그아웃"])
             
             if menu == "자산 관리":
                 st.session_state["page"] = "main"
+            if menu == "마이페이지":
+                st.session_state["page"] = "my_page"
             elif menu == "ETF 분석":
                 st.session_state["page"] = "etf_analysis"
             elif menu == "경제 뉴스":
@@ -114,22 +116,38 @@ class App():
                 # 포트폴리오 도넛 차트 시각화
                 visualization.portfolio_doughnut_chart()
 
-                cash = st.text_input("**현금**")
-                if st.button("저장"):
-                    account_manager.modify_cash(cash)  
-                    st.rerun()
+                # expander 상태를 관리하는 세션 변수 추가 (초기 상태: 닫힘)
+                if "expander_open" not in st.session_state:
+                    st.session_state["expander_open"] = False
+
+                with st.expander("💰 현금 잔액 수정", expanded=st.session_state["expander_open"]):
+                    cash = st.text_input("현금 잔액", value=str(st.session_state["cash"] or 0))
+                    
+                    if st.button("저장"):
+                        account_manager.modify_cash(cash)
+                        st.success("💰 현금이 업데이트되었습니다!")
+                        
+                        # 현금 업데이트 후 expander를 닫도록 상태 변경
+                        st.session_state["cash"] = cash
+                        st.session_state["expander_open"] = False  
+                        st.rerun()
+                    
+                    # 사용자가 expander를 열면 상태를 유지
+                    st.session_state["expander_open"] = True
+
+
 
 
         # ETF 분석 페이지 (트리맵 적용)
         if st.session_state["page"] == "etf_analysis":
-            analyzer = ETFAnalyzer()  # ✅ 인스턴스 생성
+            analyzer = ETFAnalyzer()  # 인스턴스 생성
             if not st.session_state["etf_loaded"]:
                 with st.spinner("ETF 데이터를 수집하는 중... ⏳"):            
-                    analyzer.save_etf_data()  # ✅ 인스턴스에서 메서드 호출
+                    analyzer.save_etf_data()  # 인스턴스에서 메서드 호출
                 st.session_state["etf_loaded"] = True  # 데이터 로드 완료 상태 변경
 
             # 트리맵으로 변경
-            analyzer.visualize_etf()  # ✅ 트리맵 시각화
+            analyzer.visualize_etf()  # 트리맵 시각화
 
         # 경제 뉴스 페이지
         if st.session_state["page"] == "economic_news":
@@ -180,6 +198,24 @@ class App():
             dataset_monthly = collect_economic_data.monthly_domestic(start, end, code_lst, freq)
             st.subheader("월별 국내 데이터")
             st.write(dataset_monthly)
+
+        # 새로운 마이페이지 추가
+        if st.session_state["page"] == "my_page":
+            st.title("👤 마이페이지")
+            
+            user = self.user_manager.get_user_info(st.session_state["id"])  
+            if not user:
+                st.error("⚠️ 사용자 정보를 불러올 수 없습니다. 다시 로그인해 주세요.")
+                st.session_state["logged_in"] = False
+                st.session_state["page"] = "login"
+                st.rerun()
+                return
+
+            # 사용자 정보 표시
+            st.subheader("📌 내 계정 정보")
+            st.write(f"**이름:** {user['username']}")
+            st.write(f"**비밀 번호:** {user['password']}")
+            st.write(f"**계좌 번호:** {user['account_no']}")
 
 
 
