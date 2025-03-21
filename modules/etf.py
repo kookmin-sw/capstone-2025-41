@@ -8,9 +8,6 @@ from datetime import timedelta
 import datetime
 from modules.DB import SupabaseDB
 
-# 데이터 저장 경로
-ETF_DATA_FILE = "data/etf_data.json"
-
 # ETF 리스트 (KODEX 미국 S&P500 섹터별 ETF 종목코드 사용)
 ETF_LIST = {
     'Kodex 미국S&P500테크놀로지': '463680',
