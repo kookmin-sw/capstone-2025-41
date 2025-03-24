@@ -1,13 +1,18 @@
+import os
 import json
 import requests
 import pandas as pd
 import streamlit as st
+from dotenv import load_dotenv
+
+# .env 파일의 환경 변수 불러오기
+load_dotenv()
 
 class collectEconomicData:
     def __init__(self):
+        # self.api_key = os.getenv("ECOS_API_KEY")
         self.api_key = st.secrets["ecos"]["api_key"]
-
-    def daily_domestic(self, start, end, code_lst, freq):
+    def daily_domestic(self, start, end, code_lst, freq, code_dict):
         """ ECOS에서 일별 국내 경제 지표를 수집하는 함수 """
         
         dataset = pd.DataFrame(index=pd.date_range(start, end))
@@ -24,7 +29,11 @@ class collectEconomicData:
             df[data_name] = pd.to_numeric(df[data_name])
             df["time"] = pd.to_datetime(df["time"])
             df = df.set_index("time")
+            df = df.rename(columns=code_dict)
             dataset = dataset.join(df, how="left")
+
+        dataset = dataset.reset_index()
+        dataset["time"] = dataset["time"].dt.date
 
         return dataset
 

@@ -74,3 +74,11 @@ class SupabaseDB:
         if response.data:
             return json.loads(response.data[0]["json_data"])
         return []
+
+    def insert_domestic_daily_economic(self, domestic_daily_economic):
+        """ETF 데이터를 Supabase에 JSON 형태로 저장"""
+        data_to_store = domestic_daily_economic.to_dict(orient="records")
+        print("📌 Supabase에 업로드할 데이터:", data_to_store)  # 🔍 업로드할 데이터 확인
+
+        response = self.client.table("domestic_daily_economic").upsert(data_to_store).execute()
+        print("📌 Supabase 응답:", response)  # 🔍 Supabase 응답 출력
