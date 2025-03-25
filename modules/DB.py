@@ -1,12 +1,13 @@
 import streamlit as st
 from supabase import create_client
 import json
+import os
 
 class SupabaseDB:
     def __init__(self):
         """Supabase 연결"""
-        self.url = st.secrets["supabase"]["url"]
-        self.key = st.secrets["supabase"]["key"]
+        self.url = os.getenv("SUPABASE_URL")
+        self.key = os.getenv("SUPABASE_KEY")
         self.client = create_client(self.url, self.key)
 
     def insert_user(self, user_data):
