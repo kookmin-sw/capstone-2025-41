@@ -80,8 +80,8 @@ class SupabaseDB:
     def insert_domestic_daily_economic(self, eco_df):
         """경제 지표 데이터를 Supabase에 JSON 형태로 저장"""
         eco_df["time"] = eco_df["time"].astype(str)
-        eco_df = eco_df.where(pd.notnull(eco_df), None)
         data_to_store = eco_df.to_dict(orient="records")
+        data_to_store = [{k: (None if pd.isna(v) else v) for k, v in data_dict.items()} for data_dict in data_to_store]
         print("📌 Supabase에 업로드할 데이터:", data_to_store)  # 🔍 업로드할 데이터 확인
 
         response = self.client.table("domestic_daily_economic").upsert(data_to_store).execute()
