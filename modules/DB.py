@@ -2,6 +2,7 @@ import streamlit as st
 from supabase import create_client
 import json
 import os
+import pandas as pd
 
 class SupabaseDB:
     def __init__(self):
@@ -76,10 +77,11 @@ class SupabaseDB:
             return json.loads(response.data[0]["json_data"])
         return []
 
-    def insert_domestic_daily_economic(self, domestic_daily_economic):
+    def insert_domestic_daily_economic(self, eco_df):
         """경제 지표 데이터를 Supabase에 JSON 형태로 저장"""
-        domestic_daily_economic["time"] = domestic_daily_economic["time"].astype(str)
-        data_to_store = domestic_daily_economic.to_dict(orient="records")
+        eco_df["time"] = eco_df["time"].astype(str)
+        eco_df = eco_df.where(pd.notnull(eco_df), None)
+        data_to_store = eco_df.to_dict(orient="records")
         print("📌 Supabase에 업로드할 데이터:", data_to_store)  # 🔍 업로드할 데이터 확인
 
         response = self.client.table("domestic_daily_economic").upsert(data_to_store).execute()
