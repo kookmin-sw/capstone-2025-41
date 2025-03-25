@@ -3,6 +3,10 @@ from supabase import create_client
 import json
 import os
 import pandas as pd
+from dotenv import load_dotenv
+
+# .env 파일의 환경 변수 불러오기
+load_dotenv()
 
 class SupabaseDB:
     def __init__(self):
