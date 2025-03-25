@@ -10,8 +10,7 @@ load_dotenv()
 
 class collectEconomicData:
     def __init__(self):
-        # self.api_key = os.getenv("ECOS_API_KEY")
-        self.api_key = st.secrets["ecos"]["api_key"]
+        self.api_key = os.getenv("ECOS_API_KEY")
     def daily_domestic(self, start, end, code_lst, freq, code_dict):
         """ ECOS에서 일별 국내 경제 지표를 수집하는 함수 """
         
