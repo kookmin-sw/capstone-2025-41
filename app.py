@@ -199,11 +199,10 @@ class App():
             st.subheader("월별 국내 데이터")
             st.write(dataset_monthly)
 
-        # 새로운 마이페이지 추가
         if st.session_state["page"] == "my_page":
             st.title("👤 마이페이지")
-            
-            user = self.user_manager.get_user_info(st.session_state["id"])  
+
+            user = self.user_manager.get_user_info(st.session_state["id"])
             if not user:
                 st.error("⚠️ 사용자 정보를 불러올 수 없습니다. 다시 로그인해 주세요.")
                 st.session_state["logged_in"] = False
@@ -211,15 +210,53 @@ class App():
                 st.rerun()
                 return
 
-            # 사용자 정보 표시
-            st.subheader("📌 내 계정 정보")
-            st.write(f"**이름:** {user['username']}")
-            st.write(f"**비밀 번호:** {user['password']}")
-            st.write(f"**계좌 번호:** {user['account_no']}")
+            # 상태 변수 초기화
+            if "editing_user_info" not in st.session_state:
+                st.session_state["editing_user_info"] = False
 
+            if not st.session_state["editing_user_info"]:
+                # 수정 전 기본 화면
+                st.subheader("📌 내 계정 정보")
+                st.write(f"**아이디:** {user['username']}")
+                st.write(f"**비밀번호:** {'•' * len(user['password'])}")
+                st.write(f"**계좌 번호:** {user['account_no']}")
 
+                if st.button("정보 수정"):
+                    st.session_state["editing_user_info"] = True
+                    st.rerun()
 
+            else:
+                # 수정 폼
+                st.subheader("📌 내 계정 정보 수정")
 
+                with st.form("edit_user_info"):
+                    st.text_input("아이디", value=user["username"], disabled=True)
+                    new_password = st.text_input("비밀번호", type="password", value=user["password"])
+                    new_account_no = st.text_input("계좌 번호", value=user["account_no"])
+                    new_api_key = st.text_input("한국투자증권 APP Key", value=user["api_key"])
+                    new_api_secret = st.text_input("한국투자증권 APP Secret", value=user["api_secret"])
+
+                    col1, col2 = st.columns(2)
+                    with col1:
+                        save = st.form_submit_button("저장")
+                    with col2:
+                        cancel = st.form_submit_button("취소")
+
+                if save:
+                    updated_data = {
+                        "password": new_password,
+                        "account_no": new_account_no,
+                        "api_key": new_api_key,
+                        "api_secret": new_api_secret
+                    }
+                    self.user_manager.update_user_info(user["username"], updated_data)
+                    st.success("✅ 정보가 성공적으로 수정되었습니다!")
+                    st.session_state["editing_user_info"] = False
+                    st.rerun()
+
+                elif cancel:
+                    st.session_state["editing_user_info"] = False
+                    st.rerun()
 
 
 if __name__ == "__main__":
