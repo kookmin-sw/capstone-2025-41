@@ -35,7 +35,7 @@ class App():
         # 사이드바 추가
         if st.session_state["logged_in"]:
             st.sidebar.title("📌 메뉴")
-            menu = st.sidebar.radio("메뉴 선택", ["자산 관리", "마이페이지", "ETF 분석", "경제 뉴스", "경제 지표", "로그아웃"])
+            menu = st.sidebar.radio("메뉴 선택", ["자산 관리", "마이페이지", "ETF 분석", "경제 뉴스", "로그아웃"])
             
             if menu == "자산 관리":
                 st.session_state["page"] = "main"
@@ -45,8 +45,6 @@ class App():
                 st.session_state["page"] = "etf_analysis"
             elif menu == "경제 뉴스":
                 st.session_state["page"] = "economic_news"
-            elif menu == "경제 지표":
-                st.session_state["page"] = "economic_data"
             elif menu == "로그아웃":
                 st.session_state.clear()
                 st.session_state["page"] = "login"
@@ -163,42 +161,8 @@ class App():
             # 뉴스 기사 데이터프레임
             article = crawaling_article.get_article()
             st.write(article)
-
-        if st.session_state["page"] == "economic_data":
-            st.title("경제 지표")
-
-            collect_economic_data = collectEconomicData()
-
-            #------------------ 최근 10년간 일별 국내 데이터 ------------------#
-            start = (datetime.today() - relativedelta(years=10)).strftime("%Y%m%d")
-            end = datetime.today().strftime("%Y%m%d")
-
-            # 국고채(3년), 국고채(10년), 기준금리, KOSPI, KOSDAQ, 원/달러 환율
-            daily_domestic_code_lst = [
-                ("817Y002", "010200000"), ("817Y002", "010210000"), ("722Y001", "0101000"), ("802Y001", "0001000"),
-                ("802Y001", "0089000"),
-                ("731Y001", "0000001")
-            ]
-            freq = "D"  # 일별
-
-            dataset_daily = collect_economic_data.daily_domestic(start, end, daily_domestic_code_lst, freq)
-            st.subheader("일별 국내 데이터")
-            st.write(dataset_daily)
-
-            # ------------------ 최근 10년간 월별 국내 데이터 ------------------#
-            start = (datetime.today() - relativedelta(years=10)).strftime("%Y%m")
-            end = datetime.today().strftime("%Y%m")
-            code_lst = [
-                ("901Y027", "I61BC/I28B"), ("901Y027", "I61E/I28B"), ("901Y009", "0"), ("404Y014", "*AA"),
-                ("301Y017", "SA000"),
-                ("901Y093", "H69A/R70A"), ("901Y094", "H69A/R70A"), ("901Y095", "H69A/R70A"), ("901Y089", "100")
-            ]  # 실업률, 고용률, CPI, PPI, 경상수지, 주택가격지수
-            freq = "M"  # 월별
-
-            dataset_monthly = collect_economic_data.monthly_domestic(start, end, code_lst, freq)
-            st.subheader("월별 국내 데이터")
-            st.write(dataset_monthly)
-
+        
+        # 마이 페이지
         if st.session_state["page"] == "my_page":
             st.title("👤 마이페이지")
 
