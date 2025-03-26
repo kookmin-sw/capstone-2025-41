@@ -12,6 +12,10 @@ class UserManager:
         user = self.db.get_user(username)  # Supabase에서 데이터 조회
         return user[0] if user else None  # 첫 번째 사용자 정보 반환 (없으면 None)
 
+    def update_user_info(self, username, updated_data):
+        """사용자 정보 수정"""
+        return self.db.client.table("users").update(updated_data).eq("username", username).execute()
+
 
     def login(self):
         """로그인 페이지"""
