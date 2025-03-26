@@ -26,3 +26,19 @@ code_dict = {"국고채(3년)": "kr_bond_3y", "국고채(10년)": "kr_bond_10y",
 
 dataset_daily = collect_economic_data.daily_domestic(start, end, daily_domestic_code_lst, freq, code_dict)
 db.insert_domestic_daily_economic(dataset_daily)
+
+
+#------------------ 최근 10년간 월별 국내 데이터 ------------------#
+start = (datetime.today() - relativedelta(years=10)).strftime("%Y%m%d")
+end = datetime.today().strftime("%Y%m%d")
+
+# 실업률, 고용률, 소비자물가지수, 생산자물가지수, 경상수지
+monthly_domestic_code_lst = [
+    ("901Y027", "I61BC/I28B"), ("901Y027", "I61E/I28B"), ("901Y009", "0"), ("404Y014", "*AA"), ("301Y017", "SA000")
+]
+freq = "M"  # 월별
+code_dict = {"실업률": "unemp_rate", "고용률": "emp_rate", "4.2.1. 소비자물가지수": "cpi",
+             "4.1.1.1. 생산자물가지수(기본분류)": "ppi", "경상수지": "curr_account"}
+
+dataset_monthly = collect_economic_data.monthly_domestic(start, end, monthly_domestic_code_lst, freq, code_dict)
+db.insert_domestic_monthly_economic(dataset_monthly)
