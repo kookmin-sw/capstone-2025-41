@@ -29,8 +29,8 @@ db.insert_domestic_daily_economic(dataset_daily)
 
 
 #------------------ 최근 10년간 월별 국내 데이터 ------------------#
-start = (datetime.today() - relativedelta(years=10)).strftime("%Y%m%d")
-end = datetime.today().strftime("%Y%m%d")
+start = (datetime.today() - relativedelta(years=10)).strftime("%Y%m")
+end = datetime.today().strftime("%Y%m")
 
 # 실업률, 고용률, 소비자물가지수, 생산자물가지수, 경상수지
 monthly_domestic_code_lst = [
