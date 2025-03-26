@@ -1,3 +1,4 @@
+import os
 import requests
 import pandas as pd
 from bs4 import BeautifulSoup
@@ -66,8 +67,7 @@ class crawlingArticle:
         return article_df
 
     def visualize_wordcloud(self):
-        font_path = '/usr/share/fonts/truetype/nanumfont/NanumGothic.ttf'
-
+        font_path = os.path.join("assets", "NanumGothic-Bold.ttf")
         text = " ".join(self.article_df["title"])
         word_counts = Counter(text.split())
         wordcloud = WordCloud(
