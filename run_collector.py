@@ -4,16 +4,19 @@ from supabase import create_client
 import os
 from dotenv import load_dotenv
 from datetime import datetime
+import pytz
 from dateutil.relativedelta import relativedelta
 
 # 클래스 초기화
 db = SupabaseDB()
 collect_economic_data = collectEconomicData()
 
-#------------------ 최근 10년간 일별 국내 데이터 ------------------#
-start = (datetime.today() - relativedelta(years=10)).strftime("%Y%m%d")
-end = datetime.today().strftime("%Y%m%d")
+# 수집 날짜
+kst = pytz.timezone("Asia/Seoul")
+start = (datetime.now(kst) - relativedelta(years=10)).strftime("%Y%m%d")
+end = datetime.now(kst).strftime("%Y%m%d")
 
+#------------------ 최근 10년간 일별 국내 데이터 ------------------#
 # 국고채(3년), 국고채(10년), 기준금리, KOSPI, KOSDAQ, 원/달러 환율
 daily_domestic_code_lst = [
     ("817Y002", "010200000"), ("817Y002", "010210000"), ("722Y001", "0101000"), ("802Y001", "0001000"),
@@ -29,9 +32,6 @@ db.insert_domestic_daily_economic(dataset_daily)
 
 
 #------------------ 최근 10년간 월별 국내 데이터 ------------------#
-start = (datetime.today() - relativedelta(years=10)).strftime("%Y%m")
-end = datetime.today().strftime("%Y%m")
-
 # 실업률, 고용률, 소비자물가지수, 생산자물가지수, 경상수지
 monthly_domestic_code_lst = [
     ("901Y027", "I61BC/I28B"), ("901Y027", "I61E/I28B"), ("901Y009", "0"), ("404Y014", "*AA"), ("301Y017", "SA000")

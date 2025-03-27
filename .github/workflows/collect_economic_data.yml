@@ -2,7 +2,7 @@ name: Collect Economic Data
 
 on:
   schedule:
-    - cron: '0 20 * * *'  # 한국 시간 새벽 5시
+    - cron: '0 18 * * *'  # 한국 시간 새벽 3시
   workflow_dispatch:
 
 jobs:
