@@ -55,7 +55,7 @@ Please respond in Korean.
 
 # 🤖 챗봇 초기화
 def init_chatbot():
-    api_key = os.environ.get("GEMINI_API_KEY")
+
     if "chat_memory" not in st.session_state:
         st.session_state["chat_memory"] = ConversationBufferMemory(return_messages=True)
 
@@ -133,7 +133,7 @@ def chatbot_page():
             st.markdown(response)
         st.session_state["chat_history"].append(("assistant", response))
 
-    # 📌 사이드바에 대화 초기화 버튼 추가
+    # 사이드바에 대화 초기화 버튼 추가
     with st.sidebar:
         if st.button("💨 대화 초기화"):
             for key in ["chat_memory", "conversation", "chat_history", "investment_chain", "agent"]:
