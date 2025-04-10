@@ -35,7 +35,8 @@ Here is the user's asset summary:
 
 {asset_summary}
 
-Based on this information, provide a detailed investment analysis and advice for the following question:
+Based on this information, 
+I'm going to ask you some investment-related questions, so please answer them accordingly.
 
 Question: {user_input}
 
@@ -56,9 +57,6 @@ Please respond in Korean.
 # 🤖 챗봇 초기화
 def init_chatbot():
     api_key = st.secrets["gemini"]["api_key"]
-    st.write(api_key)
-    if not api_key:
-        pass
 
 
     if "chat_memory" not in st.session_state:
