@@ -84,7 +84,7 @@ def init_chatbot(api_key):
 # 💬 챗봇 페이지
 def chatbot_page():
     st.title("🧠 투자 조언 챗봇")
-    init_chatbot()
+    init_chatbot(api_key)
 
     username = get_user_id()
     supabase = SupabaseDB()
