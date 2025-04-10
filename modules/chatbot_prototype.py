@@ -58,6 +58,7 @@ def init_chatbot():
     api_key = os.getenv("GEMINI_API_KEY")
     if not api_key:
         st.error("❌ 환경변수 'GEMINI_API_KEY'가 설정되어 있지 않습니다.")
+        st.write(api_key)
         st.stop()
 
     if "chat_memory" not in st.session_state:
