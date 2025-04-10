@@ -56,8 +56,9 @@ Please respond in Korean.
 # 🤖 챗봇 초기화
 def init_chatbot():
     api_key = os.getenv("GEMINI_API_KEY")
+    st.write(api_key)
     if not api_key:
-        st.write(api_key)
+
 
 
     if "chat_memory" not in st.session_state:
