@@ -53,7 +53,7 @@ Please respond in Korean.
 
 
 # 🔑 Gemini API 키 로드
-api_key = os.getenv("GEMINI_API_KEY")
+api_key = os.environ.get("GEMINI_API_KEY")
 
 # 🤖 챗봇 초기화
 def init_chatbot(api_key):
