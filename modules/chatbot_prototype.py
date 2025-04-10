@@ -57,7 +57,7 @@ Please respond in Korean.
 
 # 🤖 챗봇 초기화
 def init_chatbot():
-    api_key = st.secrets["gpt"]["api_key"] 
+    api_key = st.secrets["openai"]["api_key"] 
 
 
     if "chat_memory" not in st.session_state:
