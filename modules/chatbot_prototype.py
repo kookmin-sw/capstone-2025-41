@@ -55,11 +55,11 @@ Please respond in Korean.
 
 # 🤖 챗봇 초기화
 def init_chatbot():
-    api_key = os.environ.get("GEMINI_API_KEY")
+    api_key = os.getenv("GEMINI_API_KEY")
     if not api_key:
         st.error("❌ 환경변수 'GEMINI_API_KEY'가 설정되어 있지 않습니다.")
         st.stop()
-        
+
     if "chat_memory" not in st.session_state:
         st.session_state["chat_memory"] = ConversationBufferMemory(return_messages=True)
 
