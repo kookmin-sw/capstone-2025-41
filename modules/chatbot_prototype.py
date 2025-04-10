@@ -58,7 +58,7 @@ def init_chatbot():
     api_key = os.getenv("GEMINI_API_KEY")
     st.write(api_key)
     if not api_key:
-
+        pass
 
 
     if "chat_memory" not in st.session_state:
