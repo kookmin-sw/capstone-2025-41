@@ -15,4 +15,4 @@ langchain-google-genai
 google-generativeai
 openai
 tiktoken
-langchain_openai
+langchain-openai
