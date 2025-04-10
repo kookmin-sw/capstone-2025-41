@@ -12,6 +12,7 @@ from langchain_core.output_parsers import StrOutputParser
 from modules.tools import get_asset_summary_tool
 from langchain.agents import initialize_agent, AgentType
 from modules.tools import get_asset_summary_tool, get_asset_summary_text
+from langchain_openai import ChatOpenAI
 
 load_dotenv()
 
@@ -56,18 +57,17 @@ Please respond in Korean.
 
 # 🤖 챗봇 초기화
 def init_chatbot():
-    api_key = st.secrets["gemini"]["api_key"]
+    api_key = st.secrets["gpt"]["api_key"] 
 
 
     if "chat_memory" not in st.session_state:
         st.session_state["chat_memory"] = ConversationBufferMemory(return_messages=True)
 
     if "llm" not in st.session_state:
-        llm = ChatGoogleGenerativeAI(
-            model="gemini-2.0-flash",
-            temperature=0,
-            google_api_key=api_key
-        )
+        llm = ChatOpenAI(
+        model_name = "gpt-4o-mini",
+        openai_api_key = api_key)
+        
         st.session_state["llm"] = llm
 
     if "conversation" not in st.session_state:
@@ -122,14 +122,9 @@ def chatbot_page():
         st.session_state["chat_history"].append(("user", user_input))
 
         with st.spinner("Gemini가 응답 중..."):
-            if any(keyword in user_input for keyword in ["자산 요약", "내 자산", "자산 정보", "자산 보여줘"]):
-                # 👉 agent로 처리
-                response = st.session_state["agent"].run(user_input)
-            else:
-                # 👉 프롬프트 체인으로 처리
-                response = st.session_state["investment_chain"].invoke({
-                    "user_input": user_input,
-                    "asset_summary": asset_summary
+            response = st.session_state["investment_chain"].invoke({
+                "user_input": user_input,
+                "asset_summary": asset_summary
                 })
 
         with st.chat_message("assistant"):
