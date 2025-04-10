@@ -16,3 +16,4 @@ google-generativeai
 openai
 tiktoken
 python-dotenv
+dotenv

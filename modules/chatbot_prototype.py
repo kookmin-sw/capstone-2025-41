@@ -1,4 +1,6 @@
 import streamlit as st
+import os
+from dotenv import load_dotenv
 from langchain.memory import ConversationBufferMemory
 from langchain.chains import ConversationChain
 from langchain_core.messages import HumanMessage, AIMessage
@@ -11,6 +13,7 @@ from modules.tools import get_asset_summary_tool
 from langchain.agents import initialize_agent, AgentType
 from modules.tools import get_asset_summary_tool, get_asset_summary_text
 
+load_dotenv()
 
 def init_agent():
     if "agent" not in st.session_state:
@@ -50,8 +53,7 @@ Please respond in Korean.
 
 
 # 🔑 Gemini API 키 로드
-def load_gemini_api_key():
-    return st.secrets["gemini"]["api_key"]
+api_key = os.getenv("GEMINI_API_KEY")
 
 # 🤖 챗봇 초기화
 def init_chatbot():
@@ -59,7 +61,7 @@ def init_chatbot():
         st.session_state["chat_memory"] = ConversationBufferMemory(return_messages=True)
 
     if "llm" not in st.session_state:
-        api_key = load_gemini_api_key()
+        api_key = api_key
         llm = ChatGoogleGenerativeAI(
             model="gemini-2.0-flash",
             temperature=0,
