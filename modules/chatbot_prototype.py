@@ -52,11 +52,9 @@ Please respond in Korean.
 
 
 
-# 🔑 Gemini API 키 로드
-api_key = os.environ.get("GEMINI_API_KEY")
 
 # 🤖 챗봇 초기화
-def init_chatbot(api_key):
+def init_chatbot():
     if "chat_memory" not in st.session_state:
         st.session_state["chat_memory"] = ConversationBufferMemory(return_messages=True)
 
@@ -64,7 +62,7 @@ def init_chatbot(api_key):
         llm = ChatGoogleGenerativeAI(
             model="gemini-2.0-flash",
             temperature=0,
-            google_api_key=api_key
+            google_api_key=os.getenv("GEMINI_API_KEY")
         )
         st.session_state["llm"] = llm
 
@@ -84,7 +82,7 @@ def init_chatbot(api_key):
 # 💬 챗봇 페이지
 def chatbot_page():
     st.title("🧠 투자 조언 챗봇")
-    init_chatbot(api_key)
+    init_chatbot()
 
     username = get_user_id()
     supabase = SupabaseDB()

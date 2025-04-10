@@ -15,5 +15,3 @@ langchain-google-genai
 google-generativeai
 openai
 tiktoken
-python-dotenv
-dotenv
