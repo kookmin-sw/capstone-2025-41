@@ -55,6 +55,7 @@ Please respond in Korean.
 
 # 🤖 챗봇 초기화
 def init_chatbot():
+    api_key = os.environ.get("GEMINI_API_KEY")
     if "chat_memory" not in st.session_state:
         st.session_state["chat_memory"] = ConversationBufferMemory(return_messages=True)
 
@@ -62,7 +63,7 @@ def init_chatbot():
         llm = ChatGoogleGenerativeAI(
             model="gemini-2.0-flash",
             temperature=0,
-            google_api_key=os.getenv("GEMINI_API_KEY")
+            google_api_key=api_key
         )
         st.session_state["llm"] = llm
 
