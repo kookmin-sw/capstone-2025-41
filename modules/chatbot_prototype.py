@@ -1,10 +1,8 @@
 import streamlit as st
-import os
 from dotenv import load_dotenv
 from langchain.memory import ConversationBufferMemory
 from langchain.chains import ConversationChain
 from langchain_core.messages import HumanMessage, AIMessage
-from langchain_google_genai import ChatGoogleGenerativeAI
 from modules.DB import SupabaseDB
 from langchain_core.prompts import PromptTemplate
 from langchain_core.runnables import RunnableLambda
@@ -13,8 +11,6 @@ from modules.tools import get_asset_summary_tool
 from langchain.agents import initialize_agent, AgentType
 from modules.tools import get_asset_summary_tool, get_asset_summary_text
 from langchain_openai import ChatOpenAI
-
-load_dotenv()
 
 def init_agent():
     if "agent" not in st.session_state:
