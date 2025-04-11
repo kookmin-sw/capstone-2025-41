@@ -117,7 +117,7 @@ def chatbot_page():
             st.markdown(user_input)
         st.session_state["chat_history"].append(("user", user_input))
 
-        with st.spinner("Gemini가 응답 중..."):
+        with st.spinner("응답 중..."):
             response = st.session_state["investment_chain"].invoke({
                 "user_input": user_input,
                 "asset_summary": asset_summary
