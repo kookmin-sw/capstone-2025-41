@@ -38,7 +38,7 @@ def get_asset_summary_text() -> str:
 
 # 👉 Agent용 Tool (내부에서 위 함수 재사용)
 @tool
-def get_asset_summary_tool(_: str) -> str:
+def get_asset_summary_tool(input_text: str) -> str:
     """
     LangChain Agent에서 호출할 수 있는 자산 요약 Tool입니다.
     (입력값은 무시합니다.)
