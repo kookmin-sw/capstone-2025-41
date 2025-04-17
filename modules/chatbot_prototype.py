@@ -8,7 +8,7 @@ from langchain_core.prompts import PromptTemplate
 from langchain_core.runnables import RunnableLambda
 from langchain_core.output_parsers import StrOutputParser
 from langchain.agents import initialize_agent, AgentType
-# agent 미도입 시 필요 없을듯듯
+# agent 미도입 시 필요 없을듯
 from modules.tools import (
     get_asset_summary_tool,
     get_economic_summary_tool,
@@ -72,13 +72,6 @@ Please respond in Korean.
 def init_chatbot():
     api_key = st.secrets["gemini"]["api_key"] 
 
-
-    if "chat_memory" not in st.session_state:
-        st.session_state["chat_memory"] = ConversationSummaryBufferMemory(
-            llm=st.session_state["llm"],
-            return_messages=True
-        )
-
     '''if "llm" not in st.session_state:
         llm = ChatOpenAI(
         model_name = "gpt-4o-mini",
@@ -93,6 +86,14 @@ def init_chatbot():
             google_api_key=api_key
         )
         st.session_state["llm"] = llm
+
+    if "chat_memory" not in st.session_state:
+        st.session_state["chat_memory"] = ConversationSummaryBufferMemory(
+            llm=st.session_state["llm"],
+            return_messages=True
+        )
+
+    
 
     if "conversation" not in st.session_state:
         st.session_state["conversation"] = ConversationChain(
