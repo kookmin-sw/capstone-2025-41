@@ -19,7 +19,7 @@ def get_asset_summary_text() -> str:
     account = supabase.get_account_data(uid)
 
     stock_info_str = "\n".join([
-        f"- {s['상품명']} ({s['매입금액']}): {s['보유수량']}주, 평가금액 {s['평가금액']}원"
+        f"- {s['상품명']}, 현재가 {s['현재가']}원, 매입금액 ({s['매입금액']})원 {s['보유수량']}주, 평가금액 {s['평가금액']}원, 등락률 {s['등락률']}%, 평가손익금액 {s['평가손익금액']}원, 평가손익률 {s['평가손익률']}%"
         for s in stocks
     ]) if stocks else "보유 종목 없음"
 
