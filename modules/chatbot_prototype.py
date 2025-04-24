@@ -144,6 +144,8 @@ def chatbot_page():
 
     # 문자열 형태로 요약 (LLM-friendly)
     personal_summary = "\n".join([f"{k}: {v}" for k, v in personal.items()])
+    #st.text(personal_summary)
+    
     # 사용자 종목 요약 가져오기
     stock_summary = get_owned_stock_summary_text()
 
@@ -188,8 +190,9 @@ def chatbot_page():
             st.markdown(response)
         st.session_state["chat_history"].append(("assistant", response))
     
-    st.markdown("📦 전달되는 stock_summary:")
-    st.text(stock_summary)
+    
+    #st.text(stock_summary)
+    
 
     # 사이드바에 대화 초기화 버튼 추가
     with st.sidebar:
