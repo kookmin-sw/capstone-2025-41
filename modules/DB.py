@@ -104,3 +104,27 @@ class SupabaseDB:
         data_to_store = [{k: (None if pd.isna(v) else v) for k, v in data_dict.items()} for data_dict in data_to_store]
 
         response = self.client.table("domestic_monthly_economic").upsert(data_to_store).execute()
+
+    def insert_user_personal(self, username, personal_data):
+        """사용자 개인 투자 성향 JSON 데이터 저장"""
+        json_string = json.dumps(personal_data, ensure_ascii=False)
+        response = self.client.table("users").update({
+            "personal": json_string
+        }).eq("username", username).execute()
+        return response
+
+    def get_user(self, username):
+        """사용자 데이터 가져오기"""
+        response = self.client.table("users").select("*").eq("username", username).execute()
+        if response.data:
+            user = response.data[0]
+
+            # personal 필드가 문자열이면 JSON으로 복원
+            if isinstance(user.get("personal"), str):
+                try:
+                    user["personal"] = json.loads(user["personal"])
+                except json.JSONDecodeError:
+                    pass
+
+            return [user]
+        return None

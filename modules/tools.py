@@ -37,9 +37,6 @@ def get_asset_summary_text() -> str:
 """.strip()
 
 def get_etf_summary_text() -> str:
-    from modules.DB import SupabaseDB
-    import streamlit as st
-
     user_id = st.session_state.get("id")
     if not user_id:
         return "❌ 로그인된 사용자 ID가 없습니다."
@@ -75,6 +72,60 @@ def get_economic_summary_text() -> str:
     monthly_summary = "\n\n".join([f"🗓️ {m['time']} 월간 지표:\n{format_entry(m)}" for m in monthly_data])
 
     return f"[최신 경제 지표 요약]\n\n{daily_summary}\n\n{monthly_summary}"
+
+
+import requests
+from bs4 import BeautifulSoup
+
+def get_realtime_stock_info(code):
+    """네이버 금융에서 개별 종목 실시간 정보 크롤링"""
+    url = f"https://finance.naver.com/item/main.naver?code={code}"
+    headers = {"User-Agent": "Mozilla/5.0"}
+    try:
+        res = requests.get(url, headers=headers, timeout=5)
+        soup = BeautifulSoup(res.text, "html.parser")
+        return {
+            "현재가": soup.select_one("p.no_today span.blind").text,
+            "PER": soup.select_one("em.per span.blind").text,
+            "EPS": soup.select_one("em.eps span.blind").text,
+            "시가총액": soup.select_one("em#_market_sum").text.strip()
+        }
+    except Exception as e:
+        return {"오류": f"{code} - {str(e)}"}
+
+
+def get_owned_stock_summary_text():
+    """사용자 보유 종목에 대한 실시간 요약 텍스트"""
+
+    user_id = st.session_state.get("id")
+    if not user_id:
+        return "❌ 로그인된 사용자 ID가 없습니다."
+
+    supabase = SupabaseDB()
+    user_info = supabase.get_user(user_id)
+    if not user_info or "id" not in user_info[0]:
+        return "❌ Supabase에서 사용자 정보를 찾을 수 없습니다."
+
+    uid = user_info[0]["id"]
+    stocks = supabase.get_stock_data(uid)
+
+    if not stocks:
+        return "❌ 보유 종목 데이터가 없습니다."
+
+    summary_lines = []
+    for s in stocks:
+        code = s.get("상품번호")
+        name = s.get("상품명")
+        if not code:
+            continue
+        info = get_realtime_stock_info(code)
+        if "오류" in info:
+            continue
+        summary_lines.append(
+            f"{name}({code}): 현재가 {info['현재가']}원, PER {info['PER']}, EPS {info['EPS']}, 시가총액 {info['시가총액']}"
+        )
+
+    return "[보유 종목 실시간 요약]\n" + "\n".join(summary_lines) if summary_lines else "⚠️ 종목 정보를 불러올 수 없습니다."
 
 
 

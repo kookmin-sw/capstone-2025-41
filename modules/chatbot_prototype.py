@@ -1,4 +1,5 @@
 import streamlit as st
+import json
 from dotenv import load_dotenv
 from langchain.memory import ConversationSummaryBufferMemory
 from langchain.chains import ConversationChain
@@ -17,7 +18,8 @@ from modules.tools import (
 from modules.tools import (
     get_asset_summary_text,
     get_etf_summary_text,
-    get_economic_summary_text
+    get_economic_summary_text,
+    get_owned_stock_summary_text
 )
 from langchain_openai import ChatOpenAI
 from langchain_google_genai import ChatGoogleGenerativeAI
@@ -37,17 +39,25 @@ def init_agent():
 def get_user_id():
     return st.session_state.get("id")
 
-def make_investment_chain(model, asset_summary: str, etf_summary: str, economic_summary: str):
+def make_investment_chain(model, asset_summary: str, etf_summary: str, economic_summary: str, stock_summary: str, personal_summary: str):
     full_prompt_template = PromptTemplate.from_template("""
+You are a personalized investment advice expert.
+Don't give me the obvious answer, give me a detailed and personalized answer.
+                                                                                                                
 Here is the user's asset summary:
-
 {asset_summary}
                                                         
 And here is the ETF information summary:
 {etf_summary}
 
-And finally, here is the Summary of Latest Economic Indicators:
-{economic_summary}                                                                                                                                                                      
+And here is the Summary of Latest Economic Indicators:
+{economic_summary}  
+                                                          
+And here is the information of user's current stock holdings:
+{stock_summary}
+                                                        
+And finally, here is the user's investment profile:
+{personal_summary}                                                                                                                                                                  
 
 Based on these information, 
 I'm going to ask you some investment-related questions, so please answer them accordingly.
@@ -57,7 +67,6 @@ Question: {user_input}
 Please respond in Korean. 
                                                                                                              
 """)
-
 
     return (
         RunnableLambda(lambda inputs: full_prompt_template.format(**inputs))
@@ -112,7 +121,7 @@ def init_chatbot():
 def chatbot_page():
     st.title("🧠 투자 조언 챗봇")
     init_chatbot()
-
+    
     username = get_user_id()
     supabase = SupabaseDB()
     user_info = supabase.get_user(username)
@@ -125,6 +134,19 @@ def chatbot_page():
     etf_summary = get_etf_summary_text()
     economic_summary = get_economic_summary_text()
 
+    # personal summary 준비
+    personal = user_info[0].get("personal", {})
+    if isinstance(personal, str):
+        try:
+            personal = json.loads(personal)
+        except json.JSONDecodeError:
+            personal = {}
+
+    # 문자열 형태로 요약 (LLM-friendly)
+    personal_summary = "\n".join([f"{k}: {v}" for k, v in personal.items()])
+    # 사용자 종목 요약 가져오기
+    stock_summary = get_owned_stock_summary_text()
+
 
     # 체인 초기화 (자산 요약 포함)
     if "investment_chain" not in st.session_state:
@@ -132,7 +154,9 @@ def chatbot_page():
             st.session_state["conversation"].llm,
             asset_summary,
             etf_summary,
-            economic_summary
+            economic_summary,
+            personal_summary,
+            stock_summary
         )
 
     if "chat_history" not in st.session_state:
@@ -155,12 +179,17 @@ def chatbot_page():
                 "user_input": user_input,
                 "asset_summary": asset_summary,
                 "etf_summary": etf_summary,
-                "economic_summary": economic_summary
+                "economic_summary": economic_summary,
+                "personal_summary": personal_summary,
+                "stock_summary": stock_summary           
                 })
 
         with st.chat_message("assistant"):
             st.markdown(response)
         st.session_state["chat_history"].append(("assistant", response))
+    
+    st.markdown("📦 전달되는 stock_summary:")
+    st.text(stock_summary)
 
     # 사이드바에 대화 초기화 버튼 추가
     with st.sidebar:
