@@ -1,6 +1,6 @@
 import streamlit as st
 from modules.DB import SupabaseDB
-
+import json
 
 
 class UserManager:
@@ -9,16 +9,14 @@ class UserManager:
 
     def get_user_info(self, username):
         """Supabase에서 사용자 정보 가져오기"""
-        user = self.db.get_user(username)  # Supabase에서 데이터 조회
-        return user[0] if user else None  # 첫 번째 사용자 정보 반환 (없으면 None)
+        user = self.db.get_user(username)
+        return user[0] if user else None
 
     def update_user_info(self, username, updated_data):
         """사용자 정보 수정"""
         return self.db.client.table("users").update(updated_data).eq("username", username).execute()
 
-
     def login(self):
-        """로그인 페이지"""
         st.title("🔐로그인")
 
         id = st.text_input("아이디")
@@ -26,7 +24,6 @@ class UserManager:
 
         if st.button("로그인"):
             user = self.db.get_user(id)
-            
             if user and user[0]["password"] == password:
                 st.success(f"✅ 로그인 성공! {id}님 환영합니다.")
                 st.session_state["logged_in"] = True
@@ -41,39 +38,71 @@ class UserManager:
             st.rerun()
 
     def sign_up(self):
-        """회원가입 페이지"""
-        with st.form("personal_information"):
-            st.header("📝회원가입")
+        with st.form("investment_profile"):
+            st.header("📝 회원가입 및 투자성향 설문")
 
-            # 회원가입
+            # 로그인 정보
             new_id = st.text_input("아이디")
             new_password = st.text_input("비밀번호", type="password")
             confirm_password = st.text_input("비밀번호 확인", type="password")
-            
-            # 개인 정보
-            age = st.number_input("나이", min_value=0, max_value=120, step=1)
-            gender = st.selectbox("성별", ["선택 안 함", "남성", "여성"])
-            investment_type = st.selectbox("투자 성향", ["보수형", "중립형", "공격형"])
-            investment_goal = st.selectbox("투자 목적", ["자산 증식", "은퇴 준비", "단기 수익", "기타"])
-            investment_horizon = st.selectbox("투자 기간", ["1년 이하", "1~3년", "3~5년", "5년 이상"])
-            risk_tolerance = st.selectbox("리스크 허용도", ["낮음", "중간", "높음"])
-            monthly_investment = st.number_input("월 평균 투자 가능 금액 (원)", step=10000)
-            preferred_assets = st.multiselect("선호 자산군", ["주식", "ETF", "부동산", "채권", "대체투자", "기타"])            
 
-            # 계좌 불러오기
-            key = st.text_input("한국투자증권의 **APP Key**를 입력하세요")
-            secret = st.text_input("한국투자증권의 **APP Secret**를 입력하세요")
-            acc_no = st.text_input("한국투자증권의 **계좌번호**를 입력하세요")
+            # 기본 정보
+            age_group = st.selectbox("연령대", ["20~39세", "40~49세", "50~65세", "66~79세", "80세 이상"])
+            investment_horizon = st.selectbox("투자 가능 기간", ["5년 이상", "3~5년", "2~3년", "1~2년", "1년 미만"])
+
+            # 투자 경험
+            investment_experience = st.radio("투자경험", [
+                "적음",
+                "보통",
+                "많음"
+            ])
+
+            # 금융지식 수준
+            knowledge_level = st.radio("금융지식수준/이해도", [
+                "투자 경험 없음",
+                "일부 이해함",
+                "깊이 있게 이해함"
+            ])
+
+            # 기대 수익/손실 감내 수준
+            return_tolerance = st.radio("기대 이익수준 및 손실감내수준", [
+                "무조건 원금 보전",
+                "원금 기준 ±5%",
+                "원금 기준 ±10%",
+                "원금 기준 ±20%",
+                "원금 기준 ±20% 초과"
+            ])
+
+            # 투자 성향
+            investment_style = st.selectbox("투자성향", [
+                "안정형", "안정추구형", "위험중립형", "적극투자형", "공격투자형"
+            ])
+
+            # 투자 목표
+            investment_goal = st.multiselect("투자목표", [
+                "예적금 수준 수익", "시장 평균 이상 수익", "적극적인 자산 증식", "생계자금 운용"
+            ])
+
+            # 선호 종목
+            preferred_assets = st.multiselect("선호 자산군", [
+                "주식", "부동산", "예적금", "외화", "금", "암호화폐", "기타"
+            ])
+
+            # API 정보
+            key = st.text_input("한국투자증권 APP Key")
+            secret = st.text_input("APP Secret")
+            acc_no = st.text_input("계좌번호")
             mock = st.checkbox("모의투자 계좌입니다")
 
             if st.form_submit_button("저장"):
                 if new_password != confirm_password:
-                    st.error("⚠️비밀번호가 일치하지 않습니다")
+                    st.error("⚠️ 비밀번호가 일치하지 않습니다")
                 elif not new_id or not new_password:
-                    st.error("⚠️아이디와 비밀번호를 입력해주세요")
+                    st.error("⚠️ 아이디와 비밀번호는 필수입니다")
                 elif not key or not secret:
-                    st.error("⚠️한국투자증권 API를 입력해주세요")
+                    st.error("⚠️ API 정보를 모두 입력해주세요")
                 else:
+                    # DB 저장 로직
                     user_data = {
                         "username": new_id,
                         "password": new_password,
@@ -84,22 +113,22 @@ class UserManager:
                     }
                     self.db.insert_user(user_data)
 
-                    # personal만 따로 JSON으로 저장
-                    personal_data = {
-                        "age": age,
-                        "gender": gender,
-                        "investment_type": investment_type,
-                        "investment_goal": investment_goal,
+                    profile = {
+                        "age_group": age_group,
                         "investment_horizon": investment_horizon,
-                        "risk_tolerance": risk_tolerance,
-                        "monthly_investment": monthly_investment,
+                        "investment_experience": investment_experience,
+                        "knowledge_level": knowledge_level,
+                        "return_tolerance": return_tolerance,
+                        "investment_style": investment_style,
+                        "investment_goal": investment_goal,
                         "preferred_assets": preferred_assets
                     }
-                    self.db.insert_user_personal(new_id, personal_data)
-                    st.success("✅ 회원가입 완료!")
+
+                    self.db.insert_user_personal(new_id, profile)
+                    st.success("✅ 회원가입이 완료되었습니다!")
                     st.session_state["page"] = "login"
-                    st.session_state["id"] = new_id
                     st.rerun()
+
 
         if st.button("로그인 페이지로 이동"):
             st.session_state["page"] = "login"

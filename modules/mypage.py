@@ -1,5 +1,3 @@
-# modules/mypage.py
-
 import streamlit as st
 import json
 
@@ -40,23 +38,22 @@ def show_my_page(user, user_manager):
             with col2:
                 cancel = st.form_submit_button("취소")
 
-        if save:
-            updated_data = {
-                "password": new_password,
-                "account_no": new_account_no,
-                "api_key": new_api_key,
-                "api_secret": new_api_secret
-            }
-            user_manager.update_user_info(user["username"], updated_data)
-            st.success("✅ 정보가 성공적으로 수정되었습니다!")
-            st.session_state["editing_user_info"] = False
-            st.rerun()
+            if save:
+                updated_data = {
+                    "password": new_password,
+                    "account_no": new_account_no,
+                    "api_key": new_api_key,
+                    "api_secret": new_api_secret
+                }
+                user_manager.update_user_info(user["username"], updated_data)
+                st.success("✅ 정보가 성공적으로 수정되었습니다!")
+                st.session_state["editing_user_info"] = False
+                st.rerun()
+            elif cancel:
+                st.session_state["editing_user_info"] = False
+                st.rerun()
 
-        elif cancel:
-            st.session_state["editing_user_info"] = False
-            st.rerun()
-
-    # --- 투자 성향 --- 
+    # --- 투자 성향 --- #
     st.subheader("나의 투자 성향 정보")
 
     personal = user.get("personal", {})
@@ -72,65 +69,86 @@ def show_my_page(user, user_manager):
     if not st.session_state["editing_personal"]:
         if not personal:
             st.info("아직 투자 성향 정보가 없습니다.")
-        for key, value in personal.items():
-            st.markdown(f"**{key}**: {value}")
+        else:
+
+            for key, value in personal.items():
+                if isinstance(value, list):
+                    value = ", ".join(value)
+                st.markdown(f"**{key}**: {value}")
 
         if st.button("성향 정보 수정"):
             st.session_state["editing_personal"] = True
             st.rerun()
     else:
         with st.form("edit_personal_form"):
-            age = st.number_input("나이", min_value=0, max_value=120, value=personal.get("age", 0))
+            # 옵션 정의
+            age_group_options = ["20~39세", "40~49세", "50~65세", "66~79세", "80세 이상"]
+            horizon_options = ["5년 이상", "3~5년", "2~3년", "1~2년", "1년 미만"]
+            experience_options = [
+                "적음",
+                "보통",
+                "많음"
+            ]
+            
+            knowledge_options = [
+                "투자 경험 없음",
+                "일부 이해함",
+                "깊이 있게 이해함"
+            ]
 
-            gender_options = ["선택 안 함", "남성", "여성"]
-            gender_value = personal.get("gender", "선택 안 함")
-            gender = st.selectbox("성별", gender_options, index=gender_options.index(gender_value) if gender_value in gender_options else 0)
+            return_options = [
+                "무조건 원금 보전",
+                "원금 기준 ±5%",
+                "원금 기준 ±10%",
+                "원금 기준 ±20%",
+                "원금 기준 ±20% 초과"
+            ]
+            style_options = ["안정형", "안정추구형", "위험중립형", "적극투자형", "공격투자형"]
+            goal_options = ["예적금 수준 수익", "시장 평균 이상 수익", "적극적인 자산 증식", "생계자금 운용"]
+            asset_options = ["주식", "부동산", "예적금", "외화", "금", "암호화폐", "기타"]
 
-            type_options = ["보수형", "중립형", "공격형"]
-            type_value = personal.get("investment_type", "중립형")
-            investment_type = st.selectbox("투자 성향", type_options, index=type_options.index(type_value) if type_value in type_options else 1)
-
-            goal_options = ["자산 증식", "은퇴 준비", "단기 수익", "기타"]
-            goal_value = personal.get("investment_goal", "자산 증식")
-            investment_goal = st.selectbox("투자 목적", goal_options, index=goal_options.index(goal_value) if goal_value in goal_options else 0)
-
-            horizon_options = ["1년 이하", "1~3년", "3~5년", "5년 이상"]
-            horizon_value = personal.get("investment_horizon", "1~3년")
-            investment_horizon = st.selectbox("투자 기간", horizon_options, index=horizon_options.index(horizon_value) if horizon_value in horizon_options else 1)
-
-            risk_options = ["낮음", "중간", "높음"]
-            risk_value = personal.get("risk_tolerance", "중간")
-            risk_tolerance = st.selectbox("리스크 허용도", risk_options, index=risk_options.index(risk_value) if risk_value in risk_options else 1)
-
-            monthly_investment = st.number_input("월 투자 가능 금액 (원)", step=10000, value=personal.get("monthly_investment", 0))
-
-            asset_options = ["주식", "ETF", "부동산", "채권", "대체투자", "기타"]
-            preferred_assets = st.multiselect(
-                "선호 자산군",
-                asset_options,
-                default=[a for a in personal.get("preferred_assets", []) if a in asset_options]
+            # 필드 렌더링
+            age_group = st.selectbox("연령대", age_group_options, index=age_group_options.index(personal.get("age_group", "20~39세")))
+            investment_horizon = st.selectbox("투자 가능 기간", horizon_options, index=horizon_options.index(personal.get("investment_horizon", "3~5년")))
+            investment_experience = st.radio(
+                "투자경험", 
+                experience_options, 
+                index=experience_options.index(
+                personal.get("investment_experience", "보통") 
+                if isinstance(personal.get("investment_experience"), str) 
+                else personal.get("investment_experience", ["보통"])[0]
+                )
             )
+            knowledge_level = st.radio("금융지식 수준/이해도", knowledge_options, index=knowledge_options.index(personal.get("knowledge_level", "일부 이해함")))
+            return_tolerance = st.radio("기대 이익수준 및 손실감내 수준", return_options, index=return_options.index(personal.get("return_tolerance", "원금 기준 ±10%")))
+            investment_style = st.selectbox("투자성향", style_options, index=style_options.index(personal.get("investment_style", "위험중립형")))
+            investment_goal = st.multiselect("투자목표", goal_options, default=personal.get("investment_goal", []))
+            preferred_assets = st.multiselect("선호 자산군", asset_options, default=personal.get("preferred_assets", []))
 
-            save = st.form_submit_button("저장")
-            cancel = st.form_submit_button("취소")
+            col1, col2 = st.columns(2)
+            with col1:
+                save = st.form_submit_button("저장")
+            with col2:
+                cancel = st.form_submit_button("취소")
+
+            if save:
+                updated_personal = {
+                    "age_group": age_group,
+                    "investment_horizon": investment_horizon,
+                    "investment_experience": investment_experience,
+                    "knowledge_level": knowledge_level,
+                    "return_tolerance": return_tolerance,
+                    "investment_style": investment_style,
+                    "investment_goal": investment_goal,
+                    "preferred_assets": preferred_assets
+                }
+
+                user_manager.update_user_info(user["username"], {"personal": updated_personal})
 
 
-        if save:
-            updated_personal = {
-                "age": age,
-                "gender": gender,
-                "investment_type": investment_type,
-                "investment_goal": investment_goal,
-                "investment_horizon": investment_horizon,
-                "risk_tolerance": risk_tolerance,
-                "monthly_investment": monthly_investment,
-                "preferred_assets": preferred_assets
-            }
-            user_manager.update_user_personal(user["username"], updated_personal)
-            st.success("✅ 투자 성향 정보가 업데이트되었습니다!")
-            st.session_state["editing_personal"] = False
-            st.rerun()
-
-        if cancel:
-            st.session_state["editing_personal"] = False
-            st.rerun()
+                st.success("✅ 투자 성향 정보가 업데이트되었습니다!")
+                st.session_state["editing_personal"] = False
+                st.rerun()
+            elif cancel:
+                st.session_state["editing_personal"] = False
+                st.rerun()
