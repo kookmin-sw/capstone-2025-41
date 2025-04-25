@@ -9,7 +9,7 @@ from modules.etf import ETFAnalyzer
 from modules.crawling_article import crawlingArticle
 from modules.collect_economic_data import collectEconomicData
 from modules.chatbot_prototype import chatbot_page
-from modules.mypage import show_my_page
+from modules.mypage import MyPage
 
 
 class App():
@@ -116,27 +116,14 @@ class App():
                                               st.session_state["account_df"],
                                               st.session_state["cash"])
 
-                # 포트폴리오 도넛 차트 시각화
-                visualization.portfolio_doughnut_chart()
-
-                # expander 상태를 관리하는 세션 변수 추가 (초기 상태: 닫힘)
-                if "expander_open" not in st.session_state:
-                    st.session_state["expander_open"] = False
-
-                with st.expander("💰 현금 잔액 수정", expanded=st.session_state["expander_open"]):
-                    cash = st.text_input("현금 잔액", value=str(st.session_state["cash"] or 0))
+                # 사용자 정보 가져오기
+                user = self.user_manager.get_user_info(st.session_state["id"])
+                if user:
+                    personal_data = user.get("personal", {})
+                    financial_data = personal_data.get("financial", {})
                     
-                    if st.button("저장"):
-                        account_manager.modify_cash(cash)
-                        st.success("💰 현금이 업데이트되었습니다!")
-                        
-                        # 현금 업데이트 후 expander를 닫도록 상태 변경
-                        st.session_state["cash"] = cash
-                        st.session_state["expander_open"] = False  
-                        st.rerun()
-                    
-                    # 사용자가 expander를 열면 상태를 유지
-                    st.session_state["expander_open"] = True
+                    # 통합 자산 도넛 차트 시각화
+                    visualization.integrated_assets_doughnut_chart(financial_data)
 
 
 
@@ -173,8 +160,8 @@ class App():
             chatbot_page()
 
         if st.session_state["page"] == "my_page":
-            user = self.user_manager.get_user_info(st.session_state["id"])
-            show_my_page(user, self.user_manager)
+            mypage = MyPage()
+            mypage.show()
 
 
 if __name__ == "__main__":

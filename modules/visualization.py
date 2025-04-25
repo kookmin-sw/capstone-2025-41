@@ -35,7 +35,114 @@ class Visualization:
             }
         )
 
-        total_value = int(float(self.account_df.loc[0, '총평가금액'])) + int(float(st.session_state['cash']))
+        total_value = int(float(self.account_df.loc[0, '총평가금액'])) + int(float(self.cash))
+
+        # 도넛 중앙에 텍스트 추가
+        fig.add_annotation(
+            text=f"₩{total_value:,}",
+            x=0.5, y=0.5,
+            font={"size": 25, "color": "black"},
+            showarrow=False
+        )
+
+        st.plotly_chart(fig)
+
+    def total_assets_doughnut_chart(self, financial_data):
+        # 자산 데이터 준비
+        asset_data = {
+            "현금": financial_data.get("cash", 0),
+            "비상금": financial_data.get("emergency_fund", 0),
+            "예/적금": financial_data.get("savings", 0),
+            "펀드/ETF": financial_data.get("funds", 0),
+            "부동산": financial_data.get("real_estate", 0),
+            "연금/보험": financial_data.get("pension", 0),
+            "코인/기타 자산": financial_data.get("other_assets", 0)
+        }
+        
+        # 0원 이상인 자산만 필터링
+        asset_data = {k: v for k, v in asset_data.items() if v > 0}
+        
+        if not asset_data:
+            st.info("자산 정보가 없습니다.")
+            return
+            
+        # plotly
+        fig = go.Figure(data=[go.Pie(
+            labels=list(asset_data.keys()),
+            values=list(asset_data.values()),
+            hole=0.65,
+            marker={"colors": qualitative.Dark2},
+            hovertemplate="%{label}<br>₩%{value:,}<br><extra></extra>"
+        )])
+
+        # 크기 및 마진 조정
+        fig.update_layout(
+            width=500,
+            height=500,
+            margin={"l": 0, "r": 0, "t": 0, "b": 0},
+            legend={
+                "font": {"size": 12},
+                "x": 1, "y": 0.9
+            }
+        )
+
+        total_value = sum(asset_data.values())
+
+        # 도넛 중앙에 텍스트 추가
+        fig.add_annotation(
+            text=f"₩{total_value:,}",
+            x=0.5, y=0.5,
+            font={"size": 25, "color": "black"},
+            showarrow=False
+        )
+
+        st.plotly_chart(fig)
+
+    def integrated_assets_doughnut_chart(self, financial_data):
+        # 자산 데이터 준비
+        asset_data = {
+            "현금": float(financial_data.get("cash", 0)),
+            "비상금": float(financial_data.get("emergency_fund", 0)),
+            "예/적금": float(financial_data.get("savings", 0)),
+            "펀드/ETF": float(financial_data.get("funds", 0)),
+            "부동산": float(financial_data.get("real_estate", 0)),
+            "연금/보험": float(financial_data.get("pension", 0)),
+            "코인/기타 자산": float(financial_data.get("other_assets", 0))
+        }
+        
+        # 주식 데이터 추가
+        if self.stock_df is not None:
+            for _, stock in self.stock_df.iterrows():
+                asset_data[stock["상품명"]] = float(stock["평가금액"])
+        
+        # 0원 이상인 자산만 필터링
+        asset_data = {k: v for k, v in asset_data.items() if v > 0}
+        
+        if not asset_data:
+            st.info("자산 정보가 없습니다.")
+            return
+            
+        # plotly
+        fig = go.Figure(data=[go.Pie(
+            labels=list(asset_data.keys()),
+            values=list(asset_data.values()),
+            hole=0.65,
+            marker={"colors": qualitative.Dark2},
+            hovertemplate="%{label}<br>₩%{value:,}<br><extra></extra>"
+        )])
+
+        # 크기 및 마진 조정
+        fig.update_layout(
+            width=500,
+            height=500,
+            margin={"l": 0, "r": 0, "t": 0, "b": 0},
+            legend={
+                "font": {"size": 12},
+                "x": 1, "y": 0.9
+            }
+        )
+
+        total_value = sum(asset_data.values())
 
         # 도넛 중앙에 텍스트 추가
         fig.add_annotation(

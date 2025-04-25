@@ -31,7 +31,18 @@ class SupabaseDB:
     def get_user(self, username):
         """사용자 데이터 가져오기"""
         response = self.client.table("users").select("*").eq("username", username).execute()
-        return response.data if response.data else None
+        if response.data:
+            user = response.data[0]
+
+            # personal 필드가 문자열이면 JSON으로 복원
+            if isinstance(user.get("personal"), str):
+                try:
+                    user["personal"] = json.loads(user["personal"])
+                except json.JSONDecodeError:
+                    pass
+
+            return [user]
+        return None
 
     def insert_stock_data(self, user_id, stock_data):
         """주식 데이터 Supabase에 저장 (중복되면 업데이트)"""
@@ -45,9 +56,16 @@ class SupabaseDB:
             account["user_id"] = user_id  # `user_id` 추가
         self.client.table("accounts").upsert(account_data).execute()  # 중복되면 업데이트
 
-    def insert_cash_data(self, user_id, cash_amount):
-        """현금 데이터 Supabase에 저장 (중복되면 업데이트)"""
-        self.client.table("cash").upsert({"user_id": user_id, "현금": cash_amount}).execute()
+    def get_cash_data(self, user_id):
+        """사용자의 현금 데이터 가져오기"""
+        try:
+            user = self.get_user(user_id)
+            if user and user[0].get("personal", {}).get("financial", {}).get("cash") is not None:
+                return user[0]["personal"]["financial"]["cash"]
+            return 0
+        except Exception as e:
+            print(f"현금 데이터 조회 중 오류 발생: {str(e)}")
+            return 0
 
     def get_stock_data(self, user_id):
         """Supabase에서 특정 사용자의 주식 데이터 가져오기"""
@@ -58,11 +76,6 @@ class SupabaseDB:
         """Supabase에서 특정 사용자의 계좌 데이터 가져오기"""
         response = self.client.table("accounts").select("*").eq("user_id", user_id).execute()
         return response.data[0] if response.data else None
-
-    def get_cash_data(self, user_id):
-        """Supabase에서 특정 사용자의 현금 데이터 가져오기"""
-        response = self.client.table("cash").select("현금").eq("user_id", user_id).execute()
-        return response.data[0]["현금"] if response.data else 0
 
     def insert_etf_data_json(self, etf_data):
         """ETF 데이터를 Supabase에 JSON 형태로 저장"""
@@ -113,18 +126,11 @@ class SupabaseDB:
         }).eq("username", username).execute()
         return response
 
-    def get_user(self, username):
-        """사용자 데이터 가져오기"""
-        response = self.client.table("users").select("*").eq("username", username).execute()
-        if response.data:
-            user = response.data[0]
-
-            # personal 필드가 문자열이면 JSON으로 복원
-            if isinstance(user.get("personal"), str):
-                try:
-                    user["personal"] = json.loads(user["personal"])
-                except json.JSONDecodeError:
-                    pass
-
-            return [user]
-        return None
+    def update_user_info(self, username, updated_data):
+        """사용자 정보 업데이트"""
+        # personal 필드가 딕셔너리인 경우 JSON 문자열로 변환
+        if "personal" in updated_data and isinstance(updated_data["personal"], dict):
+            updated_data["personal"] = json.dumps(updated_data["personal"], ensure_ascii=False)
+        
+        response = self.client.table("users").update(updated_data).eq("username", username).execute()
+        return response
