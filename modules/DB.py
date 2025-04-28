@@ -106,7 +106,7 @@ class SupabaseDB:
         response = self.client.table("articles").select("article").\
             eq("date", datetime.today().strftime("%Y-%m-%d")).execute()
         if response.data:
-            return json.loads(response.data["article"])
+            return json.loads(response.data[0]["article"])
         return []
 
     def insert_domestic_daily_economic(self, eco_df):
