@@ -1,8 +1,6 @@
 from modules.collect_economic_data import collectEconomicData
 from modules.DB import SupabaseDB
-from supabase import create_client
-import os
-from dotenv import load_dotenv
+from modules.crawling_article import crawlingArticle
 from datetime import datetime
 import pytz
 from dateutil.relativedelta import relativedelta
@@ -48,3 +46,8 @@ code_dict = {"실업률": "unemp_rate", "고용률": "emp_rate", "4.2.1. 소비�
 
 dataset_monthly = collect_economic_data.monthly_domestic(start, end, monthly_domestic_code_lst, freq, code_dict)
 db.insert_domestic_monthly_economic(dataset_monthly)
+
+
+#------------------ 오늘자 경제 뉴스 기사 데이터 ------------------#
+crawaling_article = crawlingArticle()
+crawaling_article.save_article()

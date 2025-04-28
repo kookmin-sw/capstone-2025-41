@@ -87,7 +87,7 @@ class crawlingArticle:
 
     def load_article(self):
         """Supabase에서 기사 데이터 불러오기"""
-        data = self.db.get_article_data_json()
+        data = self.db.get_article_data_today()
         if not data:
             print("Supabase에 저장된 데이터가 없습니다. 새로 수집합니다.")
             return self.collect_article()
