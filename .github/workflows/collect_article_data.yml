@@ -25,4 +25,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Run fetch script
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
         run: python article_collector.py
