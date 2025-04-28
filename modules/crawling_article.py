@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import streamlit as st
 from collections import Counter
 from modules.DB import SupabaseDB
-
+from urllib.parse import urlparse, parse_qs
 
 class crawlingArticle:
     def __init__(self):
@@ -16,17 +16,31 @@ class crawlingArticle:
 
     def collect_article(self):
         # 네이버 경제 뉴스 웹 페이지 파싱
-        url = "https://news.naver.com/section/101"
-        html = requests.get(url, headers={'User-agent':'Mozilla/5.0'})
-        soup = BeautifulSoup(html.text, "lxml")
-        a_tag = soup.find_all("a")
+        headers = {"User-Agent": "Mozilla/5.0"}
+        base_url = 'https://finance.naver.com/news/mainnews.naver?page='
 
-        # 네이버 경제 뉴스 기사 중 메인 페이지에 뜨는 기사 링크 수집
         url_set = set()
-        for a in a_tag:
-            # 경제 뉴스 기사 링크만 가져오기
-            if a["href"].startswith("https://n.news.naver.com/mnews/article/") and "comment" not in a["href"]:
-                url_set.add(a["href"])
+        for page in range(1, 10):
+            page_url = base_url + str(page)
+
+            response = requests.get(page_url, headers=headers)
+            if response.status_code != 200:
+                print(f"페이지 로딩 실패: {page_url}")
+                continue
+
+            soup = BeautifulSoup(response.text, 'html.parser')
+            for a_tag in soup.find_all('a', href=True):
+                href = a_tag['href']
+
+                if '/news/news_read.naver' in href:
+                    parsed = urlparse(href)
+                    params = parse_qs(parsed.query)
+                    article_id = params.get('article_id', [None])[0]
+                    office_id = params.get('office_id', [None])[0]
+
+                    if article_id and office_id:
+                        true_url = f"https://n.news.naver.com/article/{office_id}/{article_id}"
+                        url_set.add(true_url)
 
         # 기사 타이틀, 본문 셀렉터
         title_selector = "#title_area > span"

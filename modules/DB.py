@@ -103,10 +103,10 @@ class SupabaseDB:
 
     def get_article_data_today(self):
         """오늘 일자 뉴스 기사 JSON 데이터를 Supabase에서 불러오기"""
-        response = self.client.table("articles").select("article").\
-            eq("date", datetime.today().strftime("%Y-%m-%d")).execute()
-        if response.data:
-            return json.loads(response.data[0]["article"])
+        # response = self.client.table("articles").select("article").\
+        #     eq("date", datetime.today().strftime("%Y-%m-%d")).execute()
+        # if response.data:
+        #     return json.loads(response.data[0]["article"])
         return []
 
     def insert_domestic_daily_economic(self, eco_df):
