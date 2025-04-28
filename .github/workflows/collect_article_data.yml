@@ -1,0 +1,28 @@
+name: Collect Article Data
+
+on:
+  schedule:
+    - cron: '59 20 * * *'  # 한국 시간 05:59 (UTC 전날 20:59)
+    - cron: '59 2 * * *'   # 한국 시간 11:59
+    - cron: '59 8 * * *'   # 한국 시간 17:59
+    - cron: '59 14 * * *'  # 한국 시간 23:59
+  workflow_dispatch:
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run fetch script
+        run: python article_collector.py
