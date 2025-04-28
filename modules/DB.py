@@ -94,8 +94,7 @@ class SupabaseDB:
     def insert_article_data_json(self, article_data):
         """뉴스 기사 데이터를 JSON 형식으로 Supabase에 저장"""
         data = {
-            # "date": datetime.today().strftime("%Y-%m-%d"),
-            "date": datetime.today().strftime("2025-04-29"),
+            "date": datetime.today().strftime("%Y-%m-%d"),
             "article": json.dumps(article_data, ensure_ascii=False),
             "source": "naver"
         }
@@ -103,10 +102,10 @@ class SupabaseDB:
 
     def get_article_data_today(self):
         """오늘 일자 뉴스 기사 JSON 데이터를 Supabase에서 불러오기"""
-        # response = self.client.table("articles").select("article").\
-        #     eq("date", datetime.today().strftime("%Y-%m-%d")).execute()
-        # if response.data:
-        #     return json.loads(response.data[0]["article"])
+        response = self.client.table("articles").select("article").\
+            eq("date", datetime.today().strftime("%Y-%m-%d")).execute()
+        if response.data:
+            return json.loads(response.data[0]["article"])
         return []
 
     def insert_domestic_daily_economic(self, eco_df):
