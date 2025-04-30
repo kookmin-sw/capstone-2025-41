@@ -4,20 +4,22 @@ import requests
 import pandas as pd
 import streamlit as st
 from dotenv import load_dotenv
+from fredapi import Fred
 
 # .env 파일의 환경 변수 불러오기
 load_dotenv()
 
 class collectEconomicData:
     def __init__(self):
-        self.api_key = os.getenv("ECOS_API_KEY")
+        self.ecos_api_key = os.getenv("ECOS_API_KEY")
+        self.fred_api_key = os.getenv("FRED_API_KEY")
     def daily_domestic(self, start, end, code_lst, freq, code_dict):
         """ ECOS에서 일별 국내 경제 지표를 수집하는 함수 """
         
         dataset = pd.DataFrame(index=pd.date_range(start, end))
         dataset.index.name = "time"
         for code in code_lst:
-            url = f"http://ecos.bok.or.kr/api/StatisticSearch/{self.api_key}/json/kr/1/10000/{code[0]}/{freq}/{start}/{end}/{code[1]}"
+            url = f"http://ecos.bok.or.kr/api/StatisticSearch/{self.ecos_api_key}/json/kr/1/10000/{code[0]}/{freq}/{start}/{end}/{code[1]}"
             r = requests.get(url)
             jo = json.loads(r.text)
             result = pd.json_normalize(jo['StatisticSearch']['row'])
@@ -44,7 +46,7 @@ class collectEconomicData:
         dataset.index = pd.to_datetime(dataset.index, format="%Y%m").to_period("M")
 
         for code in code_lst:
-            url = f"http://ecos.bok.or.kr/api/StatisticSearch/{self.api_key}/json/kr/1/10000/{code[0]}/{freq}/{start}/{end}/{code[1]}"
+            url = f"http://ecos.bok.or.kr/api/StatisticSearch/{self.ecos_api_key}/json/kr/1/10000/{code[0]}/{freq}/{start}/{end}/{code[1]}"
             r = requests.get(url)
             jo = json.loads(r.text)
             result = pd.json_normalize(jo['StatisticSearch']['row'])
@@ -63,4 +65,37 @@ class collectEconomicData:
 
         dataset = dataset.reset_index()
 
+        return dataset
+
+    def daily_us(self, start, end, code_lst, code_dict):
+        """ FRED에서 일별 미국 경제 지표를 수집하는 함수 """
+
+        fred = Fred(api_key=self.fred_api_key)
+        dataset = pd.DataFrame(index=pd.date_range(start, end))
+
+        dataset.index.name = "time"
+        for code in code_lst:
+            df = fred.get_series(code, start).to_frame(code)
+            dataset = dataset.join(df, how="left")
+            df = df.rename(columns=code_dict)
+
+        dataset = dataset.reset_index()
+        return dataset
+
+    def monthly_us(self, start, end, code_lst, code_dict):
+        """ FRED에서 월별 미국 경제 지표를 수집하는 함수 """
+
+        fred = Fred(api_key=self.fred_api_key)
+        dataset = pd.DataFrame(index=pd.date_range(start, end, freq="MS").to_period("M"))
+
+        dataset.index.name = "time"
+        for code in code_lst:
+            df = fred.get_series(code, start).to_frame(code)
+            df.index.name = "time"
+            df.index = pd.to_datetime(df.index, format='%Y-%m').to_period('M')
+            df = df.rename(columns=code_dict)
+
+            dataset = dataset.join(df, how="left")
+
+        dataset = dataset.reset_index()
         return dataset

@@ -3,3 +3,4 @@ data/
 airflow_env/
 *.pyc
 token.dat
+*.ipynb
