@@ -9,6 +9,7 @@ from modules.etf import ETFAnalyzer
 from modules.crawling_article import crawlingArticle
 from modules.collect_economic_data import collectEconomicData
 from modules.chatbot_prototype import chatbot_page
+from modules.chatbot_report import chatbot_page2
 from modules.mypage import MyPage
 
 
@@ -38,7 +39,7 @@ class App():
         # 사이드바 추가
         if st.session_state["logged_in"]:
             st.sidebar.title("📌 메뉴")
-            menu = st.sidebar.radio("메뉴 선택", ["자산 관리", "마이페이지", "ETF 분석", "경제 뉴스", "AI 챗봇", "로그아웃"])
+            menu = st.sidebar.radio("메뉴 선택", ["자산 관리", "마이페이지", "ETF 분석", "경제 뉴스", "AI 챗봇", "포트폴리오 보고서", "로그아웃"])
             
             if menu == "자산 관리":
                 st.session_state["page"] = "main"
@@ -50,6 +51,8 @@ class App():
                 st.session_state["page"] = "economic_news"
             elif menu == "AI 챗봇":
                 st.session_state["page"] = "chatbot"
+            elif menu == "포트폴리오 보고서":
+                st.session_state["page"] = "portfolio_report"
             elif menu == "로그아웃":
                 st.session_state.clear()
                 st.session_state["page"] = "login"
@@ -158,6 +161,10 @@ class App():
         # 챗봇 페이지
         if st.session_state["page"] == "chatbot":
             chatbot_page()
+
+        # 포트폴리오 보고서 페이지
+        if st.session_state["page"] == "portfolio_report":
+            chatbot_page2()
 
         if st.session_state["page"] == "my_page":
             mypage = MyPage()
