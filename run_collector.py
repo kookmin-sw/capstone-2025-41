@@ -57,8 +57,8 @@ code_lst = ["DGS2", "DGS10", "DFEDTARU", "SP500", "NASDAQCOM", "DJIA"]
 code_dict = {"DGS2": "us_bond_2y", "DGS10": "us_bond_10y", "DFEDTARU": "ffr",
              "SP500": "sp500", "NASDAQCOM": "nasdaq", "DJIA": "dji"}
 
-us_daily = collectEconomicData.daily_us(start, end, code_lst, code_dict)
-db.insert_economic(dataset_monthly, "us_daily_economic")
+us_daily = collect_economic_data.daily_us(start, end, code_lst, code_dict)
+db.insert_economic(us_daily, "us_daily_economic")
 
 
 #------------------ 최근 10년간 월별 미국 데이터 ------------------#
@@ -71,5 +71,5 @@ code_lst = ["UNRATE", "PAYEMS", "PCEPILFE", "PCE", "CPIAUCSL", "PPIACO"]
 code_dict = {"UNRATE": "us_unemp_rate", "PAYEMS": "us_nfp", "PCEPILFE": "us_core_pce",
              "PCE": "us_pce", "CPIAUCSL": "us_cpi", "PPIACO": "us_ppi"}
 
-us_monthly = collectEconomicData.monthly_us(start, end, code_lst, code_dict)
-db.insert_economic(dataset_monthly, "us_monthly_economic")
+us_monthly = collect_economic_data.monthly_us(start, end, code_lst, code_dict)
+db.insert_economic(us_monthly, "us_monthly_economic")
