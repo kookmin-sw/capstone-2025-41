@@ -77,7 +77,7 @@ class UserManager:
                 savings = st.number_input("예/적금 (만원)", value=0.0, step=1.0) * 10000
                 funds = st.number_input("펀드/ETF (만원)", value=0.0, step=1.0) * 10000
             with col2:
-                real_estate = st.number_input("부동산 (만원)", value=0.0, step=1.0) * 10000
+                real_estate = st.number_input("부동산 (억원)", value=0.0, step=1.0) * 100000000
                 pension = st.number_input("연금/보험 (만원)", value=0.0, step=1.0) * 10000
                 other_assets = st.number_input("코인/기타 자산 (만원)", value=0.0, step=1.0) * 10000
 
