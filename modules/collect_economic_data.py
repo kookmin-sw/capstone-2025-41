@@ -76,8 +76,9 @@ class collectEconomicData:
         dataset.index.name = "time"
         for code in code_lst:
             df = fred.get_series(code, start).to_frame(code)
-            dataset = dataset.join(df, how="left")
             df = df.rename(columns=code_dict)
+
+            dataset = dataset.join(df, how="left")
 
         dataset = dataset.reset_index()
         return dataset
