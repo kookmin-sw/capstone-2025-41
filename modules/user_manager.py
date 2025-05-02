@@ -1,5 +1,6 @@
 import streamlit as st
 from modules.DB import SupabaseDB
+from modules.investment_profile import InvestmentProfiler
 import json
 
 
@@ -51,6 +52,26 @@ class UserManager:
             secret = st.text_input("APP Secret")
             acc_no = st.text_input("계좌번호")
             mock = st.checkbox("모의투자 계좌입니다")
+
+            # 개인 정보
+            st.markdown("### 👤 개인 정보")
+            
+            # 기본 정보
+            st.markdown("#### 기본 정보")
+            col1, col2 = st.columns(2)
+            with col1:
+                age = st.number_input("현재 나이", step=1)
+                occupation = st.text_input("직업")
+                family_structure = st.selectbox("가족 구성", ["싱글", "기혼", "기혼+자녀1", "기혼+자녀2", "기혼+자녀3+"])
+            with col2:
+                retirement_age = st.number_input("은퇴 예정 연령", value=65, step=1)
+                housing_type = st.selectbox("주거 형태", ["자가", "전세", "월세"])
+
+            # 재무 목표
+            st.markdown("#### 재무 목표")
+            short_term_goal = st.text_input("단기 목표 (1~2년)")
+            mid_term_goal = st.text_input("중기 목표 (3~5년)")
+            long_term_goal = st.text_input("장기 목표 (10년 이상)")
 
             # 재무 정보
             st.markdown("### 💰 재무 정보")
@@ -114,33 +135,10 @@ class UserManager:
                 gbp = st.number_input("GBP (파운드)", min_value=0.0, value=0.0, step=0.01)
                 cny = st.number_input("CNY (위안)", min_value=0.0, value=0.0, step=0.01)
 
-            # 재무 목표
-            st.markdown("#### 재무 목표")
-            short_term_goal = st.text_input("단기 목표 (1~2년)")
-            mid_term_goal = st.text_input("중기 목표 (3~5년)")
-            long_term_goal = st.text_input("장기 목표 (10년 이상)")
-
-            # 기타 변수
-            st.markdown("#### 기타 변수")
-            age = st.number_input("현재 나이", step=1)
-            family_structure = st.selectbox("가족 구성", ["싱글", "기혼", "기혼+자녀1", "기혼+자녀2", "기혼+자녀3+"])
-            retirement_age = st.number_input("은퇴 예정 연령", value=65, step=1)
-            housing_type = st.selectbox("주거 형태", ["자가", "전세", "월세"])
-
             # 투자 성향
             st.markdown("### 🧠 투자 성향")
-            col1, col2 = st.columns(2)
-            with col1:
-                age_group = st.selectbox("연령대", ["20~39세", "40~49세", "50~65세", "66~79세", "80세 이상"])
-                investment_horizon = st.selectbox("투자 가능 기간", ["5년 이상", "3~5년", "2~3년", "1~2년", "1년 미만"])
-                investment_experience = st.radio("투자경험", ["적음", "보통", "많음"])
-            with col2:
-                knowledge_level = st.radio("금융지식 수준/이해도", ["투자 경험 없음", "일부 이해함", "깊이 있게 이해함"])
-                return_tolerance = st.radio("기대 이익수준 및 손실감내 수준", 
-                                        ["무조건 원금 보전", "원금 기준 ±5%", "원금 기준 ±10%", "원금 기준 ±20%", "원금 기준 ±20% 초과"])
-            investment_style = st.selectbox("투자성향", ["안정형", "안정추구형", "위험중립형", "적극투자형", "공격투자형"])
-            investment_goal = st.multiselect("투자목표", ["예적금 수준 수익", "시장 평균 이상 수익", "적극적인 자산 증식", "생계자금 운용"])
-            preferred_assets = st.multiselect("선호 자산군", ["주식", "부동산", "예적금", "외화", "금", "암호화폐", "기타"])
+            result = InvestmentProfiler.get_investment_score(show_result=False)
+            investment_profile = result
 
             # 제출 버튼
             submit = st.form_submit_button("회원가입")
@@ -179,25 +177,19 @@ class UserManager:
                             "jpy": jpy,
                             "gbp": gbp,
                             "cny": cny
-                        },
-                        "short_term_goal": short_term_goal,
-                        "mid_term_goal": mid_term_goal,
-                        "long_term_goal": long_term_goal,
+                        }
+                    },
+                    "personal_info": {
                         "age": age,
+                        "occupation": occupation,
                         "family_structure": family_structure,
                         "retirement_age": retirement_age,
-                        "housing_type": housing_type
+                        "housing_type": housing_type,
+                        "short_term_goal": short_term_goal,
+                        "mid_term_goal": mid_term_goal,
+                        "long_term_goal": long_term_goal
                     },
-                    "investment_profile": {
-                        "age_group": age_group,
-                        "investment_horizon": investment_horizon,
-                        "investment_experience": investment_experience,
-                        "knowledge_level": knowledge_level,
-                        "return_tolerance": return_tolerance,
-                        "investment_style": investment_style,
-                        "investment_goal": investment_goal,
-                        "preferred_assets": preferred_assets
-                    }
+                    "investment_profile": investment_profile
                 }
 
                 # 사용자 데이터 저장

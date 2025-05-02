@@ -1,5 +1,6 @@
 import streamlit as st
 from modules.DB import SupabaseDB
+from modules.investment_profile import InvestmentProfiler
 import json
 
 class MyPage:
@@ -55,7 +56,7 @@ class MyPage:
 
         if st.session_state["editing_mode"]:
             # 수정 모드 UI
-            tab1, tab2, tab3 = st.tabs(["🔑 계정 정보", "💰 재무 정보", "🧠 투자 성향"])
+            tab1, tab2, tab3, tab4 = st.tabs(["🔑 계정 정보", "👤 개인 정보", "💰 재무 정보", "🧠 투자 성향"])
             
             with tab1:
                 with st.container():
@@ -72,6 +73,25 @@ class MyPage:
                     st.markdown('</div>', unsafe_allow_html=True)
 
             with tab2:
+                with st.container():
+                    st.markdown('<div class="section-title">기본 정보</div>', unsafe_allow_html=True)
+                    col1, col2 = st.columns(2)
+                    with col1:
+                        occupation = st.text_input("직업", value=financial_data.get("occupation", ""))
+                        age = st.number_input("현재 나이", value=financial_data.get("age", 0), step=1)
+                        family_structure = st.selectbox("가족 구성", ["싱글", "기혼", "기혼+자녀1", "기혼+자녀2", "기혼+자녀3+"], 
+                                                      index=["싱글", "기혼", "기혼+자녀1", "기혼+자녀2", "기혼+자녀3+"].index(financial_data.get("family_structure", "싱글")))
+                    with col2:
+                        retirement_age = st.number_input("은퇴 예정 연령", value=financial_data.get("retirement_age", 65), step=1)
+                        housing_type = st.selectbox("주거 형태", ["자가", "전세", "월세"], 
+                                                  index=["자가", "전세", "월세"].index(financial_data.get("housing_type", "자가")))
+
+                    st.markdown('<div class="section-title">재무 목표</div>', unsafe_allow_html=True)
+                    short_term_goal = st.text_input("단기 목표 (1~2년)", value=financial_data.get("short_term_goal", ""))
+                    mid_term_goal = st.text_input("중기 목표 (3~5년)", value=financial_data.get("mid_term_goal", ""))
+                    long_term_goal = st.text_input("장기 목표 (10년 이상)", value=financial_data.get("long_term_goal", ""))
+
+            with tab3:
                 with st.container():
                     st.markdown('<div class="section-title">현금 흐름</div>', unsafe_allow_html=True)
                     col1, col2, col3 = st.columns(3)
@@ -135,45 +155,32 @@ class MyPage:
                         gbp = st.number_input("GBP (파운드)", min_value=0.0, value=float(financial_data.get('foreign_currency', {}).get('gbp', 0)), step=0.01, key="gbp_input")
                         cny = st.number_input("CNY (위안)", min_value=0.0, value=float(financial_data.get('foreign_currency', {}).get('cny', 0)), step=0.01, key="cny_input")
 
-                    st.markdown('<div class="section-title">재무 목표</div>', unsafe_allow_html=True)
-                    short_term_goal = st.text_input("단기 목표 (1~2년)", value=financial_data.get("short_term_goal", ""))
-                    mid_term_goal = st.text_input("중기 목표 (3~5년)", value=financial_data.get("mid_term_goal", ""))
-                    long_term_goal = st.text_input("장기 목표 (10년 이상)", value=financial_data.get("long_term_goal", ""))
-
-                    st.markdown('<div class="section-title">기타 변수</div>', unsafe_allow_html=True)
-                    col1, col2 = st.columns(2)
-                    with col1:
-                        age = st.number_input("현재 나이", value=financial_data.get("age", 0), step=1)
-                        family_structure = st.selectbox("가족 구성", ["싱글", "기혼", "기혼+자녀1", "기혼+자녀2", "기혼+자녀3+"], 
-                                                      index=["싱글", "기혼", "기혼+자녀1", "기혼+자녀2", "기혼+자녀3+"].index(financial_data.get("family_structure", "싱글")))
-                    with col2:
-                        retirement_age = st.number_input("은퇴 예정 연령", value=financial_data.get("retirement_age", 65), step=1)
-                        housing_type = st.selectbox("주거 형태", ["자가", "전세", "월세"], 
-                                                  index=["자가", "전세", "월세"].index(financial_data.get("housing_type", "자가")))
-
-            with tab3:
+            with tab4:
                 with st.container():
-                    st.markdown('<div class="section-title">투자 성향</div>', unsafe_allow_html=True)
-                    col1, col2 = st.columns(2)
-                    with col1:
-                        age_group = st.selectbox("연령대", ["20~39세", "40~49세", "50~65세", "66~79세", "80세 이상"],
-                                               index=["20~39세", "40~49세", "50~65세", "66~79세", "80세 이상"].index(investment_profile.get("age_group", "20~39세")))
-                        investment_horizon = st.selectbox("투자 가능 기간", ["5년 이상", "3~5년", "2~3년", "1~2년", "1년 미만"],
-                                                        index=["5년 이상", "3~5년", "2~3년", "1~2년", "1년 미만"].index(investment_profile.get("investment_horizon", "5년 이상")))
-                        investment_experience = st.radio("투자경험", ["적음", "보통", "많음"],
-                                                       index=["적음", "보통", "많음"].index(investment_profile.get("investment_experience", "적음")))
-                    with col2:
-                        knowledge_level = st.radio("금융지식 수준/이해도", ["투자 경험 없음", "일부 이해함", "깊이 있게 이해함"],
-                                                 index=["투자 경험 없음", "일부 이해함", "깊이 있게 이해함"].index(investment_profile.get("knowledge_level", "투자 경험 없음")))
-                        return_tolerance = st.radio("기대 이익수준 및 손실감내 수준", 
-                                                  ["무조건 원금 보전", "원금 기준 ±5%", "원금 기준 ±10%", "원금 기준 ±20%", "원금 기준 ±20% 초과"],
-                                                  index=["무조건 원금 보전", "원금 기준 ±5%", "원금 기준 ±10%", "원금 기준 ±20%", "원금 기준 ±20% 초과"].index(investment_profile.get("return_tolerance", "무조건 원금 보전")))
-                    investment_style = st.selectbox("투자성향", ["안정형", "안정추구형", "위험중립형", "적극투자형", "공격투자형"],
-                                                  index=["안정형", "안정추구형", "위험중립형", "적극투자형", "공격투자형"].index(investment_profile.get("investment_style", "안정형")))
-                    investment_goal = st.multiselect("투자목표", ["예적금 수준 수익", "시장 평균 이상 수익", "적극적인 자산 증식", "생계자금 운용"],
-                                                   default=investment_profile.get("investment_goal", []))
-                    preferred_assets = st.multiselect("선호 자산군", ["주식", "부동산", "예적금", "외화", "금", "암호화폐", "기타"],
-                                                    default=investment_profile.get("preferred_assets", []))
+                    st.markdown('<div class="section-title">투자 성향 진단</div>', unsafe_allow_html=True)
+                    
+                    # 이전 투자 성향 정보 표시 (읽기 모드에서만)
+                    if not st.session_state["editing_mode"]:
+                        if investment_profile:
+                            st.write("### 현재 투자 성향")
+                            st.write(f"**투자 성향:** {investment_profile.get('investment_style', '미진단')}")
+                            
+                            if details := investment_profile.get('details'):
+                                st.write("### 이전 응답 내역")
+                                st.write(f"- 투자 경험: {details.get('investment_experience', '')}")
+                                st.write(f"- 투자 가능 기간: {details.get('investment_horizon', '')}")
+                                st.write(f"- 손실 감내 수준: {details.get('risk_tolerance', '')}")
+                                st.write(f"- 기대 수익률: {details.get('expected_return', '')}")
+                                st.write(f"- 중요 투자 요소: {details.get('investment_priority', '')}")
+                                st.write(f"- 금융 이해도: {details.get('financial_knowledge', '')}")
+                    
+                    # 새로운 진단 실행 (수정 모드이거나 이전 진단 결과가 없는 경우)
+                    if st.session_state["editing_mode"] or not investment_profile:
+                        st.write("### 투자 성향 진단")
+                        if st.session_state["editing_mode"]:
+                            st.write("투자 성향을 다시 진단합니다. 각 질문에 답변해 주세요.")
+                        result = InvestmentProfiler.get_investment_score(show_result=False)  # 수정 모드에서는 결과 표시 안 함
+                        investment_profile = result
 
             col1, col2 = st.columns(2)
             with col1:
@@ -206,32 +213,19 @@ class MyPage:
                             "jpy": jpy,
                             "gbp": gbp,
                             "cny": cny
-                        },
-                        "short_term_goal": short_term_goal,
-                        "mid_term_goal": mid_term_goal,
-                        "long_term_goal": long_term_goal,
+                        }
+                    }
+
+                    # 개인 정보
+                    personal_info = {
                         "age": age,
+                        "occupation": occupation,
                         "family_structure": family_structure,
                         "retirement_age": retirement_age,
-                        "housing_type": housing_type
-                    }
-
-                    # 투자 성향
-                    investment_profile = {
-                        "age_group": age_group,
-                        "investment_horizon": investment_horizon,
-                        "investment_experience": investment_experience,
-                        "knowledge_level": knowledge_level,
-                        "return_tolerance": return_tolerance,
-                        "investment_style": investment_style,
-                        "investment_goal": investment_goal,
-                        "preferred_assets": preferred_assets
-                    }
-
-                    # 모든 정보를 personal 필드에 통합
-                    personal_data = {
-                        "financial": financial_data,
-                        "investment_profile": investment_profile
+                        "housing_type": housing_type,
+                        "short_term_goal": short_term_goal,
+                        "mid_term_goal": mid_term_goal,
+                        "long_term_goal": long_term_goal
                     }
 
                     # DB 업데이트
@@ -242,7 +236,11 @@ class MyPage:
                         "api_secret": api_secret if api_secret else user.get("api_secret", ""),
                         "account_no": account_no,
                         "mock": mock,
-                        "personal": json.dumps(personal_data, ensure_ascii=False)
+                        "personal": json.dumps({
+                            "financial": financial_data,
+                            "personal_info": personal_info,
+                            "investment_profile": investment_profile
+                        }, ensure_ascii=False)
                     }
 
                     # 사용자 정보 업데이트
@@ -258,22 +256,40 @@ class MyPage:
                     st.session_state["editing_mode"] = False
         else:
             # 읽기 모드 UI
-            tab1, tab2, tab3 = st.tabs(["🔑 계정 정보", "💰 재무 정보", "🧠 투자 성향"])
+            tab1, tab2, tab3, tab4 = st.tabs(["🔑 계정 정보", "👤 개인 정보", "💰 재무 정보", "🧠 투자 성향"])
             
             with tab1:
-                with st.container():
-                    st.markdown('<div class="section-title">계정 정보</div>', unsafe_allow_html=True)
-                    st.write(f"**아이디:** {user.get('username', '')}")
-                    st.write(f"**비밀번호:** {'*' * 8}")
-                    st.markdown('</div>', unsafe_allow_html=True)
+                st.markdown('<div class="section-title">계정 정보</div>', unsafe_allow_html=True)
+                st.write(f"**아이디:** {user.get('username', '')}")
+                st.write("**비밀번호:** ********")
+                st.markdown('</div>', unsafe_allow_html=True)
 
-                    st.markdown('<div class="section-title">API 정보</div>', unsafe_allow_html=True)
-                    st.write(f"**한국투자증권 APP Key:** {'*' * 8}")
-                    st.write(f"**APP Secret:** {'*' * 8}")
-                    st.write(f"**계좌번호:** {user.get('account_no', '')}")
-                    st.markdown('</div>', unsafe_allow_html=True)
+                st.markdown('<div class="section-title">API 정보</div>', unsafe_allow_html=True)
+                st.write("**한국투자증권 APP Key:** ", "*" * 20)
+                st.write("**APP Secret:** ", "*" * 20)
+                st.write(f"**계좌번호:** {user.get('account_no', '')}")
+                st.write(f"**모의투자 계좌:** {'예' if user.get('mock', False) else '아니오'}")
+                st.markdown('</div>', unsafe_allow_html=True)
 
             with tab2:
+                st.markdown('<div class="section-title">기본 정보</div>', unsafe_allow_html=True)
+                col1, col2 = st.columns(2)
+                with col1:
+                    st.write(f"**직업:** {financial_data.get('occupation', '-')}")
+                    st.write(f"**현재 나이:** {financial_data.get('age', 0)}세")
+                    st.write(f"**가족 구성:** {financial_data.get('family_structure', '-')}")
+                with col2:
+                    st.write(f"**은퇴 예정 연령:** {financial_data.get('retirement_age', 65)}세")
+                    st.write(f"**주거 형태:** {financial_data.get('housing_type', '-')}")
+                st.markdown('</div>', unsafe_allow_html=True)
+
+                st.markdown('<div class="section-title">재무 목표</div>', unsafe_allow_html=True)
+                st.write(f"**단기 목표 (1~2년):** {financial_data.get('short_term_goal', '-')}")
+                st.write(f"**중기 목표 (3~5년):** {financial_data.get('mid_term_goal', '-')}")
+                st.write(f"**장기 목표 (10년 이상):** {financial_data.get('long_term_goal', '-')}")
+                st.markdown('</div>', unsafe_allow_html=True)
+
+            with tab3:
                 with st.container():
                     st.markdown('<div class="section-title">현금 흐름</div>', unsafe_allow_html=True)
                     col1, col2, col3 = st.columns(3)
@@ -330,47 +346,32 @@ class MyPage:
                         st.metric("GBP (파운드)", f"£{float(foreign_currency.get('gbp', 0)):,.2f}")
                         st.metric("CNY (위안)", f"¥{float(foreign_currency.get('cny', 0)):,.2f}")
 
-                    st.markdown('<div class="section-title">재무 목표</div>', unsafe_allow_html=True)
-                    col1, col2, col3 = st.columns(3)
-                    with col1:
-                        st.write(f"**단기 목표 (1~2년):**")
-                        st.info(financial_data.get('short_term_goal', ''))
-                    with col2:
-                        st.write(f"**중기 목표 (3~5년):**")
-                        st.info(financial_data.get('mid_term_goal', ''))
-                    with col3:
-                        st.write(f"**장기 목표 (10년 이상):**")
-                        st.info(financial_data.get('long_term_goal', ''))
-
-                    st.markdown('<div class="section-title">기타 변수</div>', unsafe_allow_html=True)
-                    col1, col2 = st.columns(2)
-                    with col1:
-                        st.metric("현재 나이", f"{financial_data.get('age', '')}세")
-                        st.metric("가족 구성", financial_data.get('family_structure', ''))
-                    with col2:
-                        st.metric("은퇴 예정 연령", f"{financial_data.get('retirement_age', '')}세")
-                        st.metric("주거 형태", financial_data.get('housing_type', ''))
-
-            with tab3:
+            with tab4:
                 with st.container():
-                    st.markdown('<div class="section-title">투자 성향</div>', unsafe_allow_html=True)
-                    col1, col2 = st.columns(2)
-                    with col1:
-                        st.metric("연령대", investment_profile.get('age_group', ''))
-                        st.metric("투자 가능 기간", investment_profile.get('investment_horizon', ''))
-                        st.metric("투자경험", investment_profile.get('investment_experience', ''))
-                    with col2:
-                        st.metric("금융지식 수준", investment_profile.get('knowledge_level', ''))
-                        st.metric("손실감내 수준", investment_profile.get('return_tolerance', ''))
-                        st.metric("투자성향", investment_profile.get('investment_style', ''))
+                    st.markdown('<div class="section-title">투자 성향 진단</div>', unsafe_allow_html=True)
                     
-                    st.write("**투자목표:**")
-                    for goal in investment_profile.get('investment_goal', []):
-                        st.info(goal)
+                    # 읽기 모드에서만 결과 표시
+                    if not st.session_state["editing_mode"]:
+                        if investment_profile:
+                            st.write("### 투자 성향 진단 결과")
+                            st.write(f"**투자 성향:** {investment_profile.get('investment_style', '미진단')}")
+                            
+                            if details := investment_profile.get('details'):
+                                st.write("### 세부 응답")
+                                st.write(f"- 투자 경험: {details.get('investment_experience', '')}")
+                                st.write(f"- 투자 가능 기간: {details.get('investment_horizon', '')}")
+                                st.write(f"- 손실 감내 수준: {details.get('risk_tolerance', '')}")
+                                st.write(f"- 기대 수익률: {details.get('expected_return', '')}")
+                                st.write(f"- 중요 투자 요소: {details.get('investment_priority', '')}")
+                                st.write(f"- 금융 이해도: {details.get('financial_knowledge', '')}")
                     
-                    st.write("**선호 자산군:**")
-                    for asset in investment_profile.get('preferred_assets', []):
-                        st.info(asset)
+                    # 새로운 진단 실행 (수정 모드이거나 이전 진단 결과가 없는 경우)
+                    if st.session_state["editing_mode"] or not investment_profile:
+                        st.write("### 투자 성향 진단")
+                        if st.session_state["editing_mode"]:
+                            st.write("투자 성향을 다시 진단합니다. 각 질문에 답변해 주세요.")
+                        result = InvestmentProfiler.get_investment_score(show_result=False)  # 수정 모드에서는 결과 표시 안 함
+                        investment_profile = result
 
             if st.button("정보 수정", type="primary"):
                 st.session_state["editing_mode"] = True
