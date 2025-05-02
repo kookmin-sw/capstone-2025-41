@@ -1,12 +1,49 @@
 import streamlit as st
 import plotly.graph_objects as go
 from plotly.colors import qualitative
+import plotly.express as px
 
 class Visualization:
     def __init__(self, stock_df, account_df, cash):
         self.stock_df = stock_df
         self.account_df = account_df
         self.cash = cash
+        # 커스텀 색상 팔레트 정의
+        self.custom_colors = [
+            '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', 
+            '#FFEEAD', '#D4A5A5', '#9B786F', '#A8E6CF'
+        ]
+        # 공통 차트 스타일 설정
+        self.chart_style = {
+            'font_family': 'Noto Sans KR',
+            'background_color': 'rgba(255, 255, 255, 0.9)',
+            'title_font_size': 24,
+            'label_font_size': 14
+        }
+
+    def _apply_common_style(self, fig):
+        """공통 스타일을 적용하는 헬퍼 메서드"""
+        fig.update_layout(
+            paper_bgcolor=self.chart_style['background_color'],
+            plot_bgcolor=self.chart_style['background_color'],
+            font_family=self.chart_style['font_family'],
+            font_size=self.chart_style['label_font_size'],
+            hoverlabel=dict(
+                bgcolor="white",
+                font_size=14,
+                font_family=self.chart_style['font_family']
+            ),
+            margin=dict(l=20, r=20, t=40, b=20),
+            legend=dict(
+                bgcolor='rgba(255, 255, 255, 0.8)',
+                bordercolor='rgba(0, 0, 0, 0.1)',
+                borderwidth=1,
+                font=dict(size=12),
+                x=1.02,
+                y=0.95
+            )
+        )
+        return fig
 
     def portfolio_doughnut_chart(self):
         # label: 상품명, short_label: 축약 상품명, balance: 평가금액
@@ -20,32 +57,44 @@ class Visualization:
             values=balance,
             hole=0.65,
             customdata=label,
-            marker={"colors": qualitative.Dark2},
-            hovertemplate="%{customdata}<br>₩%{value:,}<br><extra></extra>"
+            marker=dict(
+                colors=self.custom_colors,
+                line=dict(color='white', width=2)
+            ),
+            hovertemplate="<b>%{customdata}</b><br>₩%{value:,.0f}<br><extra></extra>",
+            textinfo='percent+label',
+            textposition='outside',
+            textfont=dict(size=12)
         )])
 
-        # 크기 및 마진 조정
-        fig.update_layout(
-            width=500,
-            height=500,
-            margin={"l": 0, "r": 0, "t": 0, "b": 0},
-            legend={
-                "font": {"size": 12},
-                "x": 1, "y": 0.9
-            }
-        )
-
+        fig = self._apply_common_style(fig)
+        
+        # 도넛 중앙에 텍스트 추가 (스타일 개선)
         total_value = int(float(self.account_df.loc[0, '총평가금액'])) + int(float(self.cash))
-
-        # 도넛 중앙에 텍스트 추가
         fig.add_annotation(
-            text=f"₩{int(total_value):,}",
+            text=f"총 자산<br>₩{int(total_value):,}",
             x=0.5, y=0.5,
-            font={"size": 25, "color": "black"},
+            font=dict(size=20, color="#333333", family=self.chart_style['font_family']),
             showarrow=False
         )
 
-        st.plotly_chart(fig)
+        # 카드 스타일의 컨테이너에 차트 표시
+        with st.container():
+            st.markdown("""
+                <style>
+                    .chart-container {
+                        background-color: white;
+                        padding: 20px;
+                        border-radius: 10px;
+                        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+                    }
+                </style>
+            """, unsafe_allow_html=True)
+            
+            with st.container():
+                st.markdown('<div class="chart-container">', unsafe_allow_html=True)
+                st.plotly_chart(fig, use_container_width=True)
+                st.markdown('</div>', unsafe_allow_html=True)
 
     def total_assets_doughnut_chart(self, financial_data):
         # 자산 데이터 준비
@@ -138,14 +187,29 @@ class Visualization:
             showarrow=False
         )
 
-        st.markdown("### 주식 포트폴리오")
         st.plotly_chart(fig)
 
     def integrated_assets_doughnut_chart(self, financial_data):
-        # 탭 생성
+        # 탭 스타일 개선
+        st.markdown("""
+            <style>
+                .stTab {
+                    background-color: white;
+                    border-radius: 5px;
+                    padding: 10px;
+                    margin-bottom: 20px;
+                }
+                .stTab:hover {
+                    background-color: #f8f9fa;
+                }
+            </style>
+        """, unsafe_allow_html=True)
+
+        # 탭 생성 (이모지 추가)
         tab1, tab2 = st.tabs(["📊 총 자산 현황", "💰 주식 포트폴리오"])
         
         with tab1:
+            st.markdown("### 🎯 자산 포트폴리오 분석")
             # 자산 데이터 준비
             asset_data = {
                 "현금": float(financial_data.get("cash", 0)),
@@ -204,6 +268,7 @@ class Visualization:
         
         with tab2:
             if self.stock_df is not None and len(self.stock_df) > 0:
+                st.markdown("### 📈 주식 투자 현황")
                 self.stock_portfolio_doughnut_chart()
             else:
-                st.info("보유 중인 주식이 없습니다.")
+                st.info("🔍 현재 보유 중인 주식이 없습니다.")
