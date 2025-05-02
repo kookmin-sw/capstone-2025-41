@@ -29,10 +29,10 @@ def init_llm():
 
 
 
-def generate_section_content(llm, section_title, user_info, asset_summary, etf_summary, economic_summary, stock_summary):
+def generate_section_content(llm, user_info, asset_summary, etf_summary, economic_summary, stock_summary):
     prompt = PromptTemplate.from_template("""
 당신은 전문적인 포트폴리오 분석가입니다.
-다음 정보를 바탕으로 {section_title} 섹션에 대한 상세한 분석을 제공해주세요.
+다음 정보를 바탕으로 투자 포트폴리오에 대한 종합적인 분석 보고서를 작성해주세요.
 
 고객 정보:
 {user_info}
@@ -49,6 +49,19 @@ ETF 정보:
 보유 주식 정보:
 {stock_summary}
 
+다음 섹션별로 분석을 제공해주세요. 각 섹션은 [섹션명]으로 시작하고 [섹션 끝]으로 끝나야 합니다:
+
+1. [고객 기본 정보 요약] - 고객의 기본 정보와 투자 프로필 요약
+2. [투자 성향 분석] - 고객의 투자 성향과 위험 선호도 분석
+3. [자산 구성 현황] - 현재 자산 포트폴리오 구성 분석
+4. [수익률 및 성과 분석] - 투자 성과와 수익률 분석
+5. [리스크 분석] - 포트폴리오의 위험 요소 분석
+6. [현금 흐름 분석] - 현금 흐름과 유동성 분석
+7. [세제 및 절세 전략] - 세금 최적화 전략
+8. [투자 전략 제안] - 향후 투자 방향 제안
+9. [위험 시나리오 대응 전략] - 시장 위험에 대한 대응 전략
+10. [개인화된 목표 추적 및 다음 단계] - 투자 목표 달성 현황과 향후 계획
+
 분석 시 다음 사항을 고려해주세요:
 1. 객관적인 데이터에 기반한 분석
 2. 고객의 투자 성향과 목표 반영
@@ -59,7 +72,6 @@ ETF 정보:
 """)
     
     formatted_prompt = prompt.format(
-        section_title=section_title,
         user_info=user_info,
         asset_summary=asset_summary,
         etf_summary=etf_summary,
@@ -67,7 +79,44 @@ ETF 정보:
         stock_summary=stock_summary
     )
     
-    return llm.invoke(formatted_prompt).content
+    response = llm.invoke(formatted_prompt).content
+    
+    # 응답을 섹션별로 파싱
+    sections = {
+        "basic_info": "고객 기본 정보 요약",
+        "investment_style": "투자 성향 분석",
+        "asset_composition": "자산 구성 현황",
+        "performance": "수익률 및 성과 분석",
+        "risk_analysis": "리스크 분석",
+        "cash_flow": "현금 흐름 분석",
+        "tax_strategy": "세제 및 절세 전략",
+        "investment_strategy": "투자 전략 제안",
+        "risk_scenario": "위험 시나리오 대응 전략",
+        "goals_tracking": "개인화된 목표 추적 및 다음 단계"
+    }
+    
+    parsed_sections = {}
+    for section_key, section_title in sections.items():
+        start = response.find(f"[{section_title}]")
+        if start != -1:
+            end = response.find("[섹션 끝]", start)
+            if end != -1:
+                content = response[start + len(section_title) + 2:end].strip()
+                parsed_sections[section_key] = content
+            else:
+                # 다음 섹션의 시작을 찾아서 자르기
+                next_section_start = float('inf')
+                for next_title in sections.values():
+                    next_start = response.find(f"[{next_title}]", start + len(section_title))
+                    if next_start != -1 and next_start < next_section_start:
+                        next_section_start = next_start
+                if next_section_start != float('inf'):
+                    content = response[start + len(section_title) + 2:next_section_start].strip()
+                else:
+                    content = response[start + len(section_title) + 2:].strip()
+                parsed_sections[section_key] = content
+    
+    return parsed_sections
 
 def generate_portfolio_report(llm, user_info, asset_summary, etf_summary, economic_summary, stock_summary):
     sections = {
@@ -83,25 +132,28 @@ def generate_portfolio_report(llm, user_info, asset_summary, etf_summary, econom
         "goals_tracking": "개인화된 목표 추적 및 다음 단계"
     }
     
-    report = {}
     progress_text = "보고서 생성 중..."
     progress_bar = st.progress(0)
     
+    # 한 번의 API 호출로 모든 섹션 생성
+    section_contents = generate_section_content(
+        llm,
+        user_info,
+        asset_summary,
+        etf_summary,
+        economic_summary,
+        stock_summary
+    )
+    
+    # 결과 포맷팅
+    report = {}
     for i, (section_key, section_title) in enumerate(sections.items()):
         report[section_key] = {
             "title": section_title,
-            "content": generate_section_content(
-                llm,
-                section_title,
-                user_info,
-                asset_summary,
-                etf_summary,
-                economic_summary,
-                stock_summary
-            )
+            "content": section_contents.get(section_key, "섹션 내용을 찾을 수 없습니다.")
         }
         progress_bar.progress((i + 1) / len(sections))
-        
+    
     progress_bar.empty()
     return report
 
