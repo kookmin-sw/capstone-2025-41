@@ -105,8 +105,28 @@ class App():
 
 
             if st.session_state["stock_df"] is not None and st.session_state["account_df"] is not None:
-                # 자산 증감액 및 자산 증감율
-                total = int(st.session_state["account_df"].loc[0, '총평가금액']) + st.session_state["cash"]
+                # 사용자 정보 가져오기
+                user = self.user_manager.get_user_info(st.session_state["id"])
+                financial_data = user.get("personal", {}).get("financial", {}) if user else {}
+
+                # 자산 데이터 준비
+                asset_data = {
+                    "현금": float(financial_data.get("cash", 0)),
+                    "비상금": float(financial_data.get("emergency_fund", 0)),
+                    "예/적금": float(financial_data.get("savings", 0)),
+                    "펀드/ETF": float(financial_data.get("funds", 0)),
+                    "부동산": float(financial_data.get("real_estate", 0)),
+                    "연금/보험": float(financial_data.get("pension", 0)),
+                    "코인/기타 자산": float(financial_data.get("other_assets", 0))
+                }
+                
+                # 주식 데이터 추가
+                if st.session_state["stock_df"] is not None:
+                    for _, stock in st.session_state["stock_df"].iterrows():
+                        asset_data[stock["상품명"]] = float(stock["평가금액"])
+
+                # 총자산 계산
+                total = sum(v for v in asset_data.values() if v > 0)
                 profit = int(st.session_state["account_df"].loc[0, '평가손익합계금액'])
 
                 st.title("📜 나의 포트폴리오")
@@ -119,14 +139,8 @@ class App():
                                               st.session_state["account_df"],
                                               st.session_state["cash"])
 
-                # 사용자 정보 가져오기
-                user = self.user_manager.get_user_info(st.session_state["id"])
-                if user:
-                    personal_data = user.get("personal", {})
-                    financial_data = personal_data.get("financial", {})
-                    
-                    # 통합 자산 도넛 차트 시각화
-                    visualization.integrated_assets_doughnut_chart(financial_data)
+                # 통합 자산 도넛 차트 시각화
+                visualization.integrated_assets_doughnut_chart(financial_data)
 
 
 

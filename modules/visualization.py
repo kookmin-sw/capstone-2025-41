@@ -39,7 +39,7 @@ class Visualization:
 
         # 도넛 중앙에 텍스트 추가
         fig.add_annotation(
-            text=f"₩{total_value:,}",
+            text=f"₩{int(total_value):,}",
             x=0.5, y=0.5,
             font={"size": 25, "color": "black"},
             showarrow=False
@@ -90,7 +90,7 @@ class Visualization:
 
         # 도넛 중앙에 텍스트 추가
         fig.add_annotation(
-            text=f"₩{total_value:,}",
+            text=f"₩{int(total_value):,}",
             x=0.5, y=0.5,
             font={"size": 25, "color": "black"},
             showarrow=False
@@ -107,13 +107,14 @@ class Visualization:
             "펀드/ETF": float(financial_data.get("funds", 0)),
             "부동산": float(financial_data.get("real_estate", 0)),
             "연금/보험": float(financial_data.get("pension", 0)),
-            "코인/기타 자산": float(financial_data.get("other_assets", 0))
+            "코인/기타 자산": float(financial_data.get("other_assets", 0)),
+            "주식": 0.0  # 주식 항목 추가
         }
         
-        # 주식 데이터 추가
+        # 주식 데이터 합산
         if self.stock_df is not None:
-            for _, stock in self.stock_df.iterrows():
-                asset_data[stock["상품명"]] = float(stock["평가금액"])
+            total_stock_value = self.stock_df["평가금액"].astype(float).sum()
+            asset_data["주식"] = total_stock_value
         
         # 0원 이상인 자산만 필터링
         asset_data = {k: v for k, v in asset_data.items() if v > 0}
@@ -146,7 +147,7 @@ class Visualization:
 
         # 도넛 중앙에 텍스트 추가
         fig.add_annotation(
-            text=f"₩{total_value:,}",
+            text=f"₩{int(total_value):,}",
             x=0.5, y=0.5,
             font={"size": 25, "color": "black"},
             showarrow=False
