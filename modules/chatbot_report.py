@@ -13,6 +13,14 @@ from modules.tools import (
     get_economic_summary_text,
     get_owned_stock_summary_text
 )
+from reportlab.pdfgen import canvas
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.lib.pagesizes import A4
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.pdfbase.pdfmetrics import registerFontFamily
+from reportlab.lib.units import inch
 
 def get_user_id():
     return st.session_state.get("id")
@@ -332,21 +340,122 @@ def generate_portfolio_report(llm, user_info, asset_summary, economic_summary, s
     progress_bar.empty()
     return report
 
+def generate_pdf_report(report_data):
+    # 폰트 등록
+    pdfmetrics.registerFont(TTFont('NanumGothic', 'fonts/NanumGothic-Regular.ttf'))
+    pdfmetrics.registerFont(TTFont('NanumGothicBold', 'fonts/NanumGothic-Bold.ttf'))
+    registerFontFamily('NanumGothic', normal='NanumGothic', bold='NanumGothicBold')
+
+    # PDF 스타일 설정
+    styles = getSampleStyleSheet()
+    
+    # 기본 스타일
+    styles.add(ParagraphStyle(
+        name='Korean',
+        fontName='NanumGothic',
+        fontSize=10,
+        leading=16,
+        textColor='#333333'
+    ))
+    
+    # 제목 스타일
+    styles.add(ParagraphStyle(
+        name='KoreanTitle',
+        fontName='NanumGothicBold',
+        fontSize=24,
+        leading=30,
+        spaceAfter=30,
+        textColor='#1a237e',
+        alignment=1  # 중앙 정렬
+    ))
+    
+    # 섹션 제목 스타일
+    styles.add(ParagraphStyle(
+        name='KoreanSection',
+        fontName='NanumGothicBold',
+        fontSize=16,
+        leading=24,
+        spaceBefore=20,
+        spaceAfter=12,
+        textColor='#0d47a1',
+        borderWidth=1,
+        borderColor='#bbdefb',
+        borderPadding=5,
+        borderRadius=5,
+        backColor='#e3f2fd'
+    ))
+    
+    # 강조 텍스트 스타일
+    styles.add(ParagraphStyle(
+        name='KoreanEmphasis',
+        fontName='NanumGothicBold',
+        fontSize=11,
+        leading=18,
+        textColor='#d32f2f'
+    ))
+
+    # 임시 파일 생성
+    with tempfile.NamedTemporaryFile(delete=False, suffix='.pdf') as tmp_file:
+        doc = SimpleDocTemplate(
+            tmp_file.name,
+            pagesize=A4,
+            rightMargin=50,
+            leftMargin=50,
+            topMargin=50,
+            bottomMargin=50
+        )
+
+        # 문서 내용 생성
+        story = []
+        
+        # 제목 추가
+        title = Paragraph("투자 포트폴리오 분석 리포트", styles['KoreanTitle'])
+        story.append(title)
+        story.append(Spacer(1, 20))
+
+        # 각 섹션 추가
+        for section_key, section_data in report_data.items():
+            # 섹션 제목
+            section_title = Paragraph(section_data['title'], styles['KoreanSection'])
+            story.append(section_title)
+            
+            # 섹션 내용
+            content = section_data['content']
+            
+            # 내용을 문단으로 분리하고 스타일 적용
+            paragraphs = content.split('\n')
+            for para in paragraphs:
+                if para.strip():
+                    # 강조할 내용 (예: 숫자, 중요 키워드)에 스타일 적용
+                    if any(keyword in para for keyword in ['수익률', '위험', '목표', '전략']):
+                        p = Paragraph(para, styles['KoreanEmphasis'])
+                    else:
+                        p = Paragraph(para, styles['Korean'])
+                    story.append(p)
+                    story.append(Spacer(1, 8))
+
+            # 섹션 구분선
+            story.append(Spacer(1, 20))
+            story.append(Paragraph('<hr width="100%" color="#bbdefb"/>', styles['Korean']))
+            story.append(Spacer(1, 20))
+
+        # PDF 생성
+        doc.build(story)
+        return tmp_file.name
+
 def chatbot_page2():
     st.title("📊 투자 포트폴리오 분석 리포트")
-    
-    # 사이드바 추가
+
+    # 사이드바 개선
     with st.sidebar:
         st.title("🛠️ 보고서 설정")
         
-        # 보고서 초기화 및 재생성 버튼
         if st.button("🔄 보고서 초기화 및 재생성"):
-            # LLM 및 보고서 관련 모든 세션 상태 초기화
             for key in ["llm", "report_data"]:
                 if key in st.session_state:
                     del st.session_state[key]
             st.rerun()
-    
+
     init_llm()
     
     username = get_user_id()
@@ -362,10 +471,12 @@ def chatbot_page2():
     economic_summary = get_economic_summary_text()
     stock_summary = get_owned_stock_summary_text()
 
-    # 캐시된 보고서가 없거나 재생성이 요청된 경우에만 새로 생성
+    # 보고서 생성 프로세스 개선
     if "report_data" not in st.session_state:
-        # 보고서 생성 시작
-        with st.spinner("포트폴리오 분석 보고서를 생성하고 있습니다..."):
+        with st.spinner("🤖 AI가 포트폴리오를 분석하고 있습니다..."):
+            progress_text = "보고서 생성 중..."
+            progress_bar = st.progress(0)
+            
             report = generate_portfolio_report(
                 st.session_state["llm"],
                 user_info[0],
@@ -373,42 +484,46 @@ def chatbot_page2():
                 economic_summary,
                 stock_summary
             )
-            # 생성된 보고서 캐시
+            progress_bar.empty()
+            st.success("✅ 보고서 생성이 완료되었습니다!")
             st.session_state["report_data"] = report
     else:
         report = st.session_state["report_data"]
-    
-    # 모든 섹션을 순차적으로 표시
-    st.header("📋 요약")
-    with st.expander("요약 보기", expanded=False):
-        st.markdown(report["summary"]["content"])
-    
-    st.header("📈 마이데이터 분석")
-    with st.expander("마이데이터 분석 보기", expanded=False):
-        st.markdown(report["mydata"]["content"])
-    
-    st.header("💰 재무 건전성 평가")
-    with st.expander("재무 건전성 평가 보기", expanded=False):
-        st.markdown(report["financial_status"]["content"])
-    
-    st.header("👤 투자 성향 진단")
-    with st.expander("투자 성향 진단 보기", expanded=False):
-        st.markdown(report["investment_style"]["content"])
-    
-    st.header("📊 포트폴리오 전략")
-    with st.expander("포트폴리오 전략 보기", expanded=False):
-        st.markdown(report["portfolio"]["content"])
-    
-    st.header("⚠️ 위험관리 전략")
-    with st.expander("위험관리 전략 보기", expanded=False):
-        st.markdown(report["scenario"]["content"])
-    
-    st.header("📅 실행 로드맵")
-    with st.expander("실행 로드맵 보기", expanded=False):
-        st.markdown(report["action_guide"]["content"])
-    
-    st.header("📚 부록")
-    with st.expander("부록 보기", expanded=False):
-        st.markdown(report["appendix"]["content"])
 
- 
+    # 섹션 헤더 디자인 개선
+    sections = [
+        ("📋 요약", "summary", True),
+        ("📈 마이데이터 분석", "mydata", False),
+        ("💰 재무 건전성 평가", "financial_status", False),
+        ("👤 투자 성향 진단", "investment_style", False),
+        ("📊 포트폴리오 전략", "portfolio", False),
+        ("⚠️ 위험관리 전략", "scenario", False),
+        ("📅 실행 로드맵", "action_guide", False),
+        ("📚 부록", "appendix", False)
+    ]
+    
+    # 섹션별 내용 표시
+    for title, key, default_expanded in sections:
+        st.header(title)
+        with st.expander("내용 보기", expanded=default_expanded):
+            content = report[key]["content"]
+            # 마크다운 형식의 텍스트를 보기 좋게 표시
+            st.markdown(content)
+
+    # PDF 다운로드 버튼
+    col1, col2, col3 = st.columns([6, 3, 6])
+    with col2:
+        try:
+            # PDF 생성
+            pdf_path = generate_pdf_report(st.session_state["report_data"])
+            with open(pdf_path, "rb") as pdf_file:
+                pdf_bytes = pdf_file.read()
+            
+            st.download_button(
+                label="📥 PDF",
+                data=pdf_bytes,
+                file_name="portfolio_report.pdf",
+                mime="application/pdf"
+            )
+        except Exception as e:
+            st.error(f"PDF 생성 중 오류가 발생했습니다: {str(e)}")
