@@ -38,6 +38,9 @@ def generate_section_content(llm, user_info, asset_summary, etf_summary, economi
 자산 요약:
 {asset_summary}
 
+ETF 정보:
+{etf_summary}
+
 경제 지표:
 {economic_summary}
 
@@ -58,9 +61,9 @@ def generate_section_content(llm, user_info, asset_summary, etf_summary, economi
    - 투자 내역 분석: 종목별 수익률, 리스크 지표
 
 3. [재무 상태 평가]
-   - 자산 대비 부채 비율
-   - 유동성 지수
-   - 투자 효율성 분석
+   - 자산 대비 부채 비율 (LTV, DTI 등)
+   - 유동성 지수 (비상금 대비 지출 비율)
+   - 투자 효율성 분석 (수익률 vs. 변동성, 샤프지수 등)
 
 4. [투자 성향 진단]
    - 위험 감수 성향 (설문/행동 기반)
@@ -209,10 +212,9 @@ def chatbot_page2():
         # 보고서 초기화 및 재생성 버튼
         if st.button("🔄 보고서 초기화 및 재생성"):
             # LLM 및 보고서 관련 모든 세션 상태 초기화
-            for key in ["llm", "report_data", "openai", "macro_report"]:
+            for key in ["llm", "report_data"]:
                 if key in st.session_state:
                     del st.session_state[key]
-
             st.rerun()
     
     init_llm()
@@ -257,55 +259,53 @@ def chatbot_page2():
             st.session_state["report_data"] = report
     else:
         report = st.session_state["report_data"]
-
-    # 1. 요약 섹션
-    st.header("📋 종합 분석 보고서")
-    with st.expander("🔍 요약 섹션", expanded=True):
-        st.markdown(report["summary"]["content"])
-
-    # 2. 마이데이터 분석
-    st.header("📊 상세 분석")
-    with st.expander("📈 마이데이터 분석"):
-        st.markdown(report["mydata"]["content"])
-
-    # 3. 재무 상태 평가
-    with st.expander("💰 재무 상태 평가"):
-        st.markdown(report["financial_status"]["content"])
-
-    # 4. 투자 성향 진단
-    with st.expander("👤 투자 성향 진단"):
-        st.markdown(report["investment_style"]["content"])
-
-    # 5. 맞춤형 포트폴리오 제안
-    st.header("📈 투자 전략")
-    with st.expander("💼 맞춤형 포트폴리오 제안"):
-        st.markdown(report["portfolio"]["content"])
-
-    # 6. 시나리오 기반 전략
-    with st.expander("🎯 시나리오 기반 전략"):
-        st.markdown(report["scenario"]["content"])
-
-    # 7. 세부 실행 가이드
-    with st.expander("📋 세부 실행 가이드"):
-        st.markdown(report["action_guide"]["content"])
-
-    # 8. 부록
-    st.header("📚 참고 자료")
-    with st.expander("📖 부록"):
-        st.markdown(report["appendix"]["content"])
-
-    with macro:
-        if "macro_report" not in st.session_state:
-            with st.spinner("포트폴리오 분석 보고서를 생성하고 있습니다..."):
-                macro_report = generate_macroeconomic_content(
-                    st.session_state["openai"],
-                    economic_summary
-                )
-                # 생성된 보고서 캐시
-                st.session_state["macro_report"] = macro_report
-        else:
-            macro_report = st.session_state["macro_report"]
-
-        st.markdown(macro_report)
+    
+    # 보고서를 탭으로 구성
+    tab_summary, tab_analysis, tab_strategy = st.tabs(["📋 요약", "💰 분석", "⚠️ 전략"])
+    
+    with tab_summary:
+        # 요약 섹션
+        st.subheader("📊 요약")
+        with st.expander("요약 섹션", expanded=True):
+            st.markdown(report["summary"]["content"])
+            
+        st.subheader("📈 마이데이터 분석")
+        with st.expander("마이데이터 분석", expanded=False):
+            st.markdown(report["mydata"]["content"])
+    
+    with tab_analysis:
+        # 분석 관련 섹션
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            st.subheader("📊 재무 상태")
+            with st.expander("재무 상태 평가", expanded=False):
+                st.markdown(report["financial_status"]["content"])
+                
+            with st.expander("투자 성향 진단", expanded=False):
+                st.markdown(report["investment_style"]["content"])
+        
+        with col2:
+            st.subheader("📝 포트폴리오")
+            with st.expander("맞춤형 포트폴리오 제안", expanded=False):
+                st.markdown(report["portfolio"]["content"])
+    
+    with tab_strategy:
+        # 전략 관련 섹션
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            st.subheader("🎯 시나리오 전략")
+            with st.expander("시나리오 기반 전략", expanded=False):
+                st.markdown(report["scenario"]["content"])
+        
+        with col2:
+            st.subheader("🛡️ 실행 가이드")
+            with st.expander("세부 실행 가이드", expanded=False):
+                st.markdown(report["action_guide"]["content"])
+        
+        st.subheader("📚 부록")
+        with st.expander("부록", expanded=False):
+            st.markdown(report["appendix"]["content"])
 
  
