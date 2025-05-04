@@ -17,7 +17,7 @@ from reportlab.pdfgen import canvas
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.lib.pagesizes import A4
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, PageBreak
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.pdfbase.pdfmetrics import registerFontFamily
 from reportlab.lib.units import inch
@@ -354,81 +354,154 @@ def generate_pdf_report(report_data):
         name='Korean',
         fontName='NanumGothic',
         fontSize=10,
-        leading=16,
-        textColor='#333333'
-    ))
-    
-    # 제목 스타일
-    styles.add(ParagraphStyle(
-        name='KoreanTitle',
-        fontName='NanumGothicBold',
-        fontSize=24,
-        leading=30,
-        spaceAfter=30,
-        textColor='#1a237e',
-        alignment=1  # 중앙 정렬
-    ))
-    
-    # 섹션 제목 스타일
-    styles.add(ParagraphStyle(
-        name='KoreanSection',
-        fontName='NanumGothicBold',
-        fontSize=16,
-        leading=24,
-        spaceBefore=20,
-        spaceAfter=12,
-        textColor='#0d47a1',
-        borderWidth=1,
-        borderColor='#bbdefb',
-        borderPadding=5,
-        borderRadius=5,
-        backColor='#e3f2fd'
-    ))
-    
-    # 강조 텍스트 스타일
-    styles.add(ParagraphStyle(
-        name='KoreanEmphasis',
-        fontName='NanumGothicBold',
-        fontSize=11,
         leading=18,
-        textColor='#d32f2f'
+        textColor='#2c3e50',
+        spaceBefore=8,
+        spaceAfter=8
     ))
+    
+    # 커버 페이지 스타일
+    styles.add(ParagraphStyle(
+        name='CoverTitle',
+        fontName='NanumGothicBold',
+        fontSize=32,
+        leading=40,
+        textColor='#1a237e',
+        alignment=1,
+        spaceAfter=30
+    ))
+    
+    styles.add(ParagraphStyle(
+        name='CoverSubtitle',
+        fontName='NanumGothic',
+        fontSize=14,
+        leading=20,
+        textColor='#546e7a',
+        alignment=1,
+        spaceAfter=15
+    ))
+    
+    # 섹션별 스타일 정의
+    section_styles = {
+        'summary': {
+            'color': '#1a237e',
+            'bg_color': '#e8eaf6',
+            'icon': '📋'
+        },
+        'mydata': {
+            'color': '#0d47a1',
+            'bg_color': '#e3f2fd',
+            'icon': '📈'
+        },
+        'financial_status': {
+            'color': '#00695c',
+            'bg_color': '#e0f2f1',
+            'icon': '💰'
+        },
+        'investment_style': {
+            'color': '#4a148c',
+            'bg_color': '#ede7f6',
+            'icon': '👤'
+        },
+        'portfolio': {
+            'color': '#1b5e20',
+            'bg_color': '#e8f5e9',
+            'icon': '📊'
+        },
+        'scenario': {
+            'color': '#b71c1c',
+            'bg_color': '#ffebee',
+            'icon': '⚠️'
+        },
+        'action_guide': {
+            'color': '#e65100',
+            'bg_color': '#fff3e0',
+            'icon': '📅'
+        },
+        'appendix': {
+            'color': '#37474f',
+            'bg_color': '#eceff1',
+            'icon': '📚'
+        }
+    }
 
     # 임시 파일 생성
     with tempfile.NamedTemporaryFile(delete=False, suffix='.pdf') as tmp_file:
         doc = SimpleDocTemplate(
             tmp_file.name,
             pagesize=A4,
-            rightMargin=50,
-            leftMargin=50,
-            topMargin=50,
-            bottomMargin=50
+            rightMargin=40,
+            leftMargin=40,
+            topMargin=40,
+            bottomMargin=40
         )
 
         # 문서 내용 생성
         story = []
         
-        # 제목 추가
-        title = Paragraph("투자 포트폴리오 분석 리포트", styles['KoreanTitle'])
+        # 커버 페이지 추가
+        story.append(Spacer(1, 100))
+        
+        # 로고 또는 제목
+        title = Paragraph("투자 포트폴리오 분석 리포트", styles['CoverTitle'])
         story.append(title)
-        story.append(Spacer(1, 20))
-
+        
+        # 고객 정보 (로그인 ID 사용)
+        customer_info = Paragraph(
+            f'<para alignment="center" fontSize="14" textColor="#546e7a">ID: {get_user_id()}</para>',
+            styles['CoverSubtitle']
+        )
+        story.append(customer_info)
+        
+        # 생성일
+        from datetime import datetime
+        date_info = Paragraph(
+            f'<para alignment="center" fontSize="14" textColor="#546e7a">작성일: {datetime.now().strftime("%Y.%m.%d")}</para>',
+            styles['CoverSubtitle']
+        )
+        story.append(date_info)
+        
+        # 회사명
+        company_info = Paragraph(
+            '<para alignment="center" fontSize="14" textColor="#546e7a">Asset Management Dashboard</para>',
+            styles['CoverSubtitle']
+        )
+        story.append(company_info)
+        
+        story.append(Spacer(1, 100))
+        
+        # 페이지 나누기
+        story.append(PageBreak())
+        
         # 각 섹션 추가
         for section_key, section_data in report_data.items():
-            # 섹션 제목
-            section_title = Paragraph(section_data['title'], styles['KoreanSection'])
-            story.append(section_title)
+            style = section_styles.get(section_key, section_styles['appendix'])
+            
+            # 섹션 헤더 (아이콘 + 제목)
+            header_text = f'<para alignment="left" fontSize="14" textColor="{style["color"]}" bgcolor="{style["bg_color"]}">{style["icon"]} {section_data["title"]}</para>'
+            section_header = Paragraph(header_text, styles['Korean'])
+            story.append(section_header)
+            story.append(Spacer(1, 15))
             
             # 섹션 내용
             content = section_data['content']
             
+            # 마크다운 문법을 HTML로 변환
+            parts = content.split('**')
+            html_content = ''
+            for i, part in enumerate(parts):
+                if i % 2 == 0:
+                    html_content += part
+                else:
+                    html_content += f'<b>{part}</b>'
+            
             # 내용을 문단으로 분리하고 스타일 적용
-            paragraphs = content.split('\n')
+            paragraphs = html_content.split('\n')
             for para in paragraphs:
                 if para.strip():
-                    # 강조할 내용 (예: 숫자, 중요 키워드)에 스타일 적용
+                    # 숫자나 중요 키워드 강조
                     if any(keyword in para for keyword in ['수익률', '위험', '목표', '전략']):
-                        p = Paragraph(para, styles['KoreanEmphasis'])
+                        p = Paragraph(f'<para textColor="{style["color"]}">{para}</para>', styles['Korean'])
                     else:
                         p = Paragraph(para, styles['Korean'])
                     story.append(p)
@@ -436,8 +509,15 @@ def generate_pdf_report(report_data):
 
             # 섹션 구분선
             story.append(Spacer(1, 20))
-            story.append(Paragraph('<hr width="100%" color="#bbdefb"/>', styles['Korean']))
+            story.append(Paragraph(f'<hr width="100%" color="{style["color"]}"/>', styles['Korean']))
             story.append(Spacer(1, 20))
+
+        # 푸터 추가
+        footer = Paragraph(
+            '<para alignment="center" fontSize="8" textColor="#7f8c8d">© 2024 Asset Management Dashboard. All rights reserved.</para>',
+            styles['Korean']
+        )
+        story.append(footer)
 
         # PDF 생성
         doc.build(story)
@@ -522,7 +602,7 @@ def chatbot_page2():
             st.download_button(
                 label="📥 PDF",
                 data=pdf_bytes,
-                file_name="portfolio_report.pdf",
+                file_name="개인화된 자산분석석 포트폴리오 분석 리포트.pdf",
                 mime="application/pdf"
             )
         except Exception as e:
