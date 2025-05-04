@@ -213,7 +213,6 @@ def chatbot_page2():
         if st.button("🔄 보고서 초기화 및 재생성"):
             # LLM 및 보고서 관련 모든 세션 상태 초기화
             for key in ["llm", "report_data"]:
-            for key in ["llm", "report_data"]:
                 if key in st.session_state:
                     del st.session_state[key]
             st.rerun()
