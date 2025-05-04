@@ -27,8 +27,6 @@ def init_llm():
         )
         st.session_state["llm"] = llm
 
-
-
 def generate_section_content(llm, user_info, asset_summary, etf_summary, economic_summary, stock_summary):
     prompt = PromptTemplate.from_template("""
 당신은 전문적인 포트폴리오 분석가입니다.
@@ -40,33 +38,67 @@ def generate_section_content(llm, user_info, asset_summary, etf_summary, economi
 자산 요약:
 {asset_summary}
 
-ETF 정보:
-{etf_summary}
-
 경제 지표:
 {economic_summary}
 
 보유 주식 정보:
 {stock_summary}
 
-다음 섹션별로 분석을 제공해주세요. 각 섹션은 [섹션명]으로 시작하고 [섹션 끝]으로 끝나야 합니다:
+다음 섹션별로 분석을 제공해주세요. 각 섹션은 [섹션명]으로 시작해야 합니다:
 
-1. [고객 기본 정보 요약] - 고객의 기본 정보와 투자 프로필 요약
-2. [투자 성향 분석] - 고객의 투자 성향과 위험 선호도 분석
-3. [자산 구성 현황] - 현재 자산 포트폴리오 구성 분석
-4. [수익률 및 성과 분석] - 투자 성과와 수익률 분석
-5. [리스크 분석] - 포트폴리오의 위험 요소 분석
-6. [현금 흐름 분석] - 현금 흐름과 유동성 분석
-7. [세제 및 절세 전략] - 세금 최적화 전략
-8. [투자 전략 제안] - 향후 투자 방향 제안
-9. [위험 시나리오 대응 전략] - 시장 위험에 대한 대응 전략
-10. [개인화된 목표 추적 및 다음 단계] - 투자 목표 달성 현황과 향후 계획
+1. [요약 섹션]
+   - 고객 기본 정보 (나이, 직업, 자산 수준 요약)
+   - 투자 성향 요약
+   - 핵심 리포트 요약 (자산 진단 + 전략 요약)
 
-분석 시 다음 사항을 고려해주세요:
-1. 객관적인 데이터에 기반한 분석
-2. 고객의 투자 성향과 목표 반영
-3. 실행 가능한 구체적인 제안
-4. 위험과 기회요인 모두 고려
+2. [마이데이터 분석]
+   - 총자산 개요: 예금, 투자, 부동산, 연금, 보험 등 항목별 총액
+   - 부채 구조: 대출 금액, 이자율, 상환 계획
+   - 소득/지출 분석: 월간/분기별 현금흐름, 소비 패턴
+   - 투자 내역 분석: 종목별 수익률, 리스크 지표
+
+3. [재무 상태 평가]
+   - 자산 대비 부채 비율
+   - 유동성 지수
+   - 투자 효율성 분석
+
+4. [투자 성향 진단]
+   - 위험 감수 성향 (설문/행동 기반)
+   - 투자 스타일 (공격형 / 중립형 / 안정형)
+   - 선호 자산군 (주식, 채권, 현금 등)
+
+5. [맞춤형 포트폴리오 제안]
+   - 현재 자산 배분 분석: 실제 vs. 권장 비중
+   - 권장 포트폴리오 제시: 투자 성향 기반 최적 배분안
+   - 리밸런싱 전략: 현재 비중에서 필요한 조정안
+
+6. [시나리오 기반 전략]
+   - 경제 환경 변화 대응 전략 (침체, 금리 상승 등)
+   - 자산 증감 시나리오별 리스크 관리 방안
+
+7. [세부 실행 가이드]
+   - 단기 전략 (3~6개월): 소비 구조 개선, 투자 구조 조정
+   - 중기 전략 (1~3년): 투자 확대, 보험/연금 최적화
+   - 장기 전략 (3년 이상): 은퇴 준비, 자산 승계 전략
+
+8. [부록]
+   - 데이터 수집 출처 및 기준
+   - 용어 해설 (샤프지수, 베타 등 어려운 경제 용어)
+   - 금융상품 비교표 (수수료, 수익률, 리스크 등)
+
+아래 자산 데이터를 바탕으로 고객의 자산 상태를 분석하고, 투자 성향과 목표를 반영한 실행 가능한 맞춤형 포트폴리오 전략을 제안해주세요.
+
+분석 시 다음 사항을 반드시 고려하세요:
+
+1. 객관적인 수치와 데이터 기반 분석
+
+2. 고객의 위험 성향과 재무 목표 반영
+
+3. 실행 가능한 구체적이고 현실적인 제안 포함
+
+4. 주요 위험 요인과 기회 요인 모두 명시
+
+5. 투자 성향과 현재 상태의 괴리 조정
 
 응답은 한국어로 작성해주세요.
 """)
@@ -83,53 +115,63 @@ ETF 정보:
     
     # 응답을 섹션별로 파싱
     sections = {
-        "basic_info": "고객 기본 정보 요약",
-        "investment_style": "투자 성향 분석",
-        "asset_composition": "자산 구성 현황",
-        "performance": "수익률 및 성과 분석",
-        "risk_analysis": "리스크 분석",
-        "cash_flow": "현금 흐름 분석",
-        "tax_strategy": "세제 및 절세 전략",
-        "investment_strategy": "투자 전략 제안",
-        "risk_scenario": "위험 시나리오 대응 전략",
-        "goals_tracking": "개인화된 목표 추적 및 다음 단계"
+        "summary": "요약 섹션",
+        "mydata": "마이데이터 분석",
+        "financial_status": "재무 상태 평가",
+        "investment_style": "투자 성향 진단",
+        "portfolio": "맞춤형 포트폴리오 제안",
+        "scenario": "시나리오 기반 전략",
+        "action_guide": "세부 실행 가이드",
+        "appendix": "부록"
     }
     
     parsed_sections = {}
-    for section_key, section_title in sections.items():
-        start = response.find(f"[{section_title}]")
-        if start != -1:
-            end = response.find("[섹션 끝]", start)
-            if end != -1:
-                content = response[start + len(section_title) + 2:end].strip()
-                parsed_sections[section_key] = content
-            else:
-                # 다음 섹션의 시작을 찾아서 자르기
-                next_section_start = float('inf')
-                for next_title in sections.values():
-                    next_start = response.find(f"[{next_title}]", start + len(section_title))
-                    if next_start != -1 and next_start < next_section_start:
-                        next_section_start = next_start
-                if next_section_start != float('inf'):
-                    content = response[start + len(section_title) + 2:next_section_start].strip()
-                else:
-                    content = response[start + len(section_title) + 2:].strip()
-                parsed_sections[section_key] = content
+    current_section = None
+    current_content = []
+    
+    # 응답을 줄 단위로 분석
+    lines = response.split('\n')
+    for line in lines:
+        line = line.strip()
+        if not line:
+            continue
+            
+        # 새로운 섹션의 시작인지 확인
+        for section_key, section_title in sections.items():
+            if f"[{section_title}]" in line:
+                # 이전 섹션의 내용을 저장
+                if current_section and current_content:
+                    parsed_sections[current_section] = '\n'.join(current_content)
+                # 새로운 섹션 시작
+                current_section = section_key
+                current_content = []
+                break
+        else:
+            # 현재 섹션이 있다면 내용 추가
+            if current_section:
+                current_content.append(line)
+    
+    # 마지막 섹션의 내용 저장
+    if current_section and current_content:
+        parsed_sections[current_section] = '\n'.join(current_content)
+    
+    # 누락된 섹션에 대한 기본값 설정
+    for section_key in sections.keys():
+        if section_key not in parsed_sections:
+            parsed_sections[section_key] = "이 섹션의 내용을 생성하는 중 문제가 발생했습니다. 보고서를 다시 생성해주세요."
     
     return parsed_sections
 
 def generate_portfolio_report(llm, user_info, asset_summary, etf_summary, economic_summary, stock_summary):
     sections = {
-        "basic_info": "고객 기본 정보 요약",
-        "investment_style": "투자 성향 분석",
-        "asset_composition": "자산 구성 현황",
-        "performance": "수익률 및 성과 분석",
-        "risk_analysis": "리스크 분석",
-        "cash_flow": "현금 흐름 분석",
-        "tax_strategy": "세제 및 절세 전략",
-        "investment_strategy": "투자 전략 제안",
-        "risk_scenario": "위험 시나리오 대응 전략",
-        "goals_tracking": "개인화된 목표 추적 및 다음 단계"
+        "summary": "요약 섹션",
+        "mydata": "마이데이터 분석",
+        "financial_status": "재무 상태 평가",
+        "investment_style": "투자 성향 진단",
+        "portfolio": "맞춤형 포트폴리오 제안",
+        "scenario": "시나리오 기반 전략",
+        "action_guide": "세부 실행 가이드",
+        "appendix": "부록"
     }
     
     progress_text = "보고서 생성 중..."
@@ -156,7 +198,6 @@ def generate_portfolio_report(llm, user_info, asset_summary, etf_summary, econom
     
     progress_bar.empty()
     return report
-
 
 def chatbot_page2():
     st.title("📊 투자 포트폴리오 분석 리포트")
@@ -215,59 +256,41 @@ def chatbot_page2():
             st.session_state["report_data"] = report
     else:
         report = st.session_state["report_data"]
-    
-    # 보고서를 탭으로 구성
-    tab_basic, tab_investment, tab_risk = st.tabs(["📋 기본 정보", "💰 투자 분석", "⚠️ 리스크 관리"])
-    
-    with tab_basic:
-        # 기본 정보 관련 섹션
-        st.subheader("🧑 고객 정보")
-        with st.expander("고객 기본 정보 요약", expanded=False):
-            st.markdown(report["basic_info"]["content"])
-            
-        st.subheader("📈 자산 현황")
-        with st.expander("자산 구성 현황", expanded=False):
-            st.markdown(report["asset_composition"]["content"])
-            
-        with st.expander("투자 성향 분석", expanded=False):
-            st.markdown(report["investment_style"]["content"])
-    
-    with tab_investment:
-        # 투자 분석 관련 섹션
-        col1, col2 = st.columns(2)
-        
-        with col1:
-            st.subheader("📊 성과 분석")
-            with st.expander("수익률 및 성과 분석", expanded=False):
-                st.markdown(report["performance"]["content"])
-                
-            with st.expander("현금 흐름 분석", expanded=False):
-                st.markdown(report["cash_flow"]["content"])
-        
-        with col2:
-            st.subheader("📝 전략")
-            with st.expander("투자 전략 제안", expanded=False):
-                st.markdown(report["investment_strategy"]["content"])
-                
-            with st.expander("세제 및 절세 전략", expanded=False):
-                st.markdown(report["tax_strategy"]["content"])
-    
-    with tab_risk:
-        # 리스크 관련 섹션
-        col1, col2 = st.columns(2)
-        
-        with col1:
-            st.subheader("🎯 리스크 분석")
-            with st.expander("리스크 분석", expanded=False):
-                st.markdown(report["risk_analysis"]["content"])
-        
-        with col2:
-            st.subheader("🛡️ 대응 전략")
-            with st.expander("위험 시나리오 대응 전략", expanded=False):
-                st.markdown(report["risk_scenario"]["content"])
-        
-        st.subheader("🎆 목표 관리")
-        with st.expander("개인화된 목표 추적 및 다음 단계", expanded=False):
-            st.markdown(report["goals_tracking"]["content"])
+
+    # 1. 요약 섹션
+    st.header("📋 종합 분석 보고서")
+    with st.expander("🔍 요약 섹션", expanded=True):
+        st.markdown(report["summary"]["content"])
+
+    # 2. 마이데이터 분석
+    st.header("📊 상세 분석")
+    with st.expander("📈 마이데이터 분석"):
+        st.markdown(report["mydata"]["content"])
+
+    # 3. 재무 상태 평가
+    with st.expander("💰 재무 상태 평가"):
+        st.markdown(report["financial_status"]["content"])
+
+    # 4. 투자 성향 진단
+    with st.expander("👤 투자 성향 진단"):
+        st.markdown(report["investment_style"]["content"])
+
+    # 5. 맞춤형 포트폴리오 제안
+    st.header("📈 투자 전략")
+    with st.expander("💼 맞춤형 포트폴리오 제안"):
+        st.markdown(report["portfolio"]["content"])
+
+    # 6. 시나리오 기반 전략
+    with st.expander("🎯 시나리오 기반 전략"):
+        st.markdown(report["scenario"]["content"])
+
+    # 7. 세부 실행 가이드
+    with st.expander("📋 세부 실행 가이드"):
+        st.markdown(report["action_guide"]["content"])
+
+    # 8. 부록
+    st.header("📚 참고 자료")
+    with st.expander("📖 부록"):
+        st.markdown(report["appendix"]["content"])
 
  
