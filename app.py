@@ -6,6 +6,7 @@ from modules.user_manager import UserManager
 from modules.account_manager import AccountManager
 from modules.visualization import Visualization
 from modules.etf import ETFAnalyzer
+from modules.etf_kr import ETFAnalyzer as ETFAnalyzerKR
 from modules.crawling_article import crawlingArticle
 from modules.collect_economic_data import collectEconomicData
 from modules.chatbot_prototype import chatbot_page
@@ -27,8 +28,10 @@ class App():
             st.session_state["account_df"] = None
         if "cash" not in st.session_state:
             st.session_state["cash"] = None
-        if "etf_loaded" not in st.session_state:
-            st.session_state["etf_loaded"] = False
+        if "etf_us_loaded" not in st.session_state:  # 미국 ETF 데이터 로드 상태
+            st.session_state["etf_us_loaded"] = False
+        if "etf_kr_loaded" not in st.session_state:  # 한국 ETF 데이터 로드 상태
+            st.session_state["etf_kr_loaded"] = False
         if "article_loaded" not in st.session_state:
             st.session_state["article_loaded"] = False
 
@@ -134,7 +137,7 @@ class App():
                           f"{int(st.session_state['account_df'].loc[0, '평가손익합계금액']):,}원  |  " \
                           f"{round(profit / (total - profit) * 100, 2):,.2f}%")
 
-                # ---------------- 메인 페이지 시각화 ----------------#
+                # 통합 자산 도넛 차트 시각화
                 visualization = Visualization(st.session_state["stock_df"],
                                               st.session_state["account_df"],
                                               st.session_state["cash"])
@@ -147,14 +150,52 @@ class App():
 
         # ETF 분석 페이지 (트리맵 적용)
         if st.session_state["page"] == "etf_analysis":
-            analyzer = ETFAnalyzer()  # 인스턴스 생성
-            if not st.session_state["etf_loaded"]:
-                with st.spinner("ETF 데이터를 수집하는 중... ⏳"):            
-                    analyzer.save_etf_data()  # 인스턴스에서 메서드 호출
-                st.session_state["etf_loaded"] = True  # 데이터 로드 완료 상태 변경
-
-            # 트리맵으로 변경
-            analyzer.visualize_etf()  # 트리맵 시각화
+            st.title("📊 ETF 섹터 분석")
+            
+            # 스타일 적용
+            st.markdown("""
+                <style>
+                    .stTabs {
+                        background-color: white;
+                        padding: 20px;
+                        border-radius: 10px;
+                        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                    }
+                    .stTab {
+                        background-color: #f8f9fa;
+                        border-radius: 5px;
+                        margin: 5px;
+                        padding: 10px;
+                    }
+                    .stTab:hover {
+                        background-color: #e9ecef;
+                    }
+                    div[data-baseweb="tab-list"] {
+                        gap: 10px;
+                    }
+                </style>
+            """, unsafe_allow_html=True)
+            
+            # 탭 생성
+            tab_us, tab_kr = st.tabs(["🌎 미국 S&P500", "🌏 한국 KOSPI"])
+            
+            with tab_us:
+                analyzer = ETFAnalyzer()  # 미국 ETF 분석기
+                if not st.session_state.get("etf_us_loaded"):
+                    with st.spinner("미국 ETF 데이터를 수집하는 중... ⏳"):            
+                        analyzer.save_etf_data()
+                    st.session_state["etf_us_loaded"] = True
+                    st.success("미국 ETF 데이터 로드 완료!")
+                analyzer.visualize_etf()
+            
+            with tab_kr:
+                analyzer_kr = ETFAnalyzerKR()  # 한국 ETF 분석기
+                if not st.session_state.get("etf_kr_loaded"):
+                    with st.spinner("한국 ETF 데이터를 수집하는 중... ⏳"):            
+                        analyzer_kr.save_etf_data()
+                    st.session_state["etf_kr_loaded"] = True
+                    st.success("한국 ETF 데이터 로드 완료!")
+                analyzer_kr.visualize_etf()
 
         # 경제 뉴스 페이지
         if st.session_state["page"] == "economic_news":

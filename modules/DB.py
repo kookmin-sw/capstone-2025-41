@@ -132,3 +132,16 @@ class SupabaseDB:
         
         response = self.client.table("users").update(updated_data).eq("username", username).execute()
         return response
+
+    def insert_etf_data_kr_json(self, etf_data):
+        """한국 ETF 데이터를 Supabase에 JSON 형태로 저장"""
+        data_to_store = [{"etf_name": name, "data": json.dumps(data)} for name, data in etf_data.items()]
+        print("📌 Supabase에 업로드할 데이터:", data_to_store)
+
+        response = self.client.table("etf_data_kr_json").upsert(data_to_store).execute()
+        print("📌 Supabase 응답:", response)
+
+    def get_etf_data_kr_json(self):
+        """Supabase에서 한국 ETF JSON 데이터를 불러오기"""
+        response = self.client.table("etf_data_kr_json").select("*").execute()
+        return {row["etf_name"]: json.loads(row["data"]) for row in response.data} if response.data else {}

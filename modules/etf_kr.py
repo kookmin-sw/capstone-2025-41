@@ -8,37 +8,33 @@ from datetime import timedelta
 import datetime
 from modules.DB import SupabaseDB
 
-# ETF 리스트 (KODEX 미국 S&P500 섹터별 ETF 종목코드 사용)
+# ETF 리스트 (KODEX 한국 섹터별 ETF 종목코드 사용)
 ETF_LIST = {
-    'Kodex 미국S&P500테크놀로지': '463680',
-    'Kodex 미국S&P500금융': '453650',
-    'Kodex 미국S&P500커뮤니케이션': '463690',
-    'Kodex 미국S&P500경기소비재': '453660',
-    'Kodex 미국S&P500산업재(합성)': '200030',
-    'Kodex 미국S&P500헬스케어': '453640',
-    'Kodex 미국S&P500에너지(합성)': '218420',
-    'Kodex 미국S&P500필수소비재': '453630',
-    #'Kodex 미국S&P500부동산': '',
-    #'Kodex 미국S&P500소재': '',
-    'Kodex 미국S&P500유틸리티': '463640'
+    'KODEX 은행': '091170',
+    'KODEX 에너지화학': '117460',
+    'KODEX IT': '266370',
+    'KODEX 자동차': '091180',
+    'KODEX 철강': '117680',
+    'KODEX 반도체': '091160',
+    'KODEX 건설': '117700',
+    'KODEX 미디어통신': '266360',
+    'KODEX 바이오': '244580',
+    'KODEX 헬스케어': '266420'
 }
 
 # 섹터 이름 변환 (짧게 표시)
 sector_short_names = {
-    "Kodex 미국S&P500테크놀로지": "테크놀로지",
-    "Kodex 미국S&P500금융": "금융",
-    "Kodex 미국S&P500헬스케어": "헬스케어",
-    "Kodex 미국S&P500경기소비재": "경기소비재",
-    "Kodex 미국S&P500커뮤니케이션": "커뮤니케이션",
-    "Kodex 미국S&P500산업재(합성)": "산업재",
-    "Kodex 미국S&P500필수소비재": "필수소비재",
-    "Kodex 미국S&P500에너지(합성)": "에너지",
-    #"Kodex 미국S&P500부동산": "부동산",
-    "Kodex 미국S&P500유틸리티": "유틸리티",
-    #"Kodex 미국S&P500소재": "소재"
+    "KODEX 은행": "은행",
+    "KODEX 에너지화학": "에너지화학",
+    "KODEX IT": "IT",
+    "KODEX 자동차": "자동차",
+    "KODEX 철강": "철강",
+    "KODEX 반도체": "반도체",
+    "KODEX 건설": "건설",
+    "KODEX 미디어통신": "미디어통신",
+    "KODEX 바이오": "바이오",
+    "KODEX 헬스케어": "헬스케어"
 }
-
-
 
 class ETFAnalyzer:
     
@@ -51,6 +47,7 @@ class ETFAnalyzer:
         etf_data = {}
 
         for name, code in ETF_LIST.items():
+            print(f"\n=== {name} 데이터 수집 시작 ===")
             df = fdr.DataReader(code)
             
             print(f"📌 {name}({code})에서 가져온 데이터 (상위 5개):")
@@ -64,29 +61,28 @@ class ETFAnalyzer:
             df.index = df.index.strftime('%Y-%m-%d')  # Timestamp를를 문자열 변환
 
             etf_data[name] = df[['Close']].to_dict(orient='index')  # JSON 저장
+            print(f"✅ {name}({code}) 데이터 저장 완료. 저장된 데이터 개수: {len(etf_data[name])}")
+            print(f"마지막 날짜의 종가: {list(etf_data[name].values())[-1]['Close']}")
 
-            print(f"{name}({code}) 데이터 저장 완료. 저장된 데이터 개수: {len(etf_data[name])}")  # 디버깅/ 저장된 데이터 개수 확인
-
-        print("📌 Supabase에 저장할 데이터 (최종):", etf_data)  # 🔍 디버깅/ Supabase에 저장할 전체 데이터 확인
+        print("\n📌 Supabase에 저장할 데이터의 ETF 목록:", list(etf_data.keys()))
+        print(f"📌 전체 ETF 개수: {len(etf_data)}")
 
         if not etf_data:
             print("📌 저장할 ETF 데이터가 없습니다.")
             return
 
-        self.db.insert_etf_data_json(etf_data)
+        self.db.insert_etf_data_kr_json(etf_data)
         print("ETF 데이터가 Supabase에 JSON 형태로 저장되었습니다.")
-
 
     def load_etf_data(self):
         """Supabase에서 JSON 형태의 ETF 데이터를 불러옴"""
-        etf_data = self.db.get_etf_data_json()
+        etf_data = self.db.get_etf_data_kr_json()
 
         if not etf_data:
             print("📌 Supabase에 ETF 데이터가 없습니다.")
             return {}
 
         return etf_data
- 
 
     @staticmethod
     def visualize_etf():
@@ -108,7 +104,7 @@ class ETFAnalyzer:
                 div[data-testid="stDateInput"] {
                     background-color: white;
                     padding: 10px;
-                    border-border-radius: 5px;
+                    border-radius: 5px;
                     margin-bottom: 10px;
                 }
             </style>
@@ -122,7 +118,7 @@ class ETFAnalyzer:
                 "원하는 ETF를 선택하세요 (다중 선택 가능)", 
                 list(sector_short_names.values()),
                 default=list(sector_short_names.values()),
-                key="us_etf_select"
+                key="kr_etf_select"
             )
 
             # 기간 선택 섹션
@@ -134,7 +130,7 @@ class ETFAnalyzer:
                     "기간 선택 방식",
                     ["설정된 기간", "직접 선택"],
                     horizontal=True,
-                    key="us_period_mode"
+                    key="kr_period_mode"
                 )
 
             with col2:
@@ -150,8 +146,8 @@ class ETFAnalyzer:
                     selected_period = st.selectbox(
                         "적용 기간",
                         list(period_options.keys()),
-                        index=1,
-                        key="us_period_select"
+                        index=1,  # 1주 선택을 위해 인덱스를 1로 변경
+                        key="kr_period_select"
                     )
                     days_ago = period_options[selected_period]
                     end_date = datetime.datetime.today()
@@ -160,7 +156,7 @@ class ETFAnalyzer:
                     date_range = st.date_input(
                         "조회할 기간 선택",
                         [datetime.date.today() - timedelta(days=30), datetime.date.today()],
-                        key="us_date_range"
+                        key="kr_date_range"
                     )
                     if len(date_range) == 2:
                         start_date, end_date = date_range
@@ -172,38 +168,49 @@ class ETFAnalyzer:
             # 선택된 기간 표시
             st.info(f"📊 분석 기간: {start_date.strftime('%Y-%m-%d')} ~ {end_date.strftime('%Y-%m-%d')}")
 
-        # ETF 데이터 로드
         analyzer = ETFAnalyzer()  # 인스턴스 생성
         etf_data = analyzer.load_etf_data()  # Supabase에서 데이터 불러오기
+        print("\n=== ETF 데이터 로드 결과 ===")
+        print("📌 불러온 ETF 목록:", list(etf_data.keys()))
+        print(f"📌 전체 ETF 개수: {len(etf_data)}")
 
         if not etf_data:
             st.warning("ETF 데이터가 없습니다. 먼저 데이터를 수집해주세요!")
             return
 
-        # 선택한 ETF만 필터링 (ETF가 실제 데이터에 존재하는 경우만)
-        etf_data_filtered = {}
+        # ETF 선택 기능 추가
         etf_short_to_full = {short: full for full, short in sector_short_names.items()}  # 역변환 딕셔너리
+        etf_full_to_short = {full: short for full, short in sector_short_names.items()}  # 변환용 딕셔너리
 
-        for short_name in selected_short_names:
-            full_name = etf_short_to_full.get(short_name)
-            if full_name and full_name in etf_data:
-                etf_data_filtered[short_name] = etf_data[full_name]
+        # 선택된 짧은 이름을 다시 원래 ETF 이름으로 변환
+        selected_etfs = [etf_short_to_full[short] for short in selected_short_names if short in etf_short_to_full]
+        print("\n=== 선택된 ETF 정보 ===")
+        print("📌 선택된 ETF 목록:", selected_etfs)
 
-        if not etf_data_filtered:
-            st.warning("선택한 ETF의 데이터가 없습니다.")
+        # ETF 데이터 로드
+        etf_data = analyzer.load_etf_data()
+        if not etf_data:
+            st.warning("ETF 데이터가 없습니다. 먼저 데이터를 수집해주세요!")
             return
 
-        # S&P500 섹터별 비중 데이터 (트리맵 크기)
+        # 선택한 ETF만 필터링
+        etf_data_filtered = {etf: etf_data[etf] for etf in selected_etfs if etf in etf_data and len(etf_data[etf]) > 0}
+        print("\n=== 필터링된 ETF 정보 ===")
+        print("📌 필터링된 ETF 목록:", list(etf_data_filtered.keys()))
+        print(f"📌 필터링된 ETF 개수: {len(etf_data_filtered)}")
+
+        # 한국 섹터별 비중 데이터 (2024년 3월 기준 KOSPI 업종별 시가총액 비중 기반)
         sector_weights = {
-            "테크놀로지": 30.12,
-            "금융": 14.44,
-            "헬스케어": 10.67,
-            "경기소비재": 10.87,
-            "커뮤니케이션": 9.73,
-            "산업재": 8.10,
-            "필수소비재": 6.5,
-            "에너지": 3.22,
-            "유틸리티": 2.29
+            "KODEX IT": 30.5,
+            "KODEX 반도체": 15.2,
+            "KODEX 은행": 10.8,
+            "KODEX 에너지화학": 9.7,
+            "KODEX 자동차": 8.5,
+            "KODEX 바이오": 7.3,
+            "KODEX 헬스케어": 6.8,
+            "KODEX 미디어통신": 5.2,
+            "KODEX 철강": 3.5,
+            "KODEX 건설": 2.5
         }
 
         labels, values, changes, text_labels = [], [], [], []
@@ -237,16 +244,20 @@ class ETFAnalyzer:
            
             change = round((latest_price - prev_price) / prev_price * 100, 2)
 
-            labels.append(sector)
+            labels.append(sector_short_names.get(sector, sector))
             values.append(sector_weights.get(sector, 1))
             changes.append(change)
-            text_labels.append(f"<b>{sector}</b><br>{change:.2f}%")
+            text_labels.append(f"<b>{sector_short_names.get(sector, sector)}</b><br>{change:.2f}%")
 
+        if not labels:
+            st.warning("선택한 기간에 데이터가 없습니다.")
+            return
 
+        # Treemap 생성
         fig = go.Figure(go.Treemap(
             labels=labels,
             parents=["" for _ in labels],
-            values=values,  #  트리맵 크기는 S&P500 섹터별 비중 사용
+            values=values,  #  트리맵 크기는 섹터별 비중 사용
             marker=dict(
                 colors=changes,  #  색상은 증감률 기준
                 colorscale=[  # 색상 범위 조정 (부드러운 블루-레드 계열)
@@ -269,7 +280,7 @@ class ETFAnalyzer:
             customdata=changes,  # customdata를 이용해 1일 수익률 전달
             textinfo="text",  # 트리맵 내부에는 증감률만 표시
             textfont=dict(size=18, family="Arial", color="black"),  #  글씨 크기 키우고 색상 변경
-             ))
+        ))
 
         fig.update_layout(
             width=900,
@@ -279,6 +290,4 @@ class ETFAnalyzer:
             plot_bgcolor="rgba(0,0,0,0)",
         )
 
-
         st.plotly_chart(fig)
-        
