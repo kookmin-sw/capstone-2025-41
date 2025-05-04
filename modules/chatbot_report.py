@@ -209,9 +209,10 @@ def chatbot_page2():
         # 보고서 초기화 및 재생성 버튼
         if st.button("🔄 보고서 초기화 및 재생성"):
             # LLM 및 보고서 관련 모든 세션 상태 초기화
-            for key in ["llm", "report_data"]:
+            for key in ["llm", "report_data", "openai", "macro_report"]:
                 if key in st.session_state:
                     del st.session_state[key]
+
             st.rerun()
     
     init_llm()
@@ -292,5 +293,19 @@ def chatbot_page2():
     st.header("📚 참고 자료")
     with st.expander("📖 부록"):
         st.markdown(report["appendix"]["content"])
+
+    with macro:
+        if "macro_report" not in st.session_state:
+            with st.spinner("포트폴리오 분석 보고서를 생성하고 있습니다..."):
+                macro_report = generate_macroeconomic_content(
+                    st.session_state["openai"],
+                    economic_summary
+                )
+                # 생성된 보고서 캐시
+                st.session_state["macro_report"] = macro_report
+        else:
+            macro_report = st.session_state["macro_report"]
+
+        st.markdown(macro_report)
 
  
