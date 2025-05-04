@@ -27,23 +27,85 @@ def init_llm():
         )
         st.session_state["llm"] = llm
 
-def generate_section_content(llm, user_info, asset_summary, etf_summary, economic_summary, stock_summary):
+def generate_section_content(llm, user_info, asset_summary, economic_summary, stock_summary):
+    # user_info에서 필요한 데이터 추출
+    if isinstance(user_info, str):
+        try:
+            user_info = json.loads(user_info)
+        except json.JSONDecodeError:
+            user_info = {}
+    
+    financial = user_info.get("financial", {})
+    investment_profile = user_info.get("investment_profile", {})
+    investment_details = investment_profile.get("details", {})
+
     prompt = PromptTemplate.from_template("""
-당신은 25년 경력의 자산관리 전문가이자 포트폴리오 매니저입니다.
+당신은 15년 경력의 자산관리 전문가이자 포트폴리오 매니저입니다.
 당신의 주요 역할은 고객의 재무 상태를 종합적으로 분석하고, 맞춤형 자산관리 전략을 제시하는 것입니다.
 
-[입력 데이터]
-1. 고객 기본 정보:
-{user_info}
+[고객 기본 정보]
+- 연령: {age}세
+- 직업: {occupation}
+- 가족구성: {family_structure}
+- 은퇴 희망 연령: {retirement_age}세
+- 거주형태: {housing_type}
 
-2. 자산 포트폴리오:
-{asset_summary}
+[투자 성향 정보]
+- 투자 성향: {investment_style}
+- 투자 경험: {investment_experience}
+- 투자 기간: {investment_horizon}
+- 감내 가능 위험: {risk_tolerance}
+- 기대 수익률: {expected_return}
+- 투자 우선순위: {investment_priority}
+- 금융지식 수준: {financial_knowledge}
 
-3. 경제 환경 분석:
+[투자 목표]
+- 단기 목표: {short_term_goal}
+- 중기 목표: {mid_term_goal}
+- 장기 목표: {long_term_goal}
+
+[현금 흐름]
+1. 수입/지출
+   - 월 수입: {monthly_income:,}원
+   - 고정 지출: {fixed_expenses:,}원
+   - 변동 지출: {variable_expenses:,}원
+   - 월 저축액: {monthly_savings:,}원
+
+2. 부채 현황
+   - 총 부채: {total_debt:,}원
+   - 월 상환액: {monthly_debt_payment:,}원
+   - 평균 이자율: {average_interest_rate}%
+   - 주택담보대출: {mortgage:,}원
+   - 개인대출: {personal_loan:,}원
+   - 신용카드: {credit_card:,}원
+   - 기타부채: {other_debt:,}원
+
+[보유 자산]
+1. 현금성 자산
+   - 현금: {cash:,}원
+   - 비상금: {emergency_fund:,}원
+   - 예/적금: {savings:,}원
+
+2. 투자 자산
+   - 부동산: {real_estate:,}원
+   - 펀드: {funds:,}원
+   - ETF: {etfs:,}원
+   - 가상화폐: {crypto:,}원
+   - 주식: {stock_summary}, {asset_summary}
+
+3. 보험/연금
+   - 연금: {pension:,}원
+   - 보험: {insurance:,}원
+
+4. 외화 자산
+   - USD: ${usd:,.2f}
+   - EUR: €{eur:,.2f}
+   - JPY: ¥{jpy:,.0f}
+   - GBP: £{gbp:,.2f}
+   - CNY: ¥{cny:,.2f}
+
+[시장 환경]
 {economic_summary}
-
-4. 투자 현황:
-{stock_summary}
 
 [작성 가이드라인]
 1. 전문성: 모든 분석과 제안은 객관적 데이터와 전문적 지표에 기반해야 합니다.
@@ -96,94 +158,153 @@ def generate_section_content(llm, user_info, asset_summary, etf_summary, economi
    - 데이터 출처
    - 참고 지표 설명
 
-[예시 분석]
-[요약 섹션]
-고객명 홍길동(35세)은 IT 기업 재직 중인 전문직으로, 총 자산 5억 원 규모를 보유하고 있습니다. 
-투자 성향은 '적극투자형'으로 분석되며, 현재 주식과 펀드 위주의 포트폴리오를 구성하고 있습니다.
-
-핵심 제안:
-1. 주식 비중 축소 (현재 80% → 목표 60%)
-2. 채권형 자산 편입 (목표 20%)
-3. 정기적 리밸런싱 체계 수립
-
-[작성 시 유의사항]
-1. 모든 수치는 구체적으로 제시할 것
-2. 각 제안에 대한 근거를 명시할 것
-3. 실행 우선순위를 명확히 할 것
-4. 잠재적 위험요소를 반드시 언급할 것
-5. 전문용어는 풀어서 설명할 것
-
 응답은 반드시 한국어로 작성해주세요.
+각 섹션은 아래 형식으로 작성해주세요:
+
+[요약 섹션]
+(내용)
+
+[마이데이터 분석]
+(내용)
+
+[재무 건전성 평가]
+(내용)
+
+[투자 성향 진단]
+(내용)
+
+[포트폴리오 전략]
+(내용)
+
+[위험관리 전략]
+(내용)
+
+[실행 로드맵]
+(내용)
+
+[부록]
+(내용)
 """)
     
     formatted_prompt = prompt.format(
-        user_info=user_info,
+        age=financial.get("age", "미입력"),
+        occupation=financial.get("occupation", "미입력"),
+        family_structure=financial.get("family_structure", "미입력"),
+        retirement_age=financial.get("retirement_age", "미입력"),
+        housing_type=financial.get("housing_type", "미입력"),
+        investment_style=investment_profile.get("investment_style", "미입력"),
+        total_score=investment_profile.get("total_score", "미입력"),
+        investment_experience=investment_details.get("investment_experience", "미입력"),
+        investment_horizon=investment_details.get("investment_horizon", "미입력"),
+        risk_tolerance=investment_details.get("risk_tolerance", "미입력"),
+        expected_return=investment_details.get("expected_return", "미입력"),
+        investment_priority=investment_details.get("investment_priority", "미입력"),
+        financial_knowledge=investment_details.get("financial_knowledge", "미입력"),
+        short_term_goal=financial.get("short_term_goal", "미입력"),
+        mid_term_goal=financial.get("mid_term_goal", "미입력"),
+        long_term_goal=financial.get("long_term_goal", "미입력"),
+        monthly_income=financial.get("monthly_income", 0),
+        fixed_expenses=financial.get("fixed_expenses", 0),
+        variable_expenses=financial.get("variable_expenses", 0),
+        monthly_savings=financial.get("monthly_savings", 0),
+        total_debt=financial.get("total_debt", 0),
+        monthly_debt_payment=financial.get("monthly_debt_payment", 0),
+        average_interest_rate=financial.get("average_interest_rate", 0),
+        mortgage=financial.get("mortgage", 0),
+        personal_loan=financial.get("personal_loan", 0),
+        credit_card=financial.get("credit_card", 0),
+        other_debt=financial.get("other_debt", 0),
+        cash=financial.get("cash", 0),
+        emergency_fund=financial.get("emergency_fund", 0),
+        savings=financial.get("savings", 0),
+        real_estate=financial.get("real_estate", 0),
+        funds=financial.get("funds", 0),
+        etfs=financial.get("etfs", 0),
+        crypto=financial.get("crypto", 0),
+        pension=financial.get("pension", 0),
+        insurance=financial.get("insurance", 0),
+        usd=financial.get("foreign_currency", {}).get("usd", 0),
+        eur=financial.get("foreign_currency", {}).get("eur", 0),
+        jpy=financial.get("foreign_currency", {}).get("jpy", 0),
+        gbp=financial.get("foreign_currency", {}).get("gbp", 0),
+        cny=financial.get("foreign_currency", {}).get("cny", 0),
+        stock_summary=stock_summary,
         asset_summary=asset_summary,
-        etf_summary=etf_summary,
-        economic_summary=economic_summary,
-        stock_summary=stock_summary
+        economic_summary=economic_summary
     )
     
     response = llm.invoke(formatted_prompt).content
     
-    # 응답을 섹션별로 파싱
-    sections = {
-        "summary": "요약 섹션",
-        "mydata": "마이데이터 분석",
-        "financial_status": "재무 상태 평가",
-        "investment_style": "투자 성향 진단",
-        "portfolio": "맞춤형 포트폴리오 제안",
-        "scenario": "시나리오 기반 전략",
-        "action_guide": "세부 실행 가이드",
-        "appendix": "부록"
+    # 섹션 제목과 키 매핑
+    section_mapping = {
+        "요약 섹션": "summary",
+        "마이데이터 분석": "mydata",
+        "재무 건전성 평가": "financial_status",
+        "투자 성향 진단": "investment_style",
+        "포트폴리오 전략": "portfolio",
+        "위험관리 전략": "scenario",
+        "실행 로드맵": "action_guide",
+        "부록": "appendix"
     }
     
-    parsed_sections = {}
+    # 응답을 섹션별로 파싱
+    sections = {}
     current_section = None
     current_content = []
     
-    # 응답을 줄 단위로 분석
-    lines = response.split('\n')
-    for line in lines:
+    for line in response.split('\n'):
         line = line.strip()
         if not line:
             continue
-            
-        # 새로운 섹션의 시작인지 확인
-        for section_key, section_title in sections.items():
+        
+        # 새로운 섹션 시작 확인
+        is_section_header = False
+        for section_title, section_key in section_mapping.items():
             if f"[{section_title}]" in line:
-                # 이전 섹션의 내용을 저장
                 if current_section and current_content:
-                    parsed_sections[current_section] = '\n'.join(current_content)
-                # 새로운 섹션 시작
+                    sections[current_section] = '\n'.join(current_content)
                 current_section = section_key
                 current_content = []
+                is_section_header = True
                 break
-        else:
-            # 현재 섹션이 있다면 내용 추가
-            if current_section:
-                current_content.append(line)
+        
+        if not is_section_header and current_section:
+            current_content.append(line)
     
-    # 마지막 섹션의 내용 저장
+    # 마지막 섹션 처리
     if current_section and current_content:
-        parsed_sections[current_section] = '\n'.join(current_content)
+        sections[current_section] = '\n'.join(current_content)
     
-    # 누락된 섹션에 대한 기본값 설정
-    for section_key in sections.keys():
-        if section_key not in parsed_sections:
-            parsed_sections[section_key] = "이 섹션의 내용을 생성하는 중 문제가 발생했습니다. 보고서를 다시 생성해주세요."
+    # 누락된 섹션에 기본값 설정
+    for section_key in section_mapping.values():
+        if section_key not in sections or not sections[section_key].strip():
+            sections[section_key] = "섹션 내용이 생성되지 않았습니다. 새로고침을 시도해주세요."
     
-    return parsed_sections
+    return sections
 
-def generate_portfolio_report(llm, user_info, asset_summary, etf_summary, economic_summary, stock_summary):
+def generate_portfolio_report(llm, user_info, asset_summary, economic_summary, stock_summary):
+    # user_info가 문자열인 경우 JSON으로 파싱
+    if isinstance(user_info, str):
+        try:
+            user_info = json.loads(user_info)
+        except json.JSONDecodeError:
+            user_info = {}
+    
+    # personal 필드가 문자열인 경우 JSON으로 파싱
+    if isinstance(user_info.get("personal"), str):
+        try:
+            user_info["personal"] = json.loads(user_info["personal"])
+        except json.JSONDecodeError:
+            user_info["personal"] = {}
+
     sections = {
         "summary": "요약 섹션",
         "mydata": "마이데이터 분석",
-        "financial_status": "재무 상태 평가",
+        "financial_status": "재무 건전성 평가",
         "investment_style": "투자 성향 진단",
-        "portfolio": "맞춤형 포트폴리오 제안",
-        "scenario": "시나리오 기반 전략",
-        "action_guide": "세부 실행 가이드",
+        "portfolio": "포트폴리오 전략",
+        "scenario": "위험관리 전략",
+        "action_guide": "실행 로드맵",
         "appendix": "부록"
     }
     
@@ -193,9 +314,8 @@ def generate_portfolio_report(llm, user_info, asset_summary, etf_summary, econom
     # 한 번의 API 호출로 모든 섹션 생성
     section_contents = generate_section_content(
         llm,
-        user_info,
+        user_info.get("personal", {}),  # personal 필드만 전달
         asset_summary,
-        etf_summary,
         economic_summary,
         stock_summary
     )
@@ -239,19 +359,8 @@ def chatbot_page2():
 
     # 데이터 수집
     asset_summary = get_asset_summary_text()
-    etf_summary = get_etf_summary_text()
     economic_summary = get_economic_summary_text()
     stock_summary = get_owned_stock_summary_text()
-
-    # personal summary 준비
-    personal = user_info[0].get("personal", {})
-    if isinstance(personal, str):
-        try:
-            personal = json.loads(personal)
-        except json.JSONDecodeError:
-            personal = {}
-
-    personal_summary = "\n".join([f"{k}: {v}" for k, v in personal.items()])
 
     # 캐시된 보고서가 없거나 재생성이 요청된 경우에만 새로 생성
     if "report_data" not in st.session_state:
@@ -259,9 +368,8 @@ def chatbot_page2():
         with st.spinner("포트폴리오 분석 보고서를 생성하고 있습니다..."):
             report = generate_portfolio_report(
                 st.session_state["llm"],
-                personal_summary,
+                user_info[0],
                 asset_summary,
-                etf_summary,
                 economic_summary,
                 stock_summary
             )
@@ -270,52 +378,37 @@ def chatbot_page2():
     else:
         report = st.session_state["report_data"]
     
-    # 보고서를 탭으로 구성
-    tab_summary, tab_analysis, tab_strategy = st.tabs(["📋 요약", "💰 분석", "⚠️ 전략"])
+    # 모든 섹션을 순차적으로 표시
+    st.header("📋 요약")
+    with st.expander("요약 보기", expanded=False):
+        st.markdown(report["summary"]["content"])
     
-    with tab_summary:
-        # 요약 섹션
-        st.subheader("📊 요약")
-        with st.expander("요약 섹션", expanded=True):
-            st.markdown(report["summary"]["content"])
-            
-        st.subheader("📈 마이데이터 분석")
-        with st.expander("마이데이터 분석", expanded=False):
-            st.markdown(report["mydata"]["content"])
+    st.header("📈 마이데이터 분석")
+    with st.expander("마이데이터 분석 보기", expanded=False):
+        st.markdown(report["mydata"]["content"])
     
-    with tab_analysis:
-        # 분석 관련 섹션
-        col1, col2 = st.columns(2)
-        
-        with col1:
-            st.subheader("📊 재무 상태")
-            with st.expander("재무 상태 평가", expanded=False):
-                st.markdown(report["financial_status"]["content"])
-                
-            with st.expander("투자 성향 진단", expanded=False):
-                st.markdown(report["investment_style"]["content"])
-        
-        with col2:
-            st.subheader("📝 포트폴리오")
-            with st.expander("맞춤형 포트폴리오 제안", expanded=False):
-                st.markdown(report["portfolio"]["content"])
+    st.header("💰 재무 건전성 평가")
+    with st.expander("재무 건전성 평가 보기", expanded=False):
+        st.markdown(report["financial_status"]["content"])
     
-    with tab_strategy:
-        # 전략 관련 섹션
-        col1, col2 = st.columns(2)
-        
-        with col1:
-            st.subheader("🎯 시나리오 전략")
-            with st.expander("시나리오 기반 전략", expanded=False):
-                st.markdown(report["scenario"]["content"])
-        
-        with col2:
-            st.subheader("🛡️ 실행 가이드")
-            with st.expander("세부 실행 가이드", expanded=False):
-                st.markdown(report["action_guide"]["content"])
-        
-        st.subheader("📚 부록")
-        with st.expander("부록", expanded=False):
-            st.markdown(report["appendix"]["content"])
+    st.header("👤 투자 성향 진단")
+    with st.expander("투자 성향 진단 보기", expanded=False):
+        st.markdown(report["investment_style"]["content"])
+    
+    st.header("📊 포트폴리오 전략")
+    with st.expander("포트폴리오 전략 보기", expanded=False):
+        st.markdown(report["portfolio"]["content"])
+    
+    st.header("⚠️ 위험관리 전략")
+    with st.expander("위험관리 전략 보기", expanded=False):
+        st.markdown(report["scenario"]["content"])
+    
+    st.header("📅 실행 로드맵")
+    with st.expander("실행 로드맵 보기", expanded=False):
+        st.markdown(report["action_guide"]["content"])
+    
+    st.header("📚 부록")
+    with st.expander("부록 보기", expanded=False):
+        st.markdown(report["appendix"]["content"])
 
  
