@@ -31,7 +31,6 @@ def get_asset_summary_text() -> str:
 
     return f"""
 [사용자 자산 요약]
-- 현금 보유액: {cash}원
 - {account_info_str}
 - 보유 종목:
 {stock_info_str}
@@ -169,27 +168,3 @@ def get_owned_stock_summary_text():
 
     return "\n".join(summary_lines)
 
-
-# Agent용 Tool (내부에서 위 함수 재사용)
-
-@tool
-def get_asset_summary_tool(input_text: str) -> str:
-    """
-    LangChain Agent에서 호출할 수 있는 자산 요약 Tool입니다.
-    (입력값은 무시합니다.)
-    """
-    return get_asset_summary_text()
-
-@tool
-def get_etf_summary_tool(input_text: str) -> str:
-    """
-    ETF 데이터를 요약해주는 LangChain Tool입니다. (입력값은 무시합니다.)
-    """
-    return get_etf_summary_text()
-
-@tool
-def get_economic_summary_tool(input_text: str) -> str:
-    """
-    최근 경제 지표 데이터를 요약해주는 LangChain Tool입니다. (입력값은 무시합니다.)
-    """
-    return get_economic_summary_text()
