@@ -57,27 +57,19 @@ def get_etf_summary_text() -> str:
 def get_economic_summary_text() -> str:
     supabase = SupabaseDB()
 
-    daily_domestic = supabase.client.table("domestic_daily_economic").select("*").order("time", desc=True).limit(30).execute().data  # 최근 한 달간 국내 데이터
-    monthly_domestic = supabase.client.table("domestic_monthly_economic").select("*").order("time", desc=True).limit(24).execute().data  # 최근 2년간 국내 데이터
-    daily_us = supabase.client.table("us_daily_economic").select("*").order("time", desc=True).limit(30).execute().data  # 최근 한 달간 미국 데이터
-    monthly_us = supabase.client.table("us_monthly_economic").select("*").order("time", desc=True).limit(24).execute().data  # 최근 2년간 미국 데이터
+    daily_data = supabase.client.table("domestic_daily_economic").select("*").order("time", desc=True).limit(5).execute().data
+    monthly_data = supabase.client.table("domestic_monthly_economic").select("*").order("time", desc=True).limit(3).execute().data
 
-    if not daily_domestic and not monthly_domestic and not daily_us and not monthly_us:
+    if not daily_data and not monthly_data:
         return "❌ 불러올 수 있는 경제 지표 데이터가 없습니다."
 
     def format_entry(entry):
         return "\n".join([f"- {k}: {v}" for k, v in entry.items() if k != "id"])
 
-    daily_domestic_summary = "\n\n".join([f"📅 {d['time']} 일간 지표:\n{format_entry(d)}" for d in daily_domestic])
-    monthly_domestic_summary = "\n\n".join([f"🗓️ {m['time']} 월간 지표:\n{format_entry(m)}" for m in monthly_domestic])
-    daily_us_summary = "\n\n".join([f"📅 {d['time']} 일간 지표:\n{format_entry(d)}" for d in daily_us])
-    monthly_us_summary = "\n\n".join([f"🗓️ {m['time']} 월간 지표:\n{format_entry(m)}" for m in monthly_us])
+    daily_summary = "\n\n".join([f"📅 {d['time']} 일간 지표:\n{format_entry(d)}" for d in daily_data])
+    monthly_summary = "\n\n".join([f"🗓️ {m['time']} 월간 지표:\n{format_entry(m)}" for m in monthly_data])
 
-    return f"[최신 경제 지표 요약]\n\n" \
-           f"국내 일별 지표: {daily_domestic_summary}\n\n" \
-           f"국내 월별 지표: {monthly_domestic_summary}\n\n" \
-           f"미국 일별 지표: {daily_us_summary}\n\n" \
-           f"미국 월별 지표: {monthly_us_summary}"
+    return f"[최신 경제 지표 요약]\n\n{daily_summary}\n\n{monthly_summary}"
 
 
 
