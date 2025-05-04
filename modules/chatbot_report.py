@@ -38,9 +38,6 @@ def generate_section_content(llm, user_info, asset_summary, etf_summary, economi
 자산 요약:
 {asset_summary}
 
-ETF 정보:
-{etf_summary}
-
 경제 지표:
 {economic_summary}
 
