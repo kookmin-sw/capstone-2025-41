@@ -180,7 +180,7 @@
 </table>
 </div>
 
-## 💫 사용 방법
+<h2 id="usage">💫 사용 방법</h2>
 
 1️⃣ [자산 관리 대시보드](https://capstone-2025-41-assetmanagementdashboard.streamlit.app/)에 접속합니다.
 
