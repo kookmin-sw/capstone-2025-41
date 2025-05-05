@@ -16,3 +16,4 @@ openai==1.72.0
 langchain-google-genai
 reportlab==4.1.0
 fredapi==0.5.1
+fpdf==1.7.2
