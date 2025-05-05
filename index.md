@@ -6,11 +6,12 @@
         실시간 포트폴리오 분석 | AI 기반 투자 조언 | 글로벌 ETF 분석
     </p>
     <p align="center">
-        <a href="#overview">소개</a> •
-        <a href="#features">기능</a> •
-        <a href="#demo">데모</a> •
-        <a href="#tech">기술</a> •
-        <a href="#team">팀</a>
+        <a href="#overview">프로젝트 소개</a> •
+        <a href="#features">핵심 기능</a> •
+        <a href="#tech">기술 스택</a> •
+        <a href="#preview">기능 미리보기</a> •
+        <a href="#usage">사용 방법</a> •
+        <a href="#team">팀 소개</a>
     </p>
 </div>
 
@@ -119,10 +120,7 @@
 
 </div>
 
-<h2 id="demo">🎬 데모 & 기능 소개</h2>
-
-### 💻 실시간 데모
-> [자산 관리 대시보드 바로가기](https://asset-management-dashboard.streamlit.app/)
+<h2 id="preview">🎬 데모 & 기능 소개</h2>
 
 ### 📱 주요 기능 미리보기
 
