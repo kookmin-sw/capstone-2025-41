@@ -5,23 +5,35 @@
     <p align="center">
         실시간 포트폴리오 분석 | AI 기반 투자 조언 | 글로벌 ETF 분석
     </p>
+    <p align="center">
+        <a href="#overview">소개</a> •
+        <a href="#features">기능</a> •
+        <a href="#demo">데모</a> •
+        <a href="#tech">기술</a> •
+        <a href="#team">팀</a>
+    </p>
 </div>
 
 ---
 
-## 🎯 한눈에 보는 자산 관리 대시보드
+<h2 id="overview">📊 프로젝트 소개</h2>
 
 > "복잡한 자산 관리를 간단하게, 어려운 투자 결정을 스마트하게"
 
 자산 관리 대시보드는 개인 투자자를 위한 올인원 자산 관리 플랫폼입니다. 
 실시간 포트폴리오 분석부터 AI 기반 투자 조언까지, 여러분의 현명한 투자 결정을 도와드립니다.
 
+### 🌟 주요 특징
+- **실시간 자산 추적**: 주식, ETF, 현금 자산을 실시간으로 모니터링
+- **AI 기반 분석**: GPT-4와 Gemini Pro를 활용한 지능형 투자 조언
+- **데이터 기반 의사결정**: 실시간 경제 뉴스와 시장 동향 분석
+- **안전한 데이터 관리**: Supabase를 통한 암호화된 데이터 저장
+
 <div align="center">
-    <h3>📊 실시간 자산 현황</h3>
     <img src="assets/dashboard_preview.png" width="80%" alt="대시보드 미리보기"/>
 </div>
 
-## ⚡ 핵심 기능
+<h2 id="features">⚡ 핵심 기능</h2>
 
 ### 1. 통합 자산 관리 💼
 - **실시간 포트폴리오 모니터링**
@@ -47,7 +59,7 @@
   - 뉴스 감성 분석 기반 투자 인사이트
   - 글로벌 마켓 동향 요약
 
-## 🛠 기술 스택
+<h2 id="tech">🛠 기술 스택</h2>
 
 <div align="center" style="background-color: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
 
@@ -107,44 +119,91 @@
 
 </div>
 
-## 📊 시스템 구성도
+<h2 id="demo">🎬 데모 & 기능 소개</h2>
 
-<div align="center">
-    <img src="assets/system_architecture.png" width="80%" alt="시스템 구성도"/>
+### 💻 실시간 데모
+> [자산 관리 대시보드 바로가기](https://asset-management-dashboard.streamlit.app/)
+
+### 📱 주요 기능 미리보기
+
+<div align="center" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin: 20px 0;">
+    <div>
+        <h4>📊 자산 포트폴리오 분석</h4>
+        <img src="assets/portfolio_preview.png" width="100%" alt="포트폴리오 분석"/>
+    </div>
+    <div>
+        <h4>📈 ETF 섹터 분석</h4>
+        <img src="assets/etf_preview.png" width="100%" alt="ETF 분석"/>
+    </div>
+    <div>
+        <h4>🤖 AI 투자 어시스턴트</h4>
+        <img src="assets/ai_preview.png" width="100%" alt="AI 어시스턴트"/>
+    </div>
+    <div>
+        <h4>📰 실시간 뉴스 분석</h4>
+        <img src="assets/news_preview.png" width="100%" alt="뉴스 분석"/>
+    </div>
 </div>
 
-## 🎬 데모 & 튜토리얼
+### 🔄 시스템 구조도
 
-### 웹 데모
-> [자산 관리 대시보드 바로가기](#)
-
-### 튜토리얼 영상
 <div align="center">
-    <a href="#"><img src="assets/tutorial_thumbnail.png" width="60%" alt="튜토리얼 영상"/></a>
+    <img src="assets/system_architecture.png" width="90%" alt="시스템 구조도"/>
+    <p><i>자산 관리 대시보드 시스템 아키텍처</i></p>
 </div>
 
-## 👥 팀 소개
+### 🎥 시연 동영상
+
+<div align="center">
+    <a href="https://youtu.be/your_video_id">
+        <img src="assets/video_thumbnail.png" width="80%" alt="시연 동영상 썸네일"/>
+    </a>
+    <p><i>▶️ 이미지를 클릭하여 시연 동영상 보기</i></p>
+</div>
+
+<h2 id="team">👥 팀 소개</h2>
 
 <div align="center">
 <table>
   <tr>
-    <td align="center"><img src="https://github.com/username1.png" width="100"/><br /><b>김남훈</b><br />프론트엔드&벡엔드</td>
-    <td align="center"><img src="https://github.com/username2.png" width="100"/><br /><b>박규민</b><br />프론트엔드&백엔드</td>
+    <td align="center">
+      <img src="https://github.com/username1.png" width="100"/><br />
+      <b>김남훈</b><br />
+      프론트엔드 & 백엔드<br/>
+      <a href="https://github.com/username1"><img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white"/></a>
+    </td>
+    <td align="center">
+      <img src="https://github.com/username2.png" width="100"/><br />
+      <b>박규민</b><br />
+      프론트엔드 & 백엔드<br/>
+      <a href="https://github.com/gyumin4726"><img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white"/></a>
+    </td>
   </tr>
 </table>
 </div>
 
+## 💫 사용 방법
+
+1️⃣ [자산 관리 대시보드](https://capstone-2025-41-assetmanagementdashboard.streamlit.app/)에 접속합니다.
+
+2️⃣ 주요 기능 사용하기
+- **포트폴리오 관리**: 대시보드에서 자산 현황을 한눈에 파악하고 실시간으로 관리할 수 있습니다.
+- **ETF 분석**: ETF 마켓 탭에서 다양한 ETF 정보와 분석 결과를 확인할 수 있습니다.
+- **AI 투자 조언**: AI 어시스턴트와 대화하며 맞춤형 투자 조언을 받을 수 있습니다.
+- **뉴스 분석**: 실시간 경제 뉴스와 관련 분석 정보를 확인할 수 있습니다.
+
+💡 별도의 설치 과정 없이 웹 브라우저에서 바로 이용 가능합니다!
+
 ## 📚 문서 & 리소스
 
-- [사용자 가이드](docs/user-guide.md)
-- [API 문서](docs/api-docs.md)
-- [개발자 문서](docs/dev-docs.md)
+- [발표 자료](docs/user-guide.md)
+- [포스터터](docs/api-docs.md)
 
 ## 📬 문의하기
 
 프로젝트에 대한 문의나 제안이 있으시다면 언제든 연락주세요:
-- 📧 Email: contact@example.com
-- 💬 Issues: [GitHub Issues](https://github.com/username/repo/issues)
+- 📧 Email: gyumin1129@kookmin.ac.kr
+- 💬 Issues: [GitHub Issues](https://github.com/kookmin-sw/capstone-2025-41/issues)
 
 ---
 
