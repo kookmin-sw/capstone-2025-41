@@ -49,56 +49,62 @@
 
 ## 🛠 기술 스택
 
-<div align="center">
-<table>
+<div align="center" style="background-color: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+
+### 💻 Core Technologies
+
+<table style="border: none; background: transparent;">
   <tr>
-    <td align="center"><b>프론트엔드</b></td>
-    <td align="center"><b>백엔드</b></td>
-    <td align="center"><b>데이터 & AI</b></td>
-    <td align="center"><b>인프라 & 도구</b></td>
+    <td align="center" width="25%"><b>프론트엔드</b></td>
+    <td align="center" width="25%"><b>백엔드</b></td>
+    <td align="center" width="25%"><b>데이터 & AI</b></td>
+    <td align="center" width="25%"><b>인프라 & 도구</b></td>
   </tr>
-  <tr>
-    <td>
-      <img src="https://img.shields.io/badge/streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white">
+  <tr style="background: transparent;">
+    <td align="center">
+      <img src="https://img.shields.io/badge/streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white"><br>
       <img src="https://img.shields.io/badge/plotly-3F4F75?style=for-the-badge&logo=plotly&logoColor=white">
     </td>
-    <td>
-      <img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white">
+    <td align="center">
+      <img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white"><br>
       <img src="https://img.shields.io/badge/supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white">
     </td>
-    <td>
-      <img src="https://img.shields.io/badge/pandas-150458?style=for-the-badge&logo=pandas&logoColor=white">
-      <img src="https://img.shields.io/badge/numpy-013243?style=for-the-badge&logo=numpy&logoColor=white">
-      <img src="https://img.shields.io/badge/langchain-339933?style=for-the-badge&logo=chainlink&logoColor=white">
-      <img src="https://img.shields.io/badge/openai-412991?style=for-the-badge&logo=openai&logoColor=white">
+    <td align="center">
+      <img src="https://img.shields.io/badge/pandas-150458?style=for-the-badge&logo=pandas&logoColor=white"><br>
+      <img src="https://img.shields.io/badge/numpy-013243?style=for-the-badge&logo=numpy&logoColor=white"><br>
+      <img src="https://img.shields.io/badge/langchain-339933?style=for-the-badge&logo=chainlink&logoColor=white"><br>
+      <img src="https://img.shields.io/badge/openai-412991?style=for-the-badge&logo=openai&logoColor=white"><br>
       <img src="https://img.shields.io/badge/gemini-4285F4?style=for-the-badge&logo=google&logoColor=white">
     </td>
-    <td>
-      <img src="https://img.shields.io/badge/github_pages-222222?style=for-the-badge&logo=github-pages&logoColor=white">
-      <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">
+    <td align="center">
+      <img src="https://img.shields.io/badge/github_pages-222222?style=for-the-badge&logo=github-pages&logoColor=white"><br>
+      <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white"><br>
       <img src="https://img.shields.io/badge/github_actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white">
     </td>
   </tr>
 </table>
 
-<table>
+### 🔌 External APIs
+
+<table style="border: none; background: transparent;">
   <tr>
-    <td align="center"><b>금융 데이터 API</b></td>
-    <td align="center"><b>AI & 분석 API</b></td>
+    <td align="center" width="50%"><h4>금융 데이터</h4></td>
+    <td align="center" width="50%"><h4>AI & 분석</h4></td>
   </tr>
-  <tr>
-    <td>
-      <img src="https://img.shields.io/badge/한국투자증권_API-ED1C24?style=for-the-badge&logo=koreaninvestment&logoColor=white">
-      <img src="https://img.shields.io/badge/KRX_정보데이터시스템-0066CC?style=for-the-badge&logo=krx&logoColor=white">
+  <tr style="background: transparent;">
+    <td align="center">
+      <img src="https://img.shields.io/badge/한국투자증권_API-ED1C24?style=for-the-badge&logo=koreaninvestment&logoColor=white"><br>
+      <img src="https://img.shields.io/badge/KRX_정보데이터시스템-0066CC?style=for-the-badge&logo=krx&logoColor=white"><br>
       <img src="https://img.shields.io/badge/Yahoo_Finance-800080?style=for-the-badge&logo=yahoo&logoColor=white">
     </td>
-    <td>
-      <img src="https://img.shields.io/badge/OpenAI_GPT4-412991?style=for-the-badge&logo=openai&logoColor=white">
-      <img src="https://img.shields.io/badge/Google_Gemini_Pro-4285F4?style=for-the-badge&logo=google&logoColor=white">
+    <td align="center">
+      <img src="https://img.shields.io/badge/OpenAI_GPT4-412991?style=for-the-badge&logo=openai&logoColor=white"><br>
+      <img src="https://img.shields.io/badge/Google_Gemini_Pro-4285F4?style=for-the-badge&logo=google&logoColor=white"><br>
       <img src="https://img.shields.io/badge/네이버_뉴스_API-03C75A?style=for-the-badge&logo=naver&logoColor=white">
     </td>
   </tr>
 </table>
+
 </div>
 
 ## 📊 시스템 구성도
