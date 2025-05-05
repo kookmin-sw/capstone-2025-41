@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: "ko-KR" }}">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ site.title }}</title>
+    <link rel="stylesheet" href="{{ "/assets/css/style.css?v=" | append: site.github.build_revision | relative_url }}">
+    <link rel="stylesheet" href="{{ "/assets/css/custom.css?v=" | append: site.github.build_revision | relative_url }}">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div class="wrapper">
+      <!-- 상단 네비게이션 바 -->
+      <header class="header">
+        <div class="header-content">
+          <div class="logo">
+            <span class="logo-icon">💰</span>
+            <span class="logo-text">Asset Management</span>
+          </div>
+          <nav class="nav-menu">
+            <a href="#overview">Overview</a>
+            <a href="#features">주요기능</a>
+            <a href="#demo">데모</a>
+            <a href="#team">팀 소개</a>
+            <a href="#" class="cta-button">시작하기</a>
+          </nav>
+        </div>
+      </header>
+
+      <!-- 메인 콘텐츠 -->
+      <main class="main-content">
+        {{ content }}
+      </main>
+
+      <!-- 푸터 -->
+      <footer class="footer">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3>Asset Management Dashboard</h3>
+            <p>스마트한 자산 관리의 시작</p>
+          </div>
+          <div class="footer-section">
+            <h3>Contact</h3>
+            <p>Email: contact@example.com</p>
+            <p>GitHub: <a href="{{ site.github.repository_url }}">Repository</a></p>
+          </div>
+          <div class="footer-section">
+            <h3>Quick Links</h3>
+            <a href="#features">Features</a>
+            <a href="#demo">Demo</a>
+            <a href="#team">Team</a>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2024 Asset Management Dashboard. All rights reserved.</p>
+        </div>
+      </footer>
+    </div>
+
+    <!-- 스크롤 진행바 -->
+    <div class="scroll-progress"></div>
+
+    <script>
+      // 스크롤 진행바 구현
+      window.onscroll = function() {
+        let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        let scrolled = (winScroll / height) * 100;
+        document.querySelector(".scroll-progress").style.width = scrolled + "%";
+      };
+    </script>
+  </body>
+</html> 
