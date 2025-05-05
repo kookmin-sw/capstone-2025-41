@@ -8,8 +8,8 @@
     <p align="center">
         <a href="#overview">프로젝트 소개</a> •
         <a href="#features">핵심 기능</a> •
-        <a href="#tech">기술 스택</a> •
         <a href="#preview">기능 미리보기</a> •
+        <a href="#tech">기술 스택</a> •
         <a href="#usage">사용 방법</a> •
         <a href="#team">팀 소개</a>
     </p>
@@ -59,6 +59,45 @@
   - 포트폴리오 관련 뉴스 큐레이션
   - 뉴스 감성 분석 기반 투자 인사이트
   - 글로벌 마켓 동향 요약
+
+<h2 id="preview">🎬 데모 & 기능 소개</h2>
+
+### 🎥 시연 동영상
+
+<div align="center">
+    <a href="https://youtu.be/your_video_id">
+        <img src="assets/video_thumbnail.png" width="80%" alt="시연 동영상 썸네일"/>
+    </a>
+    <p><i>▶️ 이미지를 클릭하여 시연 동영상 보기</i></p>
+</div>
+
+### 📱 주요 기능 미리보기
+
+<div align="center" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin: 20px 0;">
+    <div>
+        <h4>📊 자산 포트폴리오 분석</h4>
+        <img src="assets/portfolio_preview.png" width="100%" alt="포트폴리오 분석"/>
+    </div>
+    <div>
+        <h4>📈 ETF 섹터 분석</h4>
+        <img src="assets/etf_preview.png" width="100%" alt="ETF 분석"/>
+    </div>
+    <div>
+        <h4>🤖 AI 투자 어시스턴트</h4>
+        <img src="assets/ai_preview.png" width="100%" alt="AI 어시스턴트"/>
+    </div>
+    <div>
+        <h4>📰 실시간 뉴스 분석</h4>
+        <img src="assets/news_preview.png" width="100%" alt="뉴스 분석"/>
+    </div>
+</div>
+
+### 🔄 시스템 구조도
+
+<div align="center">
+    <img src="assets/system_architecture.png" width="90%" alt="시스템 구조도"/>
+    <p><i>자산 관리 대시보드 시스템 아키텍처</i></p>
+</div>
 
 <h2 id="tech">🛠 기술 스택</h2>
 
@@ -120,44 +159,17 @@
 
 </div>
 
-<h2 id="preview">🎬 데모 & 기능 소개</h2>
+<h2 id="usage">💫 사용 방법</h2>
 
-### 📱 주요 기능 미리보기
+1️⃣ [자산 관리 대시보드](https://capstone-2025-41-assetmanagementdashboard.streamlit.app/)에 접속합니다.
 
-<div align="center" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin: 20px 0;">
-    <div>
-        <h4>📊 자산 포트폴리오 분석</h4>
-        <img src="assets/portfolio_preview.png" width="100%" alt="포트폴리오 분석"/>
-    </div>
-    <div>
-        <h4>📈 ETF 섹터 분석</h4>
-        <img src="assets/etf_preview.png" width="100%" alt="ETF 분석"/>
-    </div>
-    <div>
-        <h4>🤖 AI 투자 어시스턴트</h4>
-        <img src="assets/ai_preview.png" width="100%" alt="AI 어시스턴트"/>
-    </div>
-    <div>
-        <h4>📰 실시간 뉴스 분석</h4>
-        <img src="assets/news_preview.png" width="100%" alt="뉴스 분석"/>
-    </div>
-</div>
+2️⃣ 주요 기능 사용하기
+- **포트폴리오 관리**: 대시보드에서 자산 현황을 한눈에 파악하고 실시간으로 관리할 수 있습니다.
+- **ETF 분석**: ETF 마켓 탭에서 다양한 ETF 정보와 분석 결과를 확인할 수 있습니다.
+- **AI 투자 조언**: AI 어시스턴트와 대화하며 맞춤형 투자 조언을 받을 수 있습니다.
+- **뉴스 분석**: 실시간 경제 뉴스와 관련 분석 정보를 확인할 수 있습니다.
 
-### 🔄 시스템 구조도
-
-<div align="center">
-    <img src="assets/system_architecture.png" width="90%" alt="시스템 구조도"/>
-    <p><i>자산 관리 대시보드 시스템 아키텍처</i></p>
-</div>
-
-### 🎥 시연 동영상
-
-<div align="center">
-    <a href="https://youtu.be/your_video_id">
-        <img src="assets/video_thumbnail.png" width="80%" alt="시연 동영상 썸네일"/>
-    </a>
-    <p><i>▶️ 이미지를 클릭하여 시연 동영상 보기</i></p>
-</div>
+💡 별도의 설치 과정 없이 웹 브라우저에서 바로 이용 가능합니다!
 
 <h2 id="team">👥 팀 소개</h2>
 
@@ -180,18 +192,6 @@
 </table>
 </div>
 
-<h2 id="usage">💫 사용 방법</h2>
-
-1️⃣ [자산 관리 대시보드](https://capstone-2025-41-assetmanagementdashboard.streamlit.app/)에 접속합니다.
-
-2️⃣ 주요 기능 사용하기
-- **포트폴리오 관리**: 대시보드에서 자산 현황을 한눈에 파악하고 실시간으로 관리할 수 있습니다.
-- **ETF 분석**: ETF 마켓 탭에서 다양한 ETF 정보와 분석 결과를 확인할 수 있습니다.
-- **AI 투자 조언**: AI 어시스턴트와 대화하며 맞춤형 투자 조언을 받을 수 있습니다.
-- **뉴스 분석**: 실시간 경제 뉴스와 관련 분석 정보를 확인할 수 있습니다.
-
-💡 별도의 설치 과정 없이 웹 브라우저에서 바로 이용 가능합니다!
-
 ## 📚 문서 & 리소스
 
 - [발표 자료](docs/user-guide.md)
@@ -201,7 +201,7 @@
 
 프로젝트에 대한 문의나 제안이 있으시다면 언제든 연락주세요:
 - 📧 Email: gyumin1129@kookmin.ac.kr
-- 💬 Issues: [GitHub Issues](https://github.com/kookmin-sw/capstone-2025-41/issues)
+- 💬 GitHub: [Repository](https://github.com/kookmin-sw/capstone-2025-41)
 
 ---
 
