@@ -94,9 +94,8 @@
 <div align="center">
 <table>
   <tr>
-    <td align="center"><img src="https://github.com/username1.png" width="100"/><br /><b>홍길동</b><br />프론트엔드</td>
-    <td align="center"><img src="https://github.com/username2.png" width="100"/><br /><b>김철수</b><br />백엔드</td>
-    <td align="center"><img src="https://github.com/username3.png" width="100"/><br /><b>이영희</b><br />AI/ML</td>
+    <td align="center"><img src="https://github.com/username1.png" width="100"/><br /><b>김남훈</b><br />프론트엔드&벡엔드</td>
+    <td align="center"><img src="https://github.com/username2.png" width="100"/><br /><b>박규민</b><br />프론트엔드&백엔드</td>
   </tr>
 </table>
 </div>
