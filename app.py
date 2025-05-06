@@ -51,26 +51,26 @@ class App():
         if st.session_state["logged_in"]:
             st.sidebar.title("📌 메뉴")
             menu = st.sidebar.radio("메뉴 선택", [
-                "💰 자산 현황 모니터링",
-                "👤 투자자 프로필 대시보드",
-                "📊 글로벌 ETF 섹터 분석",
-                "📰 실시간 금융 뉴스 모니터링",
-                "📑 종합 자산 진단 리포트",
-                "🤖 투자 포트폴리오 어드바이저",
+                "💰 자산 현황",
+                "👤 투자 프로필",
+                "📊 ETF 분석",
+                "📰 금융 뉴스",
+                "📑 자산 진단",
+                "🤖 AI 어드바이저",
                 "로그아웃"
             ])
             
-            if menu == "💰 자산 현황 모니터링":
+            if menu == "💰 자산 현황":
                 st.session_state["page"] = "main"
-            if menu == "👤 투자자 프로필 대시보드":
+            if menu == "👤 투자 프로필":
                 st.session_state["page"] = "my_page"
-            elif menu == "📊 글로벌 ETF 섹터 분석":
+            elif menu == "📊 ETF 분석":
                 st.session_state["page"] = "etf_analysis"
-            elif menu == "📰 실시간 금융 뉴스 모니터링":
+            elif menu == "📰 금융 뉴스":
                 st.session_state["page"] = "economic_news"
-            elif menu == "🤖 투자 포트폴리오 어드바이저":
+            elif menu == "🤖 AI 어드바이저":
                 st.session_state["page"] = "chatbot"
-            elif menu == "📑 종합 자산 진단 리포트":
+            elif menu == "📑 자산 진단":
                 st.session_state["page"] = "portfolio_report"
             elif menu == "로그아웃":
                 st.session_state.clear()
