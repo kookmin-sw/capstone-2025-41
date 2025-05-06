@@ -26,14 +26,14 @@ def get_user_id():
     return st.session_state.get("id")
 
 def init_llm():
-    if "report_llm" not in st.session_state:
-        api_key = st.secrets["gemini"]["api_key"]
-        llm = ChatGoogleGenerativeAI(
-            model="gemini-2.0-flash",
-            temperature=0,
-            google_api_key=api_key
-        )
-        st.session_state["report_llm"] = llm
+    api_key = st.secrets["gemini"]["api_key"]
+    llm = ChatGoogleGenerativeAI(
+        model="gemini-2.0-flash",
+        temperature=0,
+        google_api_key=api_key
+    )
+    st.session_state["report_llm"] = llm
+    return llm
 
 def generate_section_content(llm, user_info, asset_summary, economic_summary, stock_summary):
     # user_info에서 필요한 데이터 추출
@@ -538,7 +538,8 @@ def chatbot_page2():
                     del st.session_state[key]
             st.rerun()
 
-    init_llm()
+    # LLM 초기화
+    llm = init_llm()
     
     username = get_user_id()
     supabase = SupabaseDB()
@@ -560,7 +561,7 @@ def chatbot_page2():
             progress_bar = st.progress(0)
             
             report = generate_portfolio_report(
-                st.session_state["report_llm"],
+                llm,
                 user_info[0],
                 asset_summary,
                 economic_summary,

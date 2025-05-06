@@ -8,8 +8,6 @@ from modules.DB import SupabaseDB
 from langchain_core.prompts import PromptTemplate
 from langchain_core.runnables import RunnableLambda
 from langchain_core.output_parsers import StrOutputParser
-from langchain.agents import initialize_agent, AgentType
-# agent 미도입 시 필요 없을듯
 from modules.tools import (
     get_asset_summary_tool,
     get_economic_summary_tool,
@@ -23,17 +21,6 @@ from modules.tools import (
 )
 from langchain_openai import ChatOpenAI
 from langchain_google_genai import ChatGoogleGenerativeAI
-
-
-def init_agent():
-    if "agent" not in st.session_state:
-        tools = [get_asset_summary_tool]
-        st.session_state["agent"] = initialize_agent(
-            tools=tools,
-            llm=st.session_state["llm"],
-            agent=AgentType.OPENAI_FUNCTIONS,
-            verbose=True,
-        )
 
 
 def get_user_id():
@@ -105,31 +92,30 @@ def make_investment_chain(model, asset_summary: str, etf_summary: str, economic_
 def init_chatbot():
     api_key = st.secrets["gemini"]["api_key"] 
 
-    if "question_llm" not in st.session_state:
-        llm = ChatGoogleGenerativeAI(
-            model="gemini-2.0-flash",
-            temperature=0,
-            google_api_key=api_key
-        )
-        st.session_state["question_llm"] = llm
+    # LLM 초기화
+    llm = ChatGoogleGenerativeAI(
+        model="gemini-2.0-flash",
+        temperature=0,
+        google_api_key=api_key
+    )
+    st.session_state["question_llm"] = llm
 
-    if "chat_memory" not in st.session_state:
-        st.session_state["chat_memory"] = ConversationSummaryBufferMemory(
-            llm=st.session_state["question_llm"],
-            return_messages=True
-        )
+    # Memory 초기화
+    memory = ConversationSummaryBufferMemory(
+        llm=llm,
+        return_messages=True
+    )
+    st.session_state["chat_memory"] = memory
 
-    if "conversation" not in st.session_state:
-        st.session_state["conversation"] = ConversationChain(
-            llm=st.session_state["question_llm"],
-            memory=st.session_state["chat_memory"],
-            verbose=False
-        )
+    # Conversation Chain 초기화
+    st.session_state["conversation"] = ConversationChain(
+        llm=llm,
+        memory=memory,
+        verbose=False
+    )
 
     if "chat_history" not in st.session_state:
         st.session_state["chat_history"] = []
-
-    init_agent()  # agent도 함께 초기화
 
 
 # 💬 챗봇 페이지
@@ -226,13 +212,13 @@ def chatbot_page():
         st.session_state["chat_history"].append(("assistant", response))
     
     
-    #st.text(report_content)
+    st.text(report_content)
     
 
     # 사이드바에 대화 초기화 버튼 추가
     with st.sidebar:
         if st.button("💨 대화 초기화"):
-            for key in ["chat_memory", "conversation", "chat_history", "investment_chain", "agent"]:
+            for key in ["chat_memory", "conversation", "chat_history", "investment_chain"]:
                 st.session_state.pop(key, None)
             st.rerun()
  
