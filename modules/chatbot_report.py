@@ -558,7 +558,6 @@ def chatbot_page2():
     if "report_data" not in st.session_state:
         with st.spinner("🤖 AI가 포트폴리오를 분석하고 있습니다..."):
             progress_text = "보고서 생성 중..."
-            progress_bar = st.progress(0)
             
             report = generate_portfolio_report(
                 llm,
