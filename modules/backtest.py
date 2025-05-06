@@ -1,0 +1,539 @@
+import streamlit as st
+from modules.DB import SupabaseDB
+import FinanceDataReader as fdr
+from datetime import datetime
+import pandas as pd
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
+
+def collect_backtest_stock_data():
+    """보유 종목의 과거 데이터를 수집하여 backtest_stocks 테이블에 저장"""
+    username = st.session_state.get("id")
+    if not username:
+        return "로그인된 사용자 ID가 없습니다."
+
+    supabase = SupabaseDB()
+    user_info = supabase.get_user(username)
+    if not user_info or "id" not in user_info[0]:
+        return "Supabase에서 사용자 정보를 찾을 수 없습니다."
+
+    user_id = user_info[0]["id"]
+    stocks = supabase.get_stock_data(user_id)
+    
+    if not stocks:
+        return "현재 보유 중인 주식이 없습니다."
+
+    success_count = 0
+    error_count = 0
+
+    for stock in stocks:
+        try:
+            code = str(stock.get("상품번호")).zfill(6)
+            name = stock.get("상품명", f"종목코드 {code}")
+            
+            # FinanceDataReader로 과거 데이터 수집 (1년치)
+            df = fdr.DataReader(code)
+            df = df.sort_index()
+            
+            # 데이터를 딕셔너리로 변환
+            stock_data = {
+                'daily_data': df.to_dict(orient='index'),  # 전체 데이터 저장
+                'current_holdings': {
+                    '보유수량': stock.get('보유수량'),
+                    '매입금액': stock.get('매입금액'),
+                    '현재가': stock.get('현재가')
+                },
+                'last_updated': datetime.now().isoformat()
+            }
+
+            # 날짜 형식을 문자열로 변환 (JSON 직렬화를 위해)
+            stock_data['daily_data'] = {
+                date.strftime('%Y-%m-%d'): values 
+                for date, values in stock_data['daily_data'].items()
+            }
+
+            # Supabase에 데이터 저장 (upsert)
+            supabase.client.table("backtest_stocks").upsert({
+                "id": user_id,
+                "stock_code": code,
+                "stock_name": name,
+                "data": stock_data
+            }).execute()
+
+            success_count += 1
+            st.success(f"✅ {name}({code}) 데이터 저장 완료")
+
+        except Exception as e:
+            error_count += 1
+            st.error(f"⚠️ {code} 데이터 수집/저장 오류: {e}")
+            continue
+
+    return f"백테스팅용 주식 데이터 수집 완료 (성공: {success_count}개, 실패: {error_count}개)"
+
+def get_backtest_data(username, stock_code=None):
+    """저장된 백테스팅 데이터를 가져옴"""
+    supabase = SupabaseDB()
+    
+    # 먼저 username으로 user_id(UUID) 가져오기
+    user_info = supabase.get_user(username)
+    if not user_info or "id" not in user_info[0]:
+        return []
+    
+    user_id = user_info[0]["id"]
+    
+    if stock_code:
+        response = supabase.client.table("backtest_stocks").select("*").eq("id", user_id).eq("stock_code", stock_code).execute()
+    else:
+        response = supabase.client.table("backtest_stocks").select("*").eq("id", user_id).execute()
+    
+    return response.data
+
+def convert_to_dataframe(stock_data):
+    """JSON 형태의 데이터를 DataFrame으로 변환"""
+    daily_data = stock_data['data']['daily_data']
+    df = pd.DataFrame.from_dict(daily_data, orient='index')
+    df.index = pd.to_datetime(df.index)
+    df = df.sort_index()
+    return df
+
+def calculate_strategy_performance(df, initial_capital=10000000):
+    """간단한 이동평균 교차 전략의 성과 계산"""
+    # 이동평균선 계산
+    df['MA20'] = df['Close'].rolling(window=20).mean()
+    df['MA60'] = df['Close'].rolling(window=60).mean()
+    
+    # 매매 신호 생성
+    df['Signal'] = 0
+    df.loc[df['MA20'] > df['MA60'], 'Signal'] = 1  # 골든 크로스: 매수
+    df.loc[df['MA20'] < df['MA60'], 'Signal'] = -1  # 데드 크로스: 매도
+    
+    # 포지션 변화 감지
+    df['Position_Change'] = df['Signal'].diff()
+    
+    # 수익률 계산
+    df['Returns'] = df['Close'].pct_change()
+    df['Strategy_Returns'] = df['Signal'].shift(1) * df['Returns']
+    
+    # 누적 수익률 계산
+    df['Cum_Market_Returns'] = (1 + df['Returns']).cumprod()
+    df['Cum_Strategy_Returns'] = (1 + df['Strategy_Returns']).cumprod()
+    
+    # 포트폴리오 가치 계산
+    df['Market_Value'] = initial_capital * df['Cum_Market_Returns']
+    df['Strategy_Value'] = initial_capital * df['Cum_Strategy_Returns']
+    
+    # 거래 기록 생성
+    trades = []
+    for date, row in df[df['Position_Change'] != 0].iterrows():
+        if row['Position_Change'] > 0:
+            trades.append({
+                'date': date,
+                'type': '매수',
+                'price': row['Close']
+            })
+        elif row['Position_Change'] < 0:
+            trades.append({
+                'date': date,
+                'type': '매도',
+                'price': row['Close']
+            })
+    
+    return df, trades
+
+def plot_price_chart(df, stock_name):
+    """기본 주가 차트"""
+    fig = go.Figure()
+    
+    # 캔들스틱 차트 - 단위를 만원으로 변환
+    df_manwon = df.copy()
+    for col in ['Open', 'High', 'Low', 'Close']:
+        df_manwon[col] = df_manwon[col] / 10000
+
+    fig.add_trace(go.Candlestick(
+        x=df_manwon.index,
+        open=df_manwon['Open'],
+        high=df_manwon['High'],
+        low=df_manwon['Low'],
+        close=df_manwon['Close'],
+        name='주가'
+    ))
+    
+    # 차트 레이아웃 설정
+    fig.update_layout(
+        title=f"{stock_name} 주가 차트",
+        yaxis_title="주가 (만원)",
+        xaxis_title="날짜",
+        height=500,
+        xaxis_rangeslider_visible=False
+    )
+    
+    return fig
+
+def plot_volume_chart(df, stock_name):
+    """거래량 차트"""
+    fig = go.Figure()
+    
+    # 거래량 바 차트
+    colors = ['red' if row['Close'] < row['Open'] else 'green' for _, row in df.iterrows()]
+    
+    fig.add_trace(go.Bar(
+        x=df.index,
+        y=df['Volume'],
+        name='거래량',
+        marker_color=colors,
+        marker_line_width=0,
+        opacity=0.7
+    ))
+    
+    # 차트 레이아웃 설정
+    fig.update_layout(
+        title=f"{stock_name} 거래량",
+        yaxis_title="거래량",
+        xaxis_title="날짜",
+        height=500,
+        showlegend=False,
+        xaxis_rangeslider_visible=False
+    )
+    
+    return fig
+
+def plot_moving_averages(df, stock_name):
+    """이동평균선 차트"""
+    fig = go.Figure()
+    
+    # 모든 가격 데이터를 만원 단위로 변환
+    df_manwon = df.copy()
+    for col in ['Close', 'MA20', 'MA60']:
+        df_manwon[col] = df_manwon[col] / 10000
+    
+    # 종가 라인
+    fig.add_trace(go.Scatter(
+        x=df_manwon.index,
+        y=df_manwon['Close'],
+        name='종가',
+        line=dict(color='black', width=1)
+    ))
+    
+    # 이동평균선
+    fig.add_trace(go.Scatter(
+        x=df_manwon.index,
+        y=df_manwon['MA20'],
+        name='20일 이동평균',
+        line=dict(color='orange', width=2)
+    ))
+    
+    fig.add_trace(go.Scatter(
+        x=df_manwon.index,
+        y=df_manwon['MA60'],
+        name='60일 이동평균',
+        line=dict(color='blue', width=2)
+    ))
+    
+    fig.update_layout(
+        title=f"{stock_name} 이동평균선",
+        yaxis_title="주가 (만원)",
+        xaxis_title="날짜",
+        height=500
+    )
+    
+    return fig
+
+def plot_trading_signals(df, trades, stock_name):
+    """매매 신호 차트"""
+    fig = go.Figure()
+    
+    # 가격을 만원 단위로 변환
+    df_manwon = df.copy()
+    df_manwon['Close'] = df_manwon['Close'] / 10000
+    
+    # 종가 라인
+    fig.add_trace(go.Scatter(
+        x=df_manwon.index,
+        y=df_manwon['Close'],
+        name='종가',
+        line=dict(color='black', width=1)
+    ))
+    
+    # 매수/매도 포인트 (가격을 만원 단위로 변환)
+    buy_points = [{'date': t['date'], 'price': t['price']/10000} for t in trades if t['type'] == '매수']
+    sell_points = [{'date': t['date'], 'price': t['price']/10000} for t in trades if t['type'] == '매도']
+    
+    if buy_points:
+        fig.add_trace(go.Scatter(
+            x=[t['date'] for t in buy_points],
+            y=[t['price'] for t in buy_points],
+            mode='markers',
+            name='매수 신호',
+            marker=dict(color='red', size=10, symbol='triangle-up')
+        ))
+    
+    if sell_points:
+        fig.add_trace(go.Scatter(
+            x=[t['date'] for t in sell_points],
+            y=[t['price'] for t in sell_points],
+            mode='markers',
+            name='매도 신호',
+            marker=dict(color='blue', size=10, symbol='triangle-down')
+        ))
+    
+    fig.update_layout(
+        title=f"{stock_name} 매매 신호",
+        yaxis_title="주가 (만원)",
+        xaxis_title="날짜",
+        height=500
+    )
+    
+    return fig
+
+def plot_performance_comparison(df, stock_name):
+    """수익률 비교 차트"""
+    fig = go.Figure()
+    
+    # 포트폴리오 가치를 만원 단위로 변환
+    df_manwon = df.copy()
+    df_manwon['Market_Value'] = df_manwon['Market_Value'] / 10000
+    df_manwon['Strategy_Value'] = df_manwon['Strategy_Value'] / 10000
+    
+    fig.add_trace(go.Scatter(
+        x=df_manwon.index,
+        y=df_manwon['Market_Value'],
+        name='Buy & Hold',
+        line=dict(color='gray', width=2)
+    ))
+    
+    fig.add_trace(go.Scatter(
+        x=df_manwon.index,
+        y=df_manwon['Strategy_Value'],
+        name='전략 수익률',
+        line=dict(color='green', width=2)
+    ))
+    
+    fig.update_layout(
+        title=f"{stock_name} 수익률 비교",
+        yaxis_title="포트폴리오 가치 (만원)",
+        xaxis_title="날짜",
+        height=500
+    )
+    
+    return fig
+
+def get_period_data(df, months):
+    """선택된 기간에 따라 데이터 필터링"""
+    if months == 1:
+        trading_days = 21
+    elif months == 3:
+        trading_days = 63
+    elif months == 6:
+        trading_days = 126
+    elif months == 9:
+        trading_days = 189
+    else:  # 1년
+        trading_days = 252
+        
+    return df.tail(trading_days)
+
+def main():
+    st.title("📈 백테스팅 시스템")
+    
+    if "id" not in st.session_state:
+        st.warning("로그인이 필요합니다.")
+        return
+
+    # 설정 섹션을 expander로 구성
+    with st.expander("⚙️ 백테스팅 설정", expanded=True):
+        col1, col2 = st.columns([2, 1])
+        
+        with col1:
+            # 저장된 종목 데이터 불러오기
+            stocks_data = get_backtest_data(st.session_state["id"])
+            if not stocks_data:
+                st.warning("백테스팅할 데이터가 없습니다.")
+                return
+
+            # 종목 선택
+            stock_options = {f"{data['stock_name']} ({data['stock_code']})": data['stock_code'] 
+                            for data in stocks_data}
+            selected_stock = st.selectbox("📌 분석할 종목", options=list(stock_options.keys()))
+            
+            # 기간 선택
+            period_options = {
+                "1개월": 1,
+                "3개월": 3,
+                "6개월": 6,
+                "9개월": 9,
+                "1년": 12
+            }
+            col_period, col_capital = st.columns(2)
+            with col_period:
+                selected_period = st.selectbox(
+                    "📅 백테스팅 기간",
+                    options=list(period_options.keys()),
+                    index=4  # 기본값 1년
+                )
+            
+            # 초기 자본금 설정
+            with col_capital:
+                initial_capital = st.number_input("💰 초기 자본금 (만원)", 
+                                               min_value=100, 
+                                               value=1000, 
+                                               step=100,
+                                               format="%d") * 10000
+        
+        with col2:
+            st.write("")
+            st.write("")
+            # 데이터 수집 버튼
+            if st.button("🔄 데이터 새로고침", use_container_width=True):
+                with st.spinner("보유 종목 데이터를 수집하는 중... ⏳"):
+                    result = collect_backtest_stock_data()
+                    st.success(result)
+                    st.session_state["backtest_data_loaded"] = True
+            
+            st.write("")
+            # 실행 버튼
+            run_backtest = st.button("🚀 백테스팅 실행", type="primary", use_container_width=True)
+            
+            if run_backtest:
+                with st.spinner("백테스팅 분석 중..."):
+                    # 세션 상태에 백테스팅 결과 저장
+                    stock_code = stock_options[selected_stock]
+                    stock_data = get_backtest_data(st.session_state["id"], stock_code)[0]
+                    df = convert_to_dataframe(stock_data)
+                    df = get_period_data(df, period_options[selected_period])
+                    df, trades = calculate_strategy_performance(df, initial_capital)
+                    
+                    st.session_state['backtest_results'] = {
+                        'df': df,
+                        'trades': trades,
+                        'stock_data': stock_data,
+                        'initial_capital': initial_capital,
+                        'selected_period': selected_period
+                    }
+                    st.success("백테스팅이 완료되었습니다! ✨")
+
+    # 구분선 추가
+    st.divider()
+
+    # 결과 표시
+    if 'backtest_results' in st.session_state:
+        results = st.session_state['backtest_results']
+        df = results['df']
+        trades = results['trades']
+        stock_data = results['stock_data']
+        initial_capital = results['initial_capital']
+        selected_period = results['selected_period']
+        
+        # 분석 기간 정보
+        period_col1, period_col2 = st.columns(2)
+        with period_col1:
+            st.info(f"📅 분석 시작일: {df.index[0].strftime('%Y-%m-%d')}")
+        with period_col2:
+            st.info(f"📅 분석 종료일: {df.index[-1].strftime('%Y-%m-%d')}")
+        
+        # 성과 지표 계산
+        total_trades = len(trades)
+        final_market_return = (df['Market_Value'].iloc[-1] / initial_capital - 1) * 100
+        final_strategy_return = (df['Strategy_Value'].iloc[-1] / initial_capital - 1) * 100
+        
+        # 성과 지표 표시
+        metric_col1, metric_col2, metric_col3 = st.columns(3)
+        with metric_col1:
+            st.metric("총 거래 횟수", f"{total_trades}회")
+            st.caption("💡 골든 크로스(매수)와 데드 크로스(매도)가 발생한 총 횟수")
+        with metric_col2:
+            st.metric("Buy & Hold 수익률", f"{final_market_return:.2f}%")
+            st.caption(f"💡 {df.index[0].strftime('%Y-%m-%d')}에 매수 후 {df.index[-1].strftime('%Y-%m-%d')}까지 보유했을 때의 수익률")
+        with metric_col3:
+            st.metric("전략 수익률", f"{final_strategy_return:.2f}%")
+            st.caption("💡 이동평균선 교차 시점에 매매했을 때의 수익률")
+        
+        # 수익률 비교 설명
+        with st.expander("📈 수익률 비교 설명"):
+            st.info(f"""
+            **{selected_period} 기준 백테스팅 결과**
+            - **Buy & Hold**: 시작일({df.index[0].strftime('%Y-%m-%d')})에 매수하고 종료일({df.index[-1].strftime('%Y-%m-%d')})까지 보유하는 단순 전략
+            - **전략 수익률**: MA20이 MA60을 상향돌파할 때 매수, 하향돌파할 때 매도하는 전략
+            
+            두 수익률을 비교하면 이동평균선 전략의 효과를 확인할 수 있습니다.
+            전략 수익률이 더 높다면 이동평균선 전략이 단순 보유보다 효과적이었다는 의미입니다.
+            """)
+        
+        # 탭으로 차트 구분
+        tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
+            "📊 기본 주가 차트",
+            "📈 거래량",
+            "〽️ 이동평균선",
+            "🎯 매매 신호",
+            "💰 수익률 비교",
+            "📝 매매 시뮬레이션"
+        ])
+        
+        with tab1:
+            st.plotly_chart(plot_price_chart(df, stock_data['stock_name']), use_container_width=True)
+        
+        with tab2:
+            st.plotly_chart(plot_volume_chart(df, stock_data['stock_name']), use_container_width=True)
+        
+        with tab3:
+            st.plotly_chart(plot_moving_averages(df, stock_data['stock_name']), use_container_width=True)
+        
+        with tab4:
+            st.plotly_chart(plot_trading_signals(df, trades, stock_data['stock_name']), use_container_width=True)
+        
+        with tab5:
+            st.plotly_chart(plot_performance_comparison(df, stock_data['stock_name']), use_container_width=True)
+        
+        with tab6:
+            st.subheader("📊 이동평균선 전략 시뮬레이션 결과")
+            st.caption("MA20이 MA60을 상향돌파할 때 매수, 하향돌파할 때 매도하는 전략을 적용했을 경우의 시뮬레이션 결과입니다.")
+            
+            trades_df = pd.DataFrame(trades)
+            if not trades_df.empty:
+                trades_df['date'] = trades_df['date'].dt.strftime('%Y-%m-%d')
+                trades_df.columns = ['거래일자', '매매구분', '거래가격']
+                # 거래가격을 만원 단위로 변환
+                trades_df['거래가격'] = (trades_df['거래가격'] / 10000).round(2)
+                
+                # 매매 구분에 따라 색상 적용
+                def highlight_trades(row):
+                    if row['매매구분'] == '매수':
+                        return ['background-color: #e6f3ff'] * len(row)
+                    else:
+                        return ['background-color: #fff1f1'] * len(row)
+                
+                # 스타일이 적용된 데이터프레임 표시
+                st.dataframe(
+                    trades_df.style
+                    .apply(highlight_trades, axis=1)
+                    .format({'거래가격': '{:,.2f} 만원'})
+                    .set_properties(**{
+                        'text-align': 'center',
+                        'font-size': '14px',
+                        'padding': '10px'
+                    })
+                    .set_table_styles([
+                        {'selector': 'th',
+                         'props': [('background-color', '#f0f2f6'),
+                                 ('color', '#2c3e50'),
+                                 ('font-weight', 'bold'),
+                                 ('text-align', 'center'),
+                                 ('padding', '10px')]},
+                        {'selector': 'td',
+                         'props': [('padding', '10px')]}
+                    ]),
+                    height=400
+                )
+                
+                # 거래 통계 표시
+                col1, col2, col3 = st.columns(3)
+                with col1:
+                    buy_count = len(trades_df[trades_df['매매구분'] == '매수'])
+                    st.metric("총 매수 횟수", f"{buy_count}회")
+                with col2:
+                    sell_count = len(trades_df[trades_df['매매구분'] == '매도'])
+                    st.metric("총 매도 횟수", f"{sell_count}회")
+                with col3:
+                    avg_price = trades_df['거래가격'].mean()
+                    st.metric("평균 거래가격", f"{avg_price:,.2f} 만원")
+    else:
+        st.info("⚙️ 상단의 설정에서 백테스팅 옵션을 선택하고 실행해주세요.") 
