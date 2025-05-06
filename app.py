@@ -12,7 +12,7 @@ from modules.collect_economic_data import collectEconomicData
 from modules.chatbot_question import chatbot_page
 from modules.chatbot_report import chatbot_page2
 from modules.mypage import MyPage
-from modules.AI_report import chatbot_page3
+from modules.AI_report import chatbot_page3, chatbot_page4
 
 class App():
     def __init__(self):
@@ -219,15 +219,17 @@ class App():
 
         # 포트폴리오 보고서 페이지
         if st.session_state["page"] == "portfolio_report":
-            personal, macro = st.tabs(["📊 투자 포트폴리오 분석 리포트", "🌐 거시경제 동향 리포트"])
+            personal, macro, real_estate = st.tabs(["📊 투자 포트폴리오 분석 리포트", "🌐 거시경제 동향 리포트", "🏠 부동산 동향 리포트"])
 
             with personal:
                 st.subheader("개인 포트폴리오 분석")
                 chatbot_page2()
 
             with macro:
-                st.subheader("거시경제 동향 리포트")
                 chatbot_page3()
+
+            with real_estate:
+                chatbot_page4()
 
         if st.session_state["page"] == "my_page":
                 mypage = MyPage()
