@@ -1,23 +1,19 @@
 [theme]
-primaryColor = "#4A90E2"  # 주요 강조색
+primaryColor = "#1E88E5"  # 주요 강조색
 backgroundColor = "#FFFFFF"  # 배경색
 secondaryBackgroundColor = "#F0F2F6"  # 보조 배경색
 textColor = "#262730"  # 텍스트 색상
 font = "sans serif"  # 기본 폰트
 
 [server]
-enableXsrfProtection = true
+enableXsrfProtection = false
 enableCORS = false
 
 [browser]
 gatherUsageStats = false
 
-[ui]
-hideTopBar = false  # 상단 메뉴 표시
-hideSidebarNav = false  # 사이드바 네비게이션 표시
-
-[deprecation]
-showfileUploaderEncoding = false
+[client]
+showSidebarNavigation = true  # 사이드바 네비게이션 표시
 
 [logger]
 level = "info"
