@@ -34,6 +34,14 @@ class App():
             st.session_state["etf_kr_loaded"] = False
         if "article_loaded" not in st.session_state:
             st.session_state["article_loaded"] = False
+            
+        # LLM 세션 상태 추가
+        if "question_llm" not in st.session_state:
+            st.session_state["question_llm"] = None
+        if "report_llm" not in st.session_state:
+            st.session_state["report_llm"] = None
+        if "chat_memory" not in st.session_state:
+            st.session_state["chat_memory"] = None
 
         # Supabase 사용자 관리
         self.user_manager = UserManager()

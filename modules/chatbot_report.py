@@ -26,14 +26,14 @@ def get_user_id():
     return st.session_state.get("id")
 
 def init_llm():
-    if "llm" not in st.session_state:
+    if "report_llm" not in st.session_state:
         api_key = st.secrets["gemini"]["api_key"]
         llm = ChatGoogleGenerativeAI(
             model="gemini-2.0-flash",
             temperature=0,
             google_api_key=api_key
         )
-        st.session_state["llm"] = llm
+        st.session_state["report_llm"] = llm
 
 def generate_section_content(llm, user_info, asset_summary, economic_summary, stock_summary):
     # user_info에서 필요한 데이터 추출
@@ -533,7 +533,7 @@ def chatbot_page2():
         st.title("🛠️ 보고서 설정")
         
         if st.button("🔄 보고서 초기화 및 재생성"):
-            for key in ["llm", "report_data"]:
+            for key in ["report_llm", "report_data"]:
                 if key in st.session_state:
                     del st.session_state[key]
             st.rerun()
@@ -560,7 +560,7 @@ def chatbot_page2():
             progress_bar = st.progress(0)
             
             report = generate_portfolio_report(
-                st.session_state["llm"],
+                st.session_state["report_llm"],
                 user_info[0],
                 asset_summary,
                 economic_summary,
