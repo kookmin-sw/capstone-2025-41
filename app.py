@@ -9,7 +9,7 @@ from modules.etf import ETFAnalyzer
 from modules.etf_kr import ETFAnalyzer as ETFAnalyzerKR
 from modules.crawling_article import crawlingArticle
 from modules.collect_economic_data import collectEconomicData
-from modules.chatbot_prototype import chatbot_page
+from modules.chatbot_question import chatbot_page
 from modules.chatbot_report import chatbot_page2
 from modules.mypage import MyPage
 from modules.AI_report import chatbot_page3
@@ -52,7 +52,7 @@ class App():
                 st.session_state["page"] = "etf_analysis"
             elif menu == "경제 뉴스":
                 st.session_state["page"] = "economic_news"
-            elif menu == "AI 챗봇":
+            elif menu == "질문용 챗봇":
                 st.session_state["page"] = "chatbot"
             elif menu == "포트폴리오 보고서":
                 st.session_state["page"] = "portfolio_report"
