@@ -318,9 +318,6 @@ def generate_portfolio_report(llm, user_info, asset_summary, economic_summary, s
         "appendix": "부록"
     }
     
-    progress_text = "보고서 생성 중..."
-    progress_bar = st.progress(0)
-    
     # 한 번의 API 호출로 모든 섹션 생성
     section_contents = generate_section_content(
         llm,
@@ -332,14 +329,12 @@ def generate_portfolio_report(llm, user_info, asset_summary, economic_summary, s
     
     # 결과 포맷팅
     report = {}
-    for i, (section_key, section_title) in enumerate(sections.items()):
+    for section_key, section_title in sections.items():
         report[section_key] = {
             "title": section_title,
             "content": section_contents.get(section_key, "섹션 내용을 찾을 수 없습니다.")
         }
-        progress_bar.progress((i + 1) / len(sections))
     
-    progress_bar.empty()
     return report
 
 def generate_pdf_report(report_data):
@@ -567,7 +562,11 @@ def chatbot_page2():
                 economic_summary,
                 stock_summary
             )
+            
+            # 진행률 업데이트
+            progress_bar.progress(1.0)
             progress_bar.empty()
+            
             st.success("✅ 보고서 생성이 완료되었습니다!")
             st.session_state["report_data"] = report
     else:
