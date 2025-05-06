@@ -79,6 +79,22 @@ def get_economic_summary_text() -> str:
            f"미국 일별 지표: {daily_us_summary}\n\n" \
            f"미국 월별 지표: {monthly_us_summary}"
 
+def get_real_estate_summary_text() -> str:
+    supabase = SupabaseDB()
+
+    real_estate = supabase.client.table("real_estate").select("*").order("time", desc=True).execute().data
+
+    if not real_estate:
+        return "❌ 불러올 수 있는 경제 지표 데이터가 없습니다."
+
+    def format_entry(entry):
+        return "\n".join([f"- {k}: {v}" for k, v in entry.items() if k != "id"])
+
+    real_estate_summary = "\n\n".join([f"📅 {d['time']} 월간 지표:\n{format_entry(d)}" for d in real_estate])
+
+    return f"[최신 부동산 지표 요약]\n\n" \
+           f"{real_estate_summary}\n\n"
+
 def get_owned_stock_summary_text():
     """보유 종목의 실시간 주가 정보 + 추세/변동성/위치 판단 포함"""
     username = st.session_state.get("id")
