@@ -13,6 +13,7 @@ from modules.chatbot_question import chatbot_page
 from modules.chatbot_report import chatbot_page2
 from modules.mypage import MyPage
 from modules.AI_report import chatbot_page3, chatbot_page4
+from modules.backtest import main as backtest_page
 
 class App():
     def __init__(self):
@@ -57,6 +58,7 @@ class App():
                 "📰 금융 뉴스",
                 "📑 자산 진단",
                 "🤖 AI 어드바이저",
+                "📈 백테스팅",
                 "로그아웃"
             ])
             
@@ -72,6 +74,8 @@ class App():
                 st.session_state["page"] = "chatbot"
             elif menu == "📑 자산 진단":
                 st.session_state["page"] = "portfolio_report"
+            elif menu == "📈 백테스팅":
+                st.session_state["page"] = "backtest"
             elif menu == "로그아웃":
                 st.session_state.clear()
                 st.session_state["page"] = "login"
@@ -248,8 +252,12 @@ class App():
                 chatbot_page4()
 
         if st.session_state["page"] == "my_page":
-                mypage = MyPage()
-                mypage.show()
+                my_page = MyPage()
+                my_page.show()
+
+        # 백테스팅 페이지
+        if st.session_state["page"] == "backtest":
+            backtest_page()
 
 
 if __name__ == "__main__":
