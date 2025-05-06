@@ -50,19 +50,27 @@ class App():
         # 사이드바 추가
         if st.session_state["logged_in"]:
             st.sidebar.title("📌 메뉴")
-            menu = st.sidebar.radio("메뉴 선택", ["자산 관리", "마이페이지", "ETF 분석", "경제 뉴스", "포트폴리오 보고서", "질문용 챗봇", "로그아웃"])
+            menu = st.sidebar.radio("메뉴 선택", [
+                "💰 자산 현황 모니터링",
+                "👤 투자자 프로필 대시보드",
+                "📊 글로벌 ETF 섹터 분석",
+                "📰 실시간 금융 뉴스 모니터링",
+                "📑 종합 자산 진단 리포트",
+                "🤖 투자 포트폴리오 어드바이저",
+                "로그아웃"
+            ])
             
-            if menu == "자산 관리":
+            if menu == "💰 자산 현황 모니터링":
                 st.session_state["page"] = "main"
-            if menu == "마이페이지":
+            if menu == "👤 투자자 프로필 대시보드":
                 st.session_state["page"] = "my_page"
-            elif menu == "ETF 분석":
+            elif menu == "📊 글로벌 ETF 섹터 분석":
                 st.session_state["page"] = "etf_analysis"
-            elif menu == "경제 뉴스":
+            elif menu == "📰 실시간 금융 뉴스 모니터링":
                 st.session_state["page"] = "economic_news"
-            elif menu == "질문용 챗봇":
+            elif menu == "🤖 투자 포트폴리오 어드바이저":
                 st.session_state["page"] = "chatbot"
-            elif menu == "포트폴리오 보고서":
+            elif menu == "📑 종합 자산 진단 리포트":
                 st.session_state["page"] = "portfolio_report"
             elif menu == "로그아웃":
                 st.session_state.clear()
