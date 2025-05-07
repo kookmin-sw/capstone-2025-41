@@ -341,17 +341,14 @@ def main():
         st.warning("로그인이 필요합니다.")
         return
 
+    # 저장된 종목 데이터 불러오기
+    stocks_data = get_backtest_data(st.session_state["id"])
+
     # 설정 섹션을 expander로 구성
     with st.expander("⚙️ 백테스팅 설정", expanded=True):
         col1, col2 = st.columns([2, 1])
         
         with col1:
-            # 저장된 종목 데이터 불러오기
-            stocks_data = get_backtest_data(st.session_state["id"])
-            if not stocks_data:
-                st.warning("백테스팅할 데이터가 없습니다.")
-                return
-
             # 종목 선택
             stock_options = {f"{data['stock_name']} ({data['stock_code']})": data['stock_code'] 
                             for data in stocks_data}
@@ -537,5 +534,7 @@ def main():
                 with col3:
                     avg_price = trades_df['거래가격'].mean()
                     st.metric("평균 거래가격", f"{avg_price:,.2f} 만원")
+    elif not stocks_data:
+        st.info("🔄 백테스팅을 시작하려면 상단의 '데이터 새로고침' 버튼을 클릭하여 주식 데이터를 먼저 수집해주세요.")
     else:
         st.info("⚙️ 상단의 설정에서 백테스팅 옵션을 선택하고 실행해주세요.") 
