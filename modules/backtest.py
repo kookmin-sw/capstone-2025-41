@@ -5,6 +5,7 @@ from datetime import datetime
 import pandas as pd
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
+import numpy as np    
 
 def collect_backtest_stock_data():
     """보유 종목의 과거 데이터를 수집하여 backtest_stocks 테이블에 저장"""
@@ -19,46 +20,48 @@ def collect_backtest_stock_data():
 
     user_id = user_info[0]["id"]
     stocks = supabase.get_stock_data(user_id)
-    
+
     if not stocks:
         return "현재 보유 중인 주식이 없습니다."
 
-    success_count = 0
-    error_count = 0
+    success_count, error_count = 0, 0
 
     for stock in stocks:
         try:
             code = str(stock.get("상품번호")).zfill(6)
             name = stock.get("상품명", f"종목코드 {code}")
-            
-            # FinanceDataReader로 과거 데이터 수집 (1년치)
-            df = fdr.DataReader(code)
-            df = df.sort_index()
-            
-            # 데이터를 딕셔너리로 변환
+
+            # ────────────────────────────────────────────────
+            # 1) 주가 데이터 수집
+            df = fdr.DataReader(code).sort_index()
+
+            # 2) NaN / ±Inf 값을 None 으로 변환 → JSON 직렬화 안전
+            df = df.replace({np.nan: None, np.inf: None, -np.inf: None})
+            # ────────────────────────────────────────────────
+
+            # 3) dict 변환 & 날짜를 문자열로
+            daily_data = {
+                d.strftime("%Y-%m-%d"): v
+                for d, v in df.to_dict("index").items()
+            }
+
             stock_data = {
-                'daily_data': df.to_dict(orient='index'),  # 전체 데이터 저장
-                'current_holdings': {
-                    '보유수량': stock.get('보유수량'),
-                    '매입금액': stock.get('매입금액'),
-                    '현재가': stock.get('현재가')
+                "daily_data": daily_data,
+                "current_holdings": {
+                    "보유수량": stock.get("보유수량"),
+                    "매입금액": stock.get("매입금액"),
+                    "현재가":  stock.get("현재가")
                 },
-                'last_updated': datetime.now().isoformat()
+                "last_updated": datetime.now().isoformat()
             }
 
-            # 날짜 형식을 문자열로 변환 (JSON 직렬화를 위해)
-            stock_data['daily_data'] = {
-                date.strftime('%Y-%m-%d'): values 
-                for date, values in stock_data['daily_data'].items()
-            }
-
-            # Supabase에 데이터 저장 (upsert)
-            supabase.client.table("backtest_stocks").upsert({
-                "id": user_id,
+            # 4) 업서트 – 단일 레코드도 리스트로 감싸기
+            supabase.client.table("backtest_stocks").upsert([{
+                "id":         user_id,
                 "stock_code": code,
                 "stock_name": name,
-                "data": stock_data
-            }).execute()
+                "data":       stock_data
+            }]).execute()
 
             success_count += 1
             st.success(f"✅ {name}({code}) 데이터 저장 완료")
@@ -66,7 +69,6 @@ def collect_backtest_stock_data():
         except Exception as e:
             error_count += 1
             st.error(f"⚠️ {code} 데이터 수집/저장 오류: {e}")
-            continue
 
     return f"백테스팅용 주식 데이터 수집 완료 (성공: {success_count}개, 실패: {error_count}개)"
 
