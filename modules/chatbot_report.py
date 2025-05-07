@@ -440,7 +440,7 @@ def generate_pdf_report(report_data):
         story.append(Spacer(1, 100))
         
         # 로고 또는 제목
-        title = Paragraph("투자 포트폴리오 분석 리포트", styles['CoverTitle'])
+        title = Paragraph("개인화된 포트폴리오 분석 리포트", styles['CoverTitle'])
         story.append(title)
         
         # 고객 정보 (로그인 ID 사용)
@@ -521,7 +521,7 @@ def generate_pdf_report(report_data):
         return tmp_file.name
 
 def chatbot_page2():
-    st.title("📊 투자 포트폴리오 분석 리포트")
+    st.title("📊 개인화된 포트폴리오 분석 리포트")
 
     # 사이드바 개선
     with st.sidebar:
@@ -574,23 +574,23 @@ def chatbot_page2():
 
     # 섹션 헤더 디자인 개선
     sections = [
-        ("📋 요약", "summary", True),
-        ("📈 마이데이터 분석", "mydata", False),
-        ("💰 재무 건전성 평가", "financial_status", False),
-        ("👤 투자 성향 진단", "investment_style", False),
-        ("📊 포트폴리오 전략", "portfolio", False),
-        ("⚠️ 위험관리 전략", "scenario", False),
-        ("📅 실행 로드맵", "action_guide", False),
-        ("📚 부록", "appendix", False)
+        ("📋 요약", "summary"),
+        ("📈 마이데이터 분석", "mydata"),
+        ("💰 재무 건전성 평가", "financial_status"),
+        ("👤 투자 성향 진단", "investment_style"),
+        ("📊 포트폴리오 전략", "portfolio"),
+        ("⚠️ 위험관리 전략", "scenario"),
+        ("📅 실행 로드맵", "action_guide"),
+        ("📚 부록", "appendix")
     ]
     
-    # 섹션별 내용 표시
-    for title, key, default_expanded in sections:
-        st.header(title)
-        with st.expander("내용 보기", expanded=default_expanded):
+    # 모든 섹션을 하나의 expander로 통합
+    with st.expander("📑 전체 보고서 보기", expanded=True):
+        for title, key in sections:
+            st.markdown(f"### {title}")
             content = report[key]["content"]
-            # 마크다운 형식의 텍스트를 보기 좋게 표시
             st.markdown(content)
+            st.markdown("---")
 
     # PDF 다운로드 버튼
     col1, col2, col3 = st.columns([6, 3, 6])
@@ -604,7 +604,7 @@ def chatbot_page2():
             st.download_button(
                 label="📥 PDF",
                 data=pdf_bytes,
-                file_name="개인화된 자산분석석 포트폴리오 분석 리포트.pdf",
+                file_name="개인화된 자산분석 포트폴리오 분석 리포트.pdf",
                 mime="application/pdf"
             )
         except Exception as e:
