@@ -249,15 +249,16 @@ class ETFAnalyzer:
             values=values,  #  트리맵 크기는 S&P500 섹터별 비중 사용
             marker=dict(
                 colors=changes,  #  색상은 증감률 기준
-                colorscale=[  # 색상 범위 조정 (부드러운 블루-레드 계열)
-                    [0, "#4575b4"],  # 진한 파랑
-                    [0.25, "#91bfdb"],  # 연한 파랑
-                    [0.5, "#e0f3f8"],  # 흰색 계열
-                    [0.75, "#f4a6a6"],  # 연한 주황
-                    [1, "#d73027"]  # 진한 빨강
+                colorscale=[  # 색상 범위 조정 (더 선명한 색상 사용)
+                    [0, "#1a237e"],  # 진한 파랑
+                    [0.25, "#3949ab"],  # 중간 파랑
+                    [0.5, "#e8eaf6"],  # 연한 파랑
+                    [0.75, "#e53935"],  # 진한 빨강
+                    [1, "#b71c1c"]  # 더 진한 빨강
                 ],
                 cmid=0,
-                line=dict(width=1.5, color="white")  #  테두리 선
+                line=dict(width=1, color="black"),  # 선 두께를 1로 줄이고 한 번만 표시
+                pad=dict(t=2, l=2, r=2, b=2)  # 섹터 간 간격 추가
             ),
             text=text_labels,  #  트리맵 내부 텍스트: 섹터명 + 증감률
             textposition="middle center",
@@ -276,7 +277,20 @@ class ETFAnalyzer:
             height=600,
             margin=dict(t=10, l=10, r=10, b=10),
             paper_bgcolor="rgba(0,0,0,0)", 
-            plot_bgcolor="rgba(0,0,0,0)",
+            plot_bgcolor="black",
+            shapes=[dict(
+                type="rect",
+                xref="paper",
+                yref="paper",
+                x0=0,
+                y0=0,
+                x1=1,
+                y1=1,
+                line=dict(
+                    color="black",
+                    width=5
+                )
+            )]
         )
 
 
