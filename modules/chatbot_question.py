@@ -120,7 +120,7 @@ def init_chatbot():
 
 # 💬 챗봇 페이지
 def chatbot_page():
-    st.title("🧠 투자 조언 챗봇")
+    st.title("🤖 AI 어드바이저")
     init_chatbot()
     
     username = get_user_id()

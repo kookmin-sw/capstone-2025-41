@@ -239,7 +239,7 @@ class App():
 
         # 포트폴리오 보고서 페이지
         if st.session_state["page"] == "portfolio_report":
-            personal, macro, real_estate = st.tabs(["📊 투자 포트폴리오 분석 리포트", "🌐 거시경제 동향 리포트", "🏠 부동산 동향 리포트"])
+            personal, macro, real_estate = st.tabs(["📊 개인 포트폴리오 분석 리포트", "🌐 거시경제 동향 리포트", "🏠 부동산 동향 리포트"])
 
             with personal:
                 st.subheader("개인 포트폴리오 분석")

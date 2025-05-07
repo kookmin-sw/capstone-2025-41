@@ -440,7 +440,7 @@ def generate_pdf_report(report_data):
         story.append(Spacer(1, 100))
         
         # 로고 또는 제목
-        title = Paragraph("개인화된 포트폴리오 분석 리포트", styles['CoverTitle'])
+        title = Paragraph("개인 포트폴리오 분석 리포트", styles['CoverTitle'])
         story.append(title)
         
         # 고객 정보 (로그인 ID 사용)
@@ -521,7 +521,7 @@ def generate_pdf_report(report_data):
         return tmp_file.name
 
 def chatbot_page2():
-    st.title("📊 개인화된 포트폴리오 분석 리포트")
+    st.title("📊 개인 포트폴리오 분석 리포트")
 
     # 사이드바 개선
     with st.sidebar:
@@ -604,7 +604,7 @@ def chatbot_page2():
             st.download_button(
                 label="📥 PDF",
                 data=pdf_bytes,
-                file_name="개인화된 자산분석 포트폴리오 분석 리포트.pdf",
+                file_name="개인 자산분석 포트폴리오 분석 리포트.pdf",
                 mime="application/pdf"
             )
         except Exception as e:
