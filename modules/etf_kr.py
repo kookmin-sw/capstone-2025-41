@@ -199,18 +199,18 @@ class ETFAnalyzer:
         print("📌 필터링된 ETF 목록:", list(etf_data_filtered.keys()))
         print(f"📌 필터링된 ETF 개수: {len(etf_data_filtered)}")
 
-        # 한국 섹터별 비중 데이터 (2024년 3월 기준 KOSPI 업종별 시가총액 비중 기반)
+        # 한국 ETF 섹터별 비중 데이터 (트리맵 크기)
         sector_weights = {
-            "KODEX IT": 30.5,
-            "KODEX 반도체": 15.2,
-            "KODEX 은행": 10.8,
-            "KODEX 에너지화학": 9.7,
-            "KODEX 자동차": 8.5,
-            "KODEX 바이오": 7.3,
-            "KODEX 헬스케어": 6.8,
-            "KODEX 미디어통신": 5.2,
-            "KODEX 철강": 3.5,
-            "KODEX 건설": 2.5
+            "은행": 12.5,
+            "에너지화학": 15.2,
+            "IT": 18.3,
+            "자동차": 11.8,
+            "철강": 8.4,
+            "반도체": 14.6,
+            "건설": 5.2,
+            "미디어통신": 6.8,
+            "바이오": 4.2,
+            "헬스케어": 3.0
         }
 
         labels, values, changes, text_labels = [], [], [], []
@@ -243,34 +243,35 @@ class ETFAnalyzer:
                 prev_price = df_filtered['Close'].iloc[0]  # 일반적인 경우
            
             change = round((latest_price - prev_price) / prev_price * 100, 2)
+            short_name = etf_full_to_short[sector]
 
-            labels.append(sector_short_names.get(sector, sector))
-            values.append(sector_weights.get(sector, 1))
+            labels.append(short_name)
+            values.append(sector_weights.get(short_name, 1))
             changes.append(change)
-            text_labels.append(f"<b>{sector_short_names.get(sector, sector)}</b><br>{change:.2f}%")
+            text_labels.append(f"<b>{short_name}</b><br>{change:.2f}%")
 
         if not labels:
             st.warning("선택한 기간에 데이터가 없습니다.")
             return
 
-        # Treemap 생성
         fig = go.Figure(go.Treemap(
             labels=labels,
             parents=["" for _ in labels],
-            values=values,  #  트리맵 크기는 섹터별 비중 사용
+            values=values,  # 트리맵 크기는 섹터별 비중 사용
             marker=dict(
-                colors=changes,  #  색상은 증감률 기준
-                colorscale=[  # 색상 범위 조정 (부드러운 블루-레드 계열)
-                    [0, "#4575b4"],  # 진한 파랑
-                    [0.25, "#91bfdb"],  # 연한 파랑
-                    [0.5, "#e0f3f8"],  # 흰색 계열
-                    [0.75, "#f4a6a6"],  # 연한 주황
-                    [1, "#d73027"]  # 진한 빨강
+                colors=changes,  # 색상은 증감률 기준
+                colorscale=[  # 색상 범위 조정 (더 선명한 색상 사용)
+                    [0, "#1a237e"],  # 진한 파랑
+                    [0.25, "#3949ab"],  # 중간 파랑
+                    [0.5, "#e8eaf6"],  # 연한 파랑
+                    [0.75, "#e53935"],  # 진한 빨강
+                    [1, "#b71c1c"]  # 더 진한 빨강
                 ],
                 cmid=0,
-                line=dict(width=1.5, color="white")  #  테두리 선
+                line=dict(width=1, color="black"),  # 선 두께를 1로 줄이고 한 번만 표시
+                pad=dict(t=2, l=2, r=2, b=2)  # 섹터 간 간격 추가
             ),
-            text=text_labels,  #  트리맵 내부 텍스트: 섹터명 + 증감률
+            text=text_labels,  # 트리맵 내부 텍스트: 섹터명 + 증감률
             textposition="middle center",
             hoverinfo="none",
             hovertemplate="<b>%{label}</b><br>" + 
@@ -279,7 +280,7 @@ class ETFAnalyzer:
                   "<extra></extra>",  # 불필요한 정보 제거
             customdata=changes,  # customdata를 이용해 1일 수익률 전달
             textinfo="text",  # 트리맵 내부에는 증감률만 표시
-            textfont=dict(size=18, family="Arial", color="black"),  #  글씨 크기 키우고 색상 변경
+            textfont=dict(size=18, family="Arial", color="black"),  # 글씨 크기 키우고 색상 변경
         ))
 
         fig.update_layout(
@@ -287,7 +288,20 @@ class ETFAnalyzer:
             height=600,
             margin=dict(t=10, l=10, r=10, b=10),
             paper_bgcolor="rgba(0,0,0,0)", 
-            plot_bgcolor="rgba(0,0,0,0)",
+            plot_bgcolor="black",
+            shapes=[dict(
+                type="rect",
+                xref="paper",
+                yref="paper",
+                x0=0,
+                y0=0,
+                x1=1,
+                y1=1,
+                line=dict(
+                    color="black",
+                    width=5
+                )
+            )]
         )
 
         st.plotly_chart(fig)
