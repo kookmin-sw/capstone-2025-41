@@ -349,10 +349,49 @@ def main():
         col1, col2 = st.columns([2, 1])
         
         with col1:
-            # 종목 선택
-            stock_options = {f"{data['stock_name']} ({data['stock_code']})": data['stock_code'] 
-                            for data in stocks_data}
-            selected_stock = st.selectbox("📌 분석할 종목", options=list(stock_options.keys()))
+            # 종목 선택 방식 선택
+            selection_method = st.radio(
+                "🔍 종목 선택 방식",
+                ["보유 종목", "직접 검색"],
+                horizontal=True
+            )
+            
+            if selection_method == "보유 종목":
+                # 기존 보유 종목 선택
+                stock_options = {f"{data['stock_name']} ({data['stock_code']})": data['stock_code'] 
+                                for data in stocks_data}
+                selected_stock = st.selectbox("📌 분석할 종목", options=list(stock_options.keys()))
+                stock_code = stock_options[selected_stock]
+            else:
+                # 직접 검색
+                search_code = st.text_input("🔍 종목 코드 입력 (예: 005930)", 
+                                          help="검색하고 싶은 주식의 종목 코드를 입력하세요.")
+                if search_code:
+                    try:
+                        # 종목 코드 형식 맞추기 (6자리)
+                        search_code = search_code.zfill(6)
+                        
+                        # FinanceDataReader를 사용하여 종목명 가져오기
+                        df = fdr.DataReader(search_code)
+                        if not df.empty:
+                            # KRX 종목 목록에서 종목명 찾기
+                            krx_list = fdr.StockListing('KRX')
+                            stock_info = krx_list[krx_list['Code'] == search_code]
+                            
+                            if not stock_info.empty:
+                                stock_name = stock_info.iloc[0]['Name']
+                                stock_code = search_code
+                                selected_stock = f"{stock_name} ({stock_code})"
+                                st.success(f"✅ {stock_name} 종목을 찾았습니다.")
+                            else:
+                                st.error("❌ 해당 종목 코드의 정보를 찾을 수 없습니다.")
+                                return
+                        else:
+                            st.error("❌ 해당 종목 코드의 데이터를 찾을 수 없습니다.")
+                            return
+                    except Exception as e:
+                        st.error(f"❌ 종목 검색 중 오류가 발생했습니다: {str(e)}")
+                        return
             
             # 기간 선택
             period_options = {
@@ -395,9 +434,22 @@ def main():
             if run_backtest:
                 with st.spinner("백테스팅 분석 중..."):
                     # 세션 상태에 백테스팅 결과 저장
-                    stock_code = stock_options[selected_stock]
-                    stock_data = get_backtest_data(st.session_state["id"], stock_code)[0]
-                    df = convert_to_dataframe(stock_data)
+                    if selection_method == "보유 종목":
+                        stock_data = get_backtest_data(st.session_state["id"], stock_code)[0]
+                        df = convert_to_dataframe(stock_data)
+                    else:
+                        # 직접 검색한 종목의 경우 FinanceDataReader로 데이터 가져오기
+                        df = fdr.DataReader(stock_code)
+                        df = df.sort_index()
+                        # NaN / ±Inf 값을 None으로 변환
+                        df = df.replace({np.nan: None, np.inf: None, -np.inf: None})
+                        
+                        # stock_data 형식 맞추기
+                        stock_data = {
+                            'stock_code': stock_code,
+                            'stock_name': selected_stock.split(' (')[0]
+                        }
+                    
                     df = get_period_data(df, period_options[selected_period])
                     df, trades = calculate_strategy_performance(df, initial_capital)
                     
