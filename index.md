@@ -80,7 +80,7 @@ title: Fynai - AI 기반 자산 관리 대시보드
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
         <!-- 1. 통합 자산 관리 -->
         <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
-            <h3 style="color: #2E4057; margin-bottom: 1rem;">1. 통합 자산 관리 💼</h3>
+            <h3 style="color: #2E4057; margin-bottom: 1rem; font-size: 1.3rem;">1. 통합 자산 관리 💼</h3>
             <div style="margin-bottom: 1rem;">
                 <h4 style="color: #2E4057; font-size: 1.1rem; margin-bottom: 0.5rem;">실시간 포트폴리오 모니터링</h4>
                 <ul style="list-style-type: none; padding-left: 0;">
@@ -93,7 +93,7 @@ title: Fynai - AI 기반 자산 관리 대시보드
 
         <!-- 2. ETF 마켓 인사이트 -->
         <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
-            <h3 style="color: #2E4057; margin-bottom: 1rem;">2. ETF 마켓 인사이트 📈</h3>
+            <h3 style="color: #2E4057; margin-bottom: 1rem; font-size: 1.3rem;">2. ETF 마켓 인사이트 📈</h3>
             <div style="margin-bottom: 1rem;">
                 <h4 style="color: #2E4057; font-size: 1.1rem; margin-bottom: 0.5rem;">글로벌 ETF 분석</h4>
                 <ul style="list-style-type: none; padding-left: 0;">
@@ -106,7 +106,7 @@ title: Fynai - AI 기반 자산 관리 대시보드
 
         <!-- 3. 뉴스 & 마켓 인텔리전스 -->
         <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
-            <h3 style="color: #2E4057; margin-bottom: 1rem;">3. 뉴스 & 마켓 인텔리전스 📰</h3>
+            <h3 style="color: #2E4057; margin-bottom: 1rem; font-size: 1.3rem;">3. 뉴스 & 마켓 인텔리전스 📰</h3>
             <div style="margin-bottom: 1rem;">
                 <h4 style="color: #2E4057; font-size: 1.1rem; margin-bottom: 0.5rem;">실시간 경제 뉴스 분석</h4>
                 <ul style="list-style-type: none; padding-left: 0;">
@@ -119,7 +119,7 @@ title: Fynai - AI 기반 자산 관리 대시보드
 
         <!-- 4. AI 투자 어시스턴트 -->
         <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
-            <h3 style="color: #2E4057; margin-bottom: 1rem;">4. AI 투자 어시스턴트 🤖</h3>
+            <h3 style="color: #2E4057; margin-bottom: 1rem; font-size: 1.3rem;">4. AI 투자 어시스턴트 🤖</h3>
             <div style="margin-bottom: 1rem;">
                 <h4 style="color: #2E4057; font-size: 1.1rem; margin-bottom: 0.5rem;">맞춤형 포트폴리오 분석</h4>
                 <ul style="list-style-type: none; padding-left: 0;">
@@ -133,7 +133,7 @@ title: Fynai - AI 기반 자산 관리 대시보드
 
         <!-- 5. 백테스팅 시스템 -->
         <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
-            <h3 style="color: #2E4057; margin-bottom: 1rem;">5. 백테스팅 시스템 📊</h3>
+            <h3 style="color: #2E4057; margin-bottom: 1rem; font-size: 1.3rem;">5. 백테스팅 시스템 📊</h3>
             <div style="margin-bottom: 1rem;">
                 <h4 style="color: #2E4057; font-size: 1.1rem; margin-bottom: 0.5rem;">투자 전략 검증</h4>
                 <ul style="list-style-type: none; padding-left: 0;">
@@ -199,57 +199,57 @@ title: Fynai - AI 기반 자산 관리 대시보드
 <h2 id="tech">🛠 기술 스택</h2>
 
 <div align="center" style="background-color: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-<h3 style="color: #2E4057; margin-bottom: 1.5rem;">💻 Core Technologies</h3>
-<table style="border: none; background: transparent;">
-  <tr>
-    <td align="center" width="25%"><h4>프론트엔드</h4></td>
-    <td align="center" width="25%"><h4>백엔드</h4></td>
-    <td align="center" width="25%"><h4>데이터 & AI</h4></td>
-    <td align="center" width="25%"><h4>인프라 & 도구</h4></td>
-  </tr>
-  <tr style="background: transparent;">
-    <td align="center">
-      <img src="https://img.shields.io/badge/streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white"><br>
-      <img src="https://img.shields.io/badge/plotly-3F4F75?style=for-the-badge&logo=plotly&logoColor=white">
-    </td>
-    <td align="center">
-      <img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white"><br>
-      <img src="https://img.shields.io/badge/supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white">
-    </td>
-    <td align="center">
-      <img src="https://img.shields.io/badge/pandas-150458?style=for-the-badge&logo=pandas&logoColor=white"><br>
-      <img src="https://img.shields.io/badge/numpy-013243?style=for-the-badge&logo=numpy&logoColor=white"><br>
-      <img src="https://img.shields.io/badge/langchain-339933?style=for-the-badge&logo=chainlink&logoColor=white"><br>
-      <img src="https://img.shields.io/badge/openai-412991?style=for-the-badge&logo=openai&logoColor=white"><br>
-      <img src="https://img.shields.io/badge/gemini-4285F4?style=for-the-badge&logo=google&logoColor=white">
-    </td>
-    <td align="center">
-      <img src="https://img.shields.io/badge/github_pages-222222?style=for-the-badge&logo=github-pages&logoColor=white"><br>
-      <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white"><br>
-      <img src="https://img.shields.io/badge/github_actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white">
-    </td>
-  </tr>
-</table>
+    <h3 style="color: #2E4057; margin-bottom: 1.5rem;">💻 Core Technologies</h3>
+    <table style="width: 100%; border: none; background: transparent;">
+        <tr>
+            <td style="width: 25%; text-align: center;"><h4>프론트엔드</h4></td>
+            <td style="width: 25%; text-align: center;"><h4>백엔드</h4></td>
+            <td style="width: 25%; text-align: center;"><h4>데이터 & AI</h4></td>
+            <td style="width: 25%; text-align: center;"><h4>인프라 & 도구</h4></td>
+        </tr>
+        <tr style="background: transparent;">
+            <td style="text-align: center; vertical-align: middle;">
+                <img src="https://img.shields.io/badge/streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white"><br>
+                <img src="https://img.shields.io/badge/plotly-3F4F75?style=for-the-badge&logo=plotly&logoColor=white">
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+                <img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white"><br>
+                <img src="https://img.shields.io/badge/supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white">
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+                <img src="https://img.shields.io/badge/pandas-150458?style=for-the-badge&logo=pandas&logoColor=white"><br>
+                <img src="https://img.shields.io/badge/numpy-013243?style=for-the-badge&logo=numpy&logoColor=white"><br>
+                <img src="https://img.shields.io/badge/langchain-339933?style=for-the-badge&logo=chainlink&logoColor=white"><br>
+                <img src="https://img.shields.io/badge/openai-412991?style=for-the-badge&logo=openai&logoColor=white"><br>
+                <img src="https://img.shields.io/badge/gemini-4285F4?style=for-the-badge&logo=google&logoColor=white">
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+                <img src="https://img.shields.io/badge/github_pages-222222?style=for-the-badge&logo=github-pages&logoColor=white"><br>
+                <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white"><br>
+                <img src="https://img.shields.io/badge/github_actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white">
+            </td>
+        </tr>
+    </table>
 
-<h3 style="color: #2E4057; margin: 2rem 0 1.5rem 0;">🔌 External APIs</h3>
-<table style="border: none; background: transparent;">
-  <tr>
-    <td align="center" width="50%"><h4>금융 데이터</h4></td>
-    <td align="center" width="50%"><h4>AI & 분석</h4></td>
-  </tr>
-  <tr style="background: transparent;">
-    <td align="center">
-      <img src="https://img.shields.io/badge/한국투자증권_API-ED1C24?style=for-the-badge&logo=koreaninvestment&logoColor=white"><br>
-      <img src="https://img.shields.io/badge/FinanceDataReader-0066CC?style=for-the-badge&logo=finance&logoColor=white"><br>
-      <img src="https://img.shields.io/badge/BeautifulSoup4-FF5722?style=for-the-badge&logo=beautifulsoup&logoColor=white">
-    </td>
-    <td align="center">
-      <img src="https://img.shields.io/badge/OpenAI_GPT4-412991?style=for-the-badge&logo=openai&logoColor=white"><br>
-      <img src="https://img.shields.io/badge/Google_Gemini_Pro-4285F4?style=for-the-badge&logo=google&logoColor=white"><br>
-      <img src="https://img.shields.io/badge/WordCloud-FF6B6B?style=for-the-badge&logo=wordcloud&logoColor=white">
-    </td>
-  </tr>
-</table>
+    <h3 style="color: #2E4057; margin: 2rem 0 1.5rem 0;">🔌 External APIs</h3>
+    <table style="width: 100%; border: none; background: transparent;">
+        <tr>
+            <td style="width: 50%; text-align: center;"><h4>금융 데이터</h4></td>
+            <td style="width: 50%; text-align: center;"><h4>AI & 분석</h4></td>
+        </tr>
+        <tr style="background: transparent;">
+            <td style="text-align: center; vertical-align: middle;">
+                <img src="https://img.shields.io/badge/한국투자증권_API-ED1C24?style=for-the-badge&logo=koreaninvestment&logoColor=white"><br>
+                <img src="https://img.shields.io/badge/FinanceDataReader-0066CC?style=for-the-badge&logo=finance&logoColor=white"><br>
+                <img src="https://img.shields.io/badge/BeautifulSoup4-FF5722?style=for-the-badge&logo=beautifulsoup&logoColor=white">
+            </td>
+            <td style="text-align: center; vertical-align: middle;">
+                <img src="https://img.shields.io/badge/OpenAI_GPT4-412991?style=for-the-badge&logo=openai&logoColor=white"><br>
+                <img src="https://img.shields.io/badge/Google_Gemini_Pro-4285F4?style=for-the-badge&logo=google&logoColor=white"><br>
+                <img src="https://img.shields.io/badge/WordCloud-FF6B6B?style=for-the-badge&logo=wordcloud&logoColor=white">
+            </td>
+        </tr>
+    </table>
 </div>
 
 <h2 id="usage">💫 사용 방법</h2>
@@ -275,23 +275,19 @@ title: Fynai - AI 기반 자산 관리 대시보드
 
 <h2 id="team">👥 팀 소개</h2>
 
-<div align="center">
-<table>
-  <tr>
-    <td align="center">
-      <img src="https://github.com/username1.png" width="100"/><br />
-      <b>김남훈</b><br />
-      프론트엔드 & 백엔드<br/>
-      <a href="https://github.com/username1"><img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white"/></a>
-    </td>
-    <td align="center">
-      <img src="https://github.com/username5.png" width="100"/><br />
-      <b>박규민</b><br />
-      프론트엔드 & 백엔드<br/>
-      <a href="https://github.com/gyumin4726"><img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white"/></a>
-    </td>
-  </tr>
-</table>
+<div style="display: flex; justify-content: center; gap: 4rem; flex-wrap: wrap; margin: 2rem 0;">
+    <div style="text-align: center;">
+        <img src="https://github.com/username1.png" width="100" style="border-radius: 50%; margin-bottom: 1rem;"/><br />
+        <b>김남훈</b><br />
+        프론트엔드 & 백엔드<br/>
+        <a href="https://github.com/username1"><img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white"/></a>
+    </div>
+    <div style="text-align: center;">
+        <img src="https://github.com/username5.png" width="100" style="border-radius: 50%; margin-bottom: 1rem;"/><br />
+        <b>박규민</b><br />
+        프론트엔드 & 백엔드<br/>
+        <a href="https://github.com/gyumin4726"><img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white"/></a>
+    </div>
 </div>
 
 <div style="background-color: #f8f9fa; padding: 2rem; border-radius: 15px; margin: 2rem 0;">
@@ -329,7 +325,7 @@ title: Fynai - AI 기반 자산 관리 대시보드
 <hr style="margin: 3rem 0; border: none; border-top: 1px solid #e0e0e0;">
 
 <div style="text-align: center; margin-top: 4rem; padding: 3rem; background: linear-gradient(135deg, #2E4057 0%, #1a2634 100%); color: white; border-radius: 20px;">
-    <img src="assets/Fynai.png" alt="Fynai Logo" style="max-width: 140px; margin-bottom: 1.5rem; filter: brightness(0) invert(1); border-radius: 16px;">
+    <img src="assets/Fynai_white.png" alt="Fynai Logo" style="max-width: 140px; margin-bottom: 1.5rem; border-radius: 16px;">
     <h2 style="margin-bottom: 1rem; font-size: 2rem;">Fynai와 함께 시작하세요</h2>
     <p style="margin-bottom: 2rem; font-size: 1.2rem; color: #E0E0E0;">AI 기반의 스마트한 자산 관리를 경험해보세요</p>
     <a href="https://capstone-2025-41-assetmanagementdashboard.streamlit.app/" style="display: inline-block; background-color: #4CAF50; color: white; padding: 1rem 2.5rem; text-decoration: none; border-radius: 50px; font-weight: bold; font-size: 1.1rem; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">지금 시작하기</a>
