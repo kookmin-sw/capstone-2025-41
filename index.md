@@ -74,73 +74,73 @@ title: Fynai - AI 기반 자산 관리 대시보드
     </div>
 </div>
 
-<div style="background-color: #f8f9fa; padding: 2rem; border-radius: 15px; margin: 2rem 0;">
+<div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 2rem; border-radius: 15px; margin: 2rem 0;">
     <h2 style="color: #2E4057; margin-bottom: 2rem;">⚡ 핵심 기능</h2>
     
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
         <!-- 1. 통합 자산 관리 -->
-        <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+        <div style="background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-left: 4px solid #4CAF50;">
             <h3 style="color: #2E4057; margin-bottom: 1rem; font-size: 1.3rem;">1. 통합 자산 관리 💼</h3>
             <div style="margin-bottom: 1rem;">
-                <h4 style="color: #2E4057; font-size: 1.1rem; margin-bottom: 0.5rem;">실시간 포트폴리오 모니터링</h4>
+                <h4 style="color: #4CAF50; font-size: 1.1rem; margin-bottom: 0.5rem;">실시간 포트폴리오 모니터링</h4>
                 <ul style="list-style-type: none; padding-left: 0;">
-                    <li style="margin-bottom: 0.5rem;">• 한국투자증권 API 연동을 통한 실시간 자산 조회</li>
-                    <li style="margin-bottom: 0.5rem;">• 주식, ETF, 현금 자산의 통합 관리</li>
-                    <li>• 자산 별 수익률 및 포트폴리오 구성 시각화</li>
+                    <li style="margin-bottom: 0.5rem; color: #495057;">• 한국투자증권 API 연동을 통한 실시간 자산 조회</li>
+                    <li style="margin-bottom: 0.5rem; color: #495057;">• 주식, ETF, 현금 자산의 통합 관리</li>
+                    <li style="color: #495057;">• 자산 별 수익률 및 포트폴리오 구성 시각화</li>
                 </ul>
             </div>
         </div>
 
         <!-- 2. ETF 마켓 인사이트 -->
-        <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+        <div style="background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-left: 4px solid #2196F3;">
             <h3 style="color: #2E4057; margin-bottom: 1rem; font-size: 1.3rem;">2. ETF 마켓 인사이트 📈</h3>
             <div style="margin-bottom: 1rem;">
-                <h4 style="color: #2E4057; font-size: 1.1rem; margin-bottom: 0.5rem;">글로벌 ETF 분석</h4>
+                <h4 style="color: #2196F3; font-size: 1.1rem; margin-bottom: 0.5rem;">글로벌 ETF 분석</h4>
                 <ul style="list-style-type: none; padding-left: 0;">
-                    <li style="margin-bottom: 0.5rem;">• S&P500 및 KOSPI 기반 ETF 섹터별 분석</li>
-                    <li style="margin-bottom: 0.5rem;">• 트리맵을 통한 직관적인 섹터 성과 시각화</li>
-                    <li>• 실시간 ETF 데이터 수집 및 분석</li>
+                    <li style="margin-bottom: 0.5rem; color: #495057;">• S&P500 및 KOSPI 기반 ETF 섹터별 분석</li>
+                    <li style="margin-bottom: 0.5rem; color: #495057;">• 트리맵을 통한 직관적인 섹터 성과 시각화</li>
+                    <li style="color: #495057;">• 실시간 ETF 데이터 수집 및 분석</li>
                 </ul>
             </div>
         </div>
 
         <!-- 3. 뉴스 & 마켓 인텔리전스 -->
-        <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+        <div style="background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-left: 4px solid #FF9800;">
             <h3 style="color: #2E4057; margin-bottom: 1rem; font-size: 1.3rem;">3. 뉴스 & 마켓 인텔리전스 📰</h3>
             <div style="margin-bottom: 1rem;">
-                <h4 style="color: #2E4057; font-size: 1.1rem; margin-bottom: 0.5rem;">실시간 경제 뉴스 분석</h4>
+                <h4 style="color: #FF9800; font-size: 1.1rem; margin-bottom: 0.5rem;">실시간 경제 뉴스 분석</h4>
                 <ul style="list-style-type: none; padding-left: 0;">
-                    <li style="margin-bottom: 0.5rem;">• 네이버 뉴스 API를 통한 실시간 경제 뉴스 수집</li>
-                    <li style="margin-bottom: 0.5rem;">• 워드클라우드를 통한 키워드 트렌드 분석</li>
-                    <li>• 뉴스 데이터 시각화</li>
+                    <li style="margin-bottom: 0.5rem; color: #495057;">• 네이버 뉴스 API를 통한 실시간 경제 뉴스 수집</li>
+                    <li style="margin-bottom: 0.5rem; color: #495057;">• 워드클라우드를 통한 키워드 트렌드 분석</li>
+                    <li style="color: #495057;">• 뉴스 데이터 시각화</li>
                 </ul>
             </div>
         </div>
 
         <!-- 4. AI 투자 어시스턴트 -->
-        <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+        <div style="background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-left: 4px solid #9C27B0;">
             <h3 style="color: #2E4057; margin-bottom: 1rem; font-size: 1.3rem;">4. AI 투자 어시스턴트 🤖</h3>
             <div style="margin-bottom: 1rem;">
-                <h4 style="color: #2E4057; font-size: 1.1rem; margin-bottom: 0.5rem;">맞춤형 포트폴리오 분석</h4>
+                <h4 style="color: #9C27B0; font-size: 1.1rem; margin-bottom: 0.5rem;">맞춤형 포트폴리오 분석</h4>
                 <ul style="list-style-type: none; padding-left: 0;">
-                    <li style="margin-bottom: 0.5rem;">• 개인 투자 성향 기반 포트폴리오 분석</li>
-                    <li style="margin-bottom: 0.5rem;">• 거시경제 동향 리포트 제공</li>
-                    <li style="margin-bottom: 0.5rem;">• 부동산 시장 동향 분석</li>
-                    <li>• AI 기반 투자 상담 서비스</li>
+                    <li style="margin-bottom: 0.5rem; color: #495057;">• 개인 투자 성향 기반 포트폴리오 분석</li>
+                    <li style="margin-bottom: 0.5rem; color: #495057;">• 거시경제 동향 리포트 제공</li>
+                    <li style="margin-bottom: 0.5rem; color: #495057;">• 부동산 시장 동향 분석</li>
+                    <li style="color: #495057;">• AI 기반 투자 상담 서비스</li>
                 </ul>
             </div>
         </div>
 
         <!-- 5. 백테스팅 시스템 -->
-        <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+        <div style="background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-left: 4px solid #F44336;">
             <h3 style="color: #2E4057; margin-bottom: 1rem; font-size: 1.3rem;">5. 백테스팅 시스템 📊</h3>
             <div style="margin-bottom: 1rem;">
-                <h4 style="color: #2E4057; font-size: 1.1rem; margin-bottom: 0.5rem;">투자 전략 검증</h4>
+                <h4 style="color: #F44336; font-size: 1.1rem; margin-bottom: 0.5rem;">투자 전략 검증</h4>
                 <ul style="list-style-type: none; padding-left: 0;">
-                    <li style="margin-bottom: 0.5rem;">• 다양한 투자 전략 템플릿 제공</li>
-                    <li style="margin-bottom: 0.5rem;">• 과거 데이터 기반 전략 성과 시뮬레이션</li>
-                    <li style="margin-bottom: 0.5rem;">• 수익률, 위험 지표 등 종합 분석</li>
-                    <li>• 벤치마크 대비 성과 비교</li>
+                    <li style="margin-bottom: 0.5rem; color: #495057;">• 다양한 투자 전략 템플릿 제공</li>
+                    <li style="margin-bottom: 0.5rem; color: #495057;">• 과거 데이터 기반 전략 성과 시뮬레이션</li>
+                    <li style="margin-bottom: 0.5rem; color: #495057;">• 수익률, 위험 지표 등 종합 분석</li>
+                    <li style="color: #495057;">• 벤치마크 대비 성과 비교</li>
                 </ul>
             </div>
         </div>
