@@ -246,7 +246,7 @@ title: Fynai - AI 기반 자산 관리 대시보드
 ---
 
 <div style="text-align: center; margin-top: 4rem; padding: 3rem; background: linear-gradient(135deg, #2E4057 0%, #1a2634 100%); color: white; border-radius: 20px;">
-    <img src="assets/Fynai_white.png" alt="Fynai Logo" style="max-width: 140px; margin-bottom: 1.5rem; filter: brightness(0) invert(1); border-radius: 16px;">
+    <img src="assets/Fynai.png" alt="Fynai Logo" style="max-width: 140px; margin-bottom: 1.5rem; filter: brightness(0) invert(1); border-radius: 16px;">
     <h2 style="margin-bottom: 1rem; font-size: 2rem;">Fynai와 함께 시작하세요</h2>
     <p style="margin-bottom: 2rem; font-size: 1.2rem; color: #E0E0E0;">AI 기반의 스마트한 자산 관리를 경험해보세요</p>
     <a href="https://capstone-2025-41-assetmanagementdashboard.streamlit.app/" style="display: inline-block; background-color: #4CAF50; color: white; padding: 1rem 2.5rem; text-decoration: none; border-radius: 50px; font-weight: bold; font-size: 1.1rem; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">지금 시작하기</a>
