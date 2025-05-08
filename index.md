@@ -198,9 +198,9 @@ title: Fynai - AI 기반 자산 관리 대시보드
 
     <div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 2rem; border-radius: 15px; margin-bottom: 3rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
         <h2 style="color: #2E4057; margin-bottom: 2rem; font-size: 2rem;">🛠 기술 스택</h2>
-        <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
-            <h3 style="color: #2E4057; margin-bottom: 1.5rem;">💻 Core Technologies</h3>
-            <table style="width: 100%; border: none; background: transparent;">
+        <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); max-width: 1000px; margin: 0 auto;">
+            <h3 style="color: #2E4057; margin-bottom: 1.5rem; text-align: center;">💻 Core Technologies</h3>
+            <table style="width: 100%; border: none; background: transparent; margin: 0 auto;">
                 <tr>
                     <td style="width: 25%; text-align: center;"><h4>프론트엔드</h4></td>
                     <td style="width: 25%; text-align: center;"><h4>백엔드</h4></td>
@@ -231,8 +231,8 @@ title: Fynai - AI 기반 자산 관리 대시보드
                 </tr>
             </table>
 
-            <h3 style="color: #2E4057; margin: 2rem 0 1.5rem 0;">🔌 External APIs</h3>
-            <table style="width: 100%; border: none; background: transparent;">
+            <h3 style="color: #2E4057; margin: 2rem 0 1.5rem 0; text-align: center;">🔌 External APIs</h3>
+            <table style="width: 100%; border: none; background: transparent; margin: 0 auto;">
                 <tr>
                     <td style="width: 50%; text-align: center;"><h4>금융 데이터</h4></td>
                     <td style="width: 50%; text-align: center;"><h4>AI & 분석</h4></td>
