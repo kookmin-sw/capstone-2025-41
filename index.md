@@ -3,29 +3,33 @@ layout: default
 title: Fynai - AI 기반 자산 관리 대시보드
 ---
 
-<div style="text-align: center; margin-bottom: 2rem;">
-    <img src="assets/Fynai.png" alt="Fynai Logo" style="max-width: 200px; margin-bottom: 1rem;">
-    <h1 style="color: #2E4057; font-size: 2.5rem; margin-bottom: 1rem;">Fynai</h1>
-    <p style="font-size: 1.2rem; color: #666;">AI 기반 스마트 자산 관리 솔루션</p>
-</div>
-
-<div style="background-color: #f8f9fa; padding: 2rem; border-radius: 10px; margin-bottom: 2rem;">
-    <h2 style="color: #2E4057;">주요 기능</h2>
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 1rem;">
-        <div style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-            <h3 style="color: #2E4057;">📊 실시간 자산 분석</h3>
-            <p>AI 기반 실시간 자산 분석 및 추천</p>
-        </div>
-        <div style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-            <h3 style="color: #2E4057;">📈 포트폴리오 최적화</h3>
-            <p>최적의 자산 배분 전략 제시</p>
-        </div>
-        <div style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-            <h3 style="color: #2E4057;">🔍 시장 인사이트</h3>
-            <p>실시간 시장 동향 및 뉴스 분석</p>
-        </div>
+<div style="background: linear-gradient(135deg, #2E4057 0%, #1a2634 100%); padding: 3rem 0; margin-bottom: 3rem; border-radius: 0 0 20px 20px;">
+    <div style="text-align: center; max-width: 800px; margin: 0 auto; padding: 0 1rem;">
+        <img src="assets/Fynai.png" alt="Fynai Logo" style="max-width: 180px; margin-bottom: 1.5rem; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));">
+        <h1 style="color: white; font-size: 3rem; margin-bottom: 1rem; font-weight: 700;">Fynai</h1>
+        <p style="font-size: 1.4rem; color: #E0E0E0; margin-bottom: 2rem;">AI 기반 스마트 자산 관리 솔루션</p>
+        <a href="https://fynai.streamlit.app" style="display: inline-block; background-color: #4CAF50; color: white; padding: 1rem 2.5rem; text-decoration: none; border-radius: 50px; font-weight: bold; font-size: 1.1rem; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">지금 시작하기</a>
     </div>
 </div>
+
+<div style="max-width: 1200px; margin: 0 auto; padding: 0 1rem;">
+    <div style="background-color: #f8f9fa; padding: 2rem; border-radius: 15px; margin-bottom: 3rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+        <h2 style="color: #2E4057; text-align: center; margin-bottom: 2rem;">주요 기능</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+            <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); transition: transform 0.3s ease;">
+                <h3 style="color: #2E4057;">📊 실시간 자산 분석</h3>
+                <p>AI 기반 실시간 자산 분석 및 추천</p>
+            </div>
+            <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); transition: transform 0.3s ease;">
+                <h3 style="color: #2E4057;">📈 포트폴리오 최적화</h3>
+                <p>최적의 자산 배분 전략 제시</p>
+            </div>
+            <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); transition: transform 0.3s ease;">
+                <h3 style="color: #2E4057;">🔍 시장 인사이트</h3>
+                <p>실시간 시장 동향 및 뉴스 분석</p>
+            </div>
+        </div>
+    </div>
 
 # 💰 Asset Management Dashboard
 
@@ -251,12 +255,9 @@ title: Fynai - AI 기반 자산 관리 대시보드
 
 ---
 
-<div align="center">
-    <p>© 2024 Asset Management Dashboard Team. All rights reserved.</p>
-</div>
-
-<div style="text-align: center; margin-top: 3rem; padding: 2rem; background-color: #2E4057; color: white; border-radius: 10px;">
-    <h2 style="margin-bottom: 1rem;">Fynai와 함께 시작하세요</h2>
-    <p style="margin-bottom: 1.5rem;">AI 기반의 스마트한 자산 관리를 경험해보세요</p>
-    <a href="https://fynai.streamlit.app" style="display: inline-block; background-color: #4CAF50; color: white; padding: 1rem 2rem; text-decoration: none; border-radius: 5px; font-weight: bold;">지금 시작하기</a>
+<div style="text-align: center; margin-top: 4rem; padding: 3rem; background: linear-gradient(135deg, #2E4057 0%, #1a2634 100%); color: white; border-radius: 20px;">
+    <img src="assets/Fynai.png" alt="Fynai Logo" style="max-width: 120px; margin-bottom: 1.5rem; filter: brightness(0) invert(1);">
+    <h2 style="margin-bottom: 1rem; font-size: 2rem;">Fynai와 함께 시작하세요</h2>
+    <p style="margin-bottom: 2rem; font-size: 1.2rem; color: #E0E0E0;">AI 기반의 스마트한 자산 관리를 경험해보세요</p>
+    <a href="https://fynai.streamlit.app" style="display: inline-block; background-color: #4CAF50; color: white; padding: 1rem 2.5rem; text-decoration: none; border-radius: 50px; font-weight: bold; font-size: 1.1rem; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">지금 시작하기</a>
 </div>
