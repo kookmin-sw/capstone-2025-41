@@ -113,12 +113,16 @@ title: Fynai - AI 기반 자산 관리 대시보드
 
 <div align="center" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin: 20px 0;">
     <div>
-        <h4>📊 자산 포트폴리오 분석</h4>
+        <h4>💼 통합 자산 관리</h4>
         <img src="assets/portfolio_preview.png" width="100%" alt="포트폴리오 분석"/>
     </div>
     <div>
-        <h4>📈 ETF 섹터 분석</h4>
+        <h4>📈 ETF 마켓 인사이트</h4>
         <img src="assets/etf_preview.png" width="100%" alt="ETF 분석"/>
+    </div>
+    <div>
+        <h4>📰 뉴스 & 마켓 인텔리전스</h4>
+        <img src="assets/news_preview.png" width="100%" alt="뉴스 분석"/>
     </div>
     <div>
         <h4>🤖 AI 투자 어시스턴트</h4>
@@ -127,10 +131,6 @@ title: Fynai - AI 기반 자산 관리 대시보드
     <div>
         <h4>📊 백테스팅 시스템</h4>
         <img src="assets/backtesting_preview.png" width="100%" alt="백테스팅 분석"/>
-    </div>
-    <div>
-        <h4>📰 실시간 뉴스 분석</h4>
-        <img src="assets/news_preview.png" width="100%" alt="뉴스 분석"/>
     </div>
 </div>
 

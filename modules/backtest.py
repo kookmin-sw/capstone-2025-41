@@ -99,7 +99,7 @@ def convert_to_dataframe(stock_data):
     return df
 
 def calculate_strategy_performance(df, initial_capital=10000000):
-    """간단한 이동평균 교차 전략의 성과 계산"""
+    """이동평균선 교차 전략의 성과 계산"""
     # 이동평균선 계산
     df['MA20'] = df['Close'].rolling(window=20).mean()
     df['MA60'] = df['Close'].rolling(window=60).mean()
@@ -112,33 +112,43 @@ def calculate_strategy_performance(df, initial_capital=10000000):
     # 포지션 변화 감지
     df['Position_Change'] = df['Signal'].diff()
     
-    # 수익률 계산
-    df['Returns'] = df['Close'].pct_change()
-    df['Strategy_Returns'] = df['Signal'].shift(1) * df['Returns']
+    # 거래 기록 생성 및 수익률 계산
+    trades = []
+    current_position = None
+    buy_price = None
+    
+    for date, row in df[df['Position_Change'] != 0].iterrows():
+        if row['Position_Change'] > 0:  # 골든 크로스: 매수
+            if current_position is None:  # 포지션이 없을 때만 매수
+                current_position = 'buy'
+                buy_price = row['Close']
+                trades.append({
+                    'date': date,
+                    'type': '매수',
+                    'price': buy_price,
+                    'return': None  # 매수 시점에는 수익률 없음
+                })
+        elif row['Position_Change'] < 0:  # 데드 크로스: 매도
+            if current_position == 'buy':  # 매수 포지션이 있을 때만 매도
+                current_position = None
+                sell_price = row['Close']
+                trade_return = (sell_price - buy_price) / buy_price  # 실제 수익률 계산
+                trades.append({
+                    'date': date,
+                    'type': '매도',
+                    'price': sell_price,
+                    'return': trade_return
+                })
     
     # 누적 수익률 계산
-    df['Cum_Market_Returns'] = (1 + df['Returns']).cumprod()
-    df['Cum_Strategy_Returns'] = (1 + df['Strategy_Returns']).cumprod()
+    cumulative_return = 1.0
+    for trade in trades:
+        if trade['type'] == '매도' and trade['return'] is not None:
+            cumulative_return *= (1 + trade['return'])
     
     # 포트폴리오 가치 계산
-    df['Market_Value'] = initial_capital * df['Cum_Market_Returns']
-    df['Strategy_Value'] = initial_capital * df['Cum_Strategy_Returns']
-    
-    # 거래 기록 생성
-    trades = []
-    for date, row in df[df['Position_Change'] != 0].iterrows():
-        if row['Position_Change'] > 0:
-            trades.append({
-                'date': date,
-                'type': '매수',
-                'price': row['Close']
-            })
-        elif row['Position_Change'] < 0:
-            trades.append({
-                'date': date,
-                'type': '매도',
-                'price': row['Close']
-            })
+    df['Market_Value'] = initial_capital * (1 + df['Close'].pct_change()).cumprod()
+    df['Strategy_Value'] = initial_capital * cumulative_return
     
     return df, trades
 
@@ -541,9 +551,11 @@ def main():
             trades_df = pd.DataFrame(trades)
             if not trades_df.empty:
                 trades_df['date'] = trades_df['date'].dt.strftime('%Y-%m-%d')
-                trades_df.columns = ['거래일자', '매매구분', '거래가격']
+                trades_df.columns = ['거래일자', '매매구분', '거래가격', '수익률']
                 # 거래가격을 만원 단위로 변환
                 trades_df['거래가격'] = (trades_df['거래가격'] / 10000).round(2)
+                # 수익률을 퍼센트로 변환
+                trades_df['수익률'] = trades_df['수익률'].apply(lambda x: f"{x*100:.2f}%" if pd.notnull(x) else "-")
                 
                 # 매매 구분에 따라 색상 적용
                 def highlight_trades(row):
