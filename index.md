@@ -31,32 +31,47 @@ title: Fynai - AI 기반 자산 관리 대시보드
         </div>
     </div>
 
-# 💰 Asset Management Dashboard
-
-<div align="center">
-    <h2 align="center">당신의 자산을 스마트하게 관리하세요</h2>
-    <p align="center">
-        실시간 포트폴리오 분석 | AI 기반 자산 관리 조언 | 글로벌 ETF 분석
-    </p>
-    <p align="center">
-        <a href="#overview">프로젝트 소개</a> •
-        <a href="#features">핵심 기능</a> •
-        <a href="#preview">기능 미리보기</a> •
-        <a href="#tech">기술 스택</a> •
-        <a href="#usage">사용 방법</a> •
-        <a href="#team">팀 소개</a>
-    </p>
+<div style="background-color: #f8f9fa; padding: 2rem; border-radius: 15px; margin: 2rem 0;">
+    <h1 style="color: #2E4057; text-align: center; margin-bottom: 2rem;">💰 Asset Management Dashboard</h1>
+    
+    <div style="text-align: center; margin-bottom: 3rem;">
+        <h2 style="color: #2E4057; margin-bottom: 1rem;">당신의 자산을 스마트하게 관리하세요</h2>
+        <p style="color: #666; margin-bottom: 1.5rem;">
+            실시간 포트폴리오 분석 | AI 기반 자산 관리 조언 | 글로벌 ETF 분석
+        </p>
+        <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+            <a href="#overview" style="text-decoration: none; color: #2E4057;">프로젝트 소개</a>
+            <span style="color: #666;">•</span>
+            <a href="#features" style="text-decoration: none; color: #2E4057;">핵심 기능</a>
+            <span style="color: #666;">•</span>
+            <a href="#preview" style="text-decoration: none; color: #2E4057;">기능 미리보기</a>
+            <span style="color: #666;">•</span>
+            <a href="#tech" style="text-decoration: none; color: #2E4057;">기술 스택</a>
+            <span style="color: #666;">•</span>
+            <a href="#usage" style="text-decoration: none; color: #2E4057;">사용 방법</a>
+            <span style="color: #666;">•</span>
+            <a href="#team" style="text-decoration: none; color: #2E4057;">팀 소개</a>
+        </div>
+    </div>
 </div>
 
-<h2 id="overview">📊 프로젝트 소개</h2>
+<div style="background-color: #f8f9fa; padding: 2rem; border-radius: 15px; margin: 2rem 0;">
+    <h2 style="color: #2E4057; margin-bottom: 1.5rem;">📊 프로젝트 소개</h2>
+    
+    <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 2rem;">
+        <blockquote style="border-left: 4px solid #4CAF50; padding-left: 1rem; margin: 0 0 1.5rem 0; color: #2E4057; font-style: italic;">
+            "복잡한 자산 관리를 간단하게, 어려운 투자 결정을 스마트하게"
+        </blockquote>
+        
+        <p style="margin-bottom: 1.5rem; line-height: 1.6;">
+            자산 관리 대시보드는 개인 투자자를 위한 올인원 자산 관리 플랫폼입니다.<br>
+            실시간 포트폴리오 분석부터 AI 기반 투자 조언까지, 여러분의 현명한 투자 결정을 도와드립니다.
+        </p>
+    </div>
 
-> "복잡한 자산 관리를 간단하게, 어려운 투자 결정을 스마트하게"
-
-자산 관리 대시보드는 개인 투자자를 위한 올인원 자산 관리 플랫폼입니다. 
-실시간 포트폴리오 분석부터 AI 기반 투자 조언까지, 여러분의 현명한 투자 결정을 도와드립니다.
-
-<div align="center">
-    <img src="assets/dashboard_preview.png" width="80%" alt="대시보드 미리보기"/>
+    <div style="text-align: center;">
+        <img src="assets/dashboard_preview.png" width="80%" alt="대시보드 미리보기" style="border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"/>
+    </div>
 </div>
 
 <div style="background-color: #f8f9fa; padding: 2rem; border-radius: 15px; margin: 2rem 0;">
@@ -132,9 +147,6 @@ title: Fynai - AI 기반 자산 관리 대시보드
     </div>
 </div>
 
-<h2 id="preview">🎬 데모 & 기능 소개</h2>
-
-### 🎥 시연 동영상
 <div style="background-color: #f8f9fa; padding: 2rem; border-radius: 15px; margin: 2rem 0;">
     <h3 style="color: #2E4057; font-size: 1.5rem; margin-bottom: 1.5rem;">🎥 시연 동영상</h3>
     <div style="text-align: center;">
@@ -176,7 +188,6 @@ title: Fynai - AI 기반 자산 관리 대시보드
     </div>
 </div>
 
-### 🔄 시스템 구조도
 <div style="background-color: #f8f9fa; padding: 2rem; border-radius: 15px; margin: 2rem 0;">
     <h3 style="color: #2E4057; font-size: 1.5rem; margin-bottom: 1.5rem;">🔄 시스템 구조도</h3>
     <div style="text-align: center;">
