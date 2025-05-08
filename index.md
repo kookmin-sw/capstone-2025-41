@@ -55,7 +55,7 @@ title: Fynai - AI 기반 자산 관리 대시보드
         </div>
     </div>
 
-    <div style="background-color: #f8f9fa; padding: 2rem; border-radius: 15px; margin: 2rem 0;">
+    <div id="overview" style="background-color: #f8f9fa; padding: 2rem; border-radius: 15px; margin: 2rem 0;">
         <h2 style="color: #2E4057; margin-bottom: 1.5rem;">📊 프로젝트 소개</h2>
         
         <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 2rem;">
@@ -74,7 +74,7 @@ title: Fynai - AI 기반 자산 관리 대시보드
         </div>
     </div>
 
-    <div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 2rem; border-radius: 15px; margin-bottom: 3rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+    <div id="features" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 2rem; border-radius: 15px; margin-bottom: 3rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
         <h2 style="color: #2E4057; margin-bottom: 2rem; font-size: 2rem;">⚡ 핵심 기능</h2>
         
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
@@ -147,7 +147,7 @@ title: Fynai - AI 기반 자산 관리 대시보드
         </div>
     </div>
 
-    <div style="background-color: #f8f9fa; padding: 2rem; border-radius: 15px; margin: 2rem 0;">
+    <div id="preview" style="background-color: #f8f9fa; padding: 2rem; border-radius: 15px; margin: 2rem 0;">
         <h3 style="color: #2E4057; font-size: 1.5rem; margin-bottom: 1.5rem;">🎥 시연 동영상</h3>
         <div style="text-align: center;">
             <a href="https://youtu.be/your_video_id" style="text-decoration: none;">
@@ -196,7 +196,7 @@ title: Fynai - AI 기반 자산 관리 대시보드
         </div>
     </div>
 
-    <div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 2rem; border-radius: 15px; margin-bottom: 3rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+    <div id="tech" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 2rem; border-radius: 15px; margin-bottom: 3rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
         <h2 style="color: #2E4057; margin-bottom: 2rem; font-size: 2rem;">🛠 기술 스택</h2>
         <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); max-width: 1000px; margin: 0 auto;">
             <h3 style="color: #2E4057; margin-bottom: 1.5rem; text-align: center;">💻 Core Technologies</h3>
@@ -257,8 +257,8 @@ title: Fynai - AI 기반 자산 관리 대시보드
         </div>
     </div>
 
-    <div style="background-color: #f8f9fa; padding: 2rem; border-radius: 15px; margin: 2rem 0;">
-        <h2 id="usage">💫 사용 방법</h2>
+    <div id="usage" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 2rem; border-radius: 15px; margin-bottom: 3rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+        <h2 style="color: #2E4057; margin-bottom: 2rem; font-size: 2rem;">💫 사용 방법</h2>
         <div style="background-color: #f8f9fa; padding: 2rem; border-radius: 15px; margin: 2rem 0;">
             <ol style="list-style-type: none; padding-left: 0;">
                 <li style="margin-bottom: 1.5rem;">
@@ -279,7 +279,7 @@ title: Fynai - AI 기반 자산 관리 대시보드
         </div>
     </div>
 
-    <div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 2rem; border-radius: 15px; margin-bottom: 3rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+    <div id="team" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 2rem; border-radius: 15px; margin-bottom: 3rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
         <h2 style="color: #2E4057; margin-bottom: 2rem; font-size: 2rem;">👥 팀 소개</h2>
         <div style="display: flex; justify-content: center; gap: 4rem; flex-wrap: wrap;">
             <div style="text-align: center;">
