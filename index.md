@@ -4,7 +4,7 @@ title: Fynai - AI 기반 자산 관리 대시보드
 ---
 
 <div style="text-align: center; margin-bottom: 2rem;">
-    <img src="assets/logo.png" alt="Fynai Logo" style="max-width: 200px; margin-bottom: 1rem;">
+    <img src="assets/Fynai.png" alt="Fynai Logo" style="max-width: 200px; margin-bottom: 1rem;">
     <h1 style="color: #2E4057; font-size: 2.5rem; margin-bottom: 1rem;">Fynai</h1>
     <p style="font-size: 1.2rem; color: #666;">AI 기반 스마트 자산 관리 솔루션</p>
 </div>
@@ -156,7 +156,8 @@ title: Fynai - AI 기반 자산 관리 대시보드
   </tr>
   <tr style="background: transparent;">
     <td align="center">
-      <img src="https://img.shields.io/badge/streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white"><br>
+      <img src="https://img.shields.io/badge/streaml
+      it-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white"><br>
       <img src="https://img.shields.io/badge/plotly-3F4F75?style=for-the-badge&logo=plotly&logoColor=white">
     </td>
     <td align="center">
