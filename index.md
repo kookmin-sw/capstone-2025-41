@@ -200,56 +200,60 @@ title: Fynai - AI 기반 자산 관리 대시보드
         <h2 style="color: #2E4057; margin-bottom: 2rem; font-size: 2rem;">🛠 기술 스택</h2>
         <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); max-width: 1000px; margin: 0 auto;">
             <h3 style="color: #2E4057; margin-bottom: 1.5rem; text-align: center;">💻 Core Technologies</h3>
-            <table style="width: 100%; border: none; background: transparent; margin: 0 auto;">
-                <tr>
-                    <td style="width: 25%; text-align: center;"><h4>프론트엔드</h4></td>
-                    <td style="width: 25%; text-align: center;"><h4>백엔드</h4></td>
-                    <td style="width: 25%; text-align: center;"><h4>데이터 & AI</h4></td>
-                    <td style="width: 25%; text-align: center;"><h4>인프라 & 도구</h4></td>
-                </tr>
-                <tr style="background: transparent;">
-                    <td style="text-align: center; vertical-align: middle;">
-                        <img src="https://img.shields.io/badge/streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white"><br>
-                        <img src="https://img.shields.io/badge/plotly-3F4F75?style=for-the-badge&logo=plotly&logoColor=white">
-                    </td>
-                    <td style="text-align: center; vertical-align: middle;">
-                        <img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white"><br>
-                        <img src="https://img.shields.io/badge/supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white">
-                    </td>
-                    <td style="text-align: center; vertical-align: middle;">
-                        <img src="https://img.shields.io/badge/pandas-150458?style=for-the-badge&logo=pandas&logoColor=white"><br>
-                        <img src="https://img.shields.io/badge/numpy-013243?style=for-the-badge&logo=numpy&logoColor=white"><br>
-                        <img src="https://img.shields.io/badge/langchain-339933?style=for-the-badge&logo=chainlink&logoColor=white"><br>
-                        <img src="https://img.shields.io/badge/openai-412991?style=for-the-badge&logo=openai&logoColor=white"><br>
-                        <img src="https://img.shields.io/badge/gemini-4285F4?style=for-the-badge&logo=google&logoColor=white">
-                    </td>
-                    <td style="text-align: center; vertical-align: middle;">
-                        <img src="https://img.shields.io/badge/github_pages-222222?style=for-the-badge&logo=github-pages&logoColor=white"><br>
-                        <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white"><br>
-                        <img src="https://img.shields.io/badge/github_actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white">
-                    </td>
-                </tr>
-            </table>
+            <div style="display: flex; justify-content: center;">
+                <table style="width: 90%; border: none; background: transparent;">
+                    <tr>
+                        <td style="width: 25%; text-align: center;"><h4>프론트엔드</h4></td>
+                        <td style="width: 25%; text-align: center;"><h4>백엔드</h4></td>
+                        <td style="width: 25%; text-align: center;"><h4>데이터 & AI</h4></td>
+                        <td style="width: 25%; text-align: center;"><h4>인프라 & 도구</h4></td>
+                    </tr>
+                    <tr style="background: transparent;">
+                        <td style="text-align: center; vertical-align: middle;">
+                            <img src="https://img.shields.io/badge/streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white"><br>
+                            <img src="https://img.shields.io/badge/plotly-3F4F75?style=for-the-badge&logo=plotly&logoColor=white">
+                        </td>
+                        <td style="text-align: center; vertical-align: middle;">
+                            <img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white"><br>
+                            <img src="https://img.shields.io/badge/supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white">
+                        </td>
+                        <td style="text-align: center; vertical-align: middle;">
+                            <img src="https://img.shields.io/badge/pandas-150458?style=for-the-badge&logo=pandas&logoColor=white"><br>
+                            <img src="https://img.shields.io/badge/numpy-013243?style=for-the-badge&logo=numpy&logoColor=white"><br>
+                            <img src="https://img.shields.io/badge/langchain-339933?style=for-the-badge&logo=chainlink&logoColor=white"><br>
+                            <img src="https://img.shields.io/badge/openai-412991?style=for-the-badge&logo=openai&logoColor=white"><br>
+                            <img src="https://img.shields.io/badge/gemini-4285F4?style=for-the-badge&logo=google&logoColor=white">
+                        </td>
+                        <td style="text-align: center; vertical-align: middle;">
+                            <img src="https://img.shields.io/badge/github_pages-222222?style=for-the-badge&logo=github-pages&logoColor=white"><br>
+                            <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white"><br>
+                            <img src="https://img.shields.io/badge/github_actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white">
+                        </td>
+                    </tr>
+                </table>
+            </div>
 
             <h3 style="color: #2E4057; margin: 2rem 0 1.5rem 0; text-align: center;">🔌 External APIs</h3>
-            <table style="width: 100%; border: none; background: transparent; margin: 0 auto;">
-                <tr>
-                    <td style="width: 50%; text-align: center;"><h4>금융 데이터</h4></td>
-                    <td style="width: 50%; text-align: center;"><h4>AI & 분석</h4></td>
-                </tr>
-                <tr style="background: transparent;">
-                    <td style="text-align: center; vertical-align: middle;">
-                        <img src="https://img.shields.io/badge/한국투자증권_API-ED1C24?style=for-the-badge&logo=koreaninvestment&logoColor=white"><br>
-                        <img src="https://img.shields.io/badge/FinanceDataReader-0066CC?style=for-the-badge&logo=finance&logoColor=white"><br>
-                        <img src="https://img.shields.io/badge/BeautifulSoup4-FF5722?style=for-the-badge&logo=beautifulsoup&logoColor=white">
-                    </td>
-                    <td style="text-align: center; vertical-align: middle;">
-                        <img src="https://img.shields.io/badge/OpenAI_GPT4-412991?style=for-the-badge&logo=openai&logoColor=white"><br>
-                        <img src="https://img.shields.io/badge/Google_Gemini_Pro-4285F4?style=for-the-badge&logo=google&logoColor=white"><br>
-                        <img src="https://img.shields.io/badge/WordCloud-FF6B6B?style=for-the-badge&logo=wordcloud&logoColor=white">
-                    </td>
-                </tr>
-            </table>
+            <div style="display: flex; justify-content: center;">
+                <table style="width: 90%; border: none; background: transparent;">
+                    <tr>
+                        <td style="width: 50%; text-align: center;"><h4>금융 데이터</h4></td>
+                        <td style="width: 50%; text-align: center;"><h4>AI & 분석</h4></td>
+                    </tr>
+                    <tr style="background: transparent;">
+                        <td style="text-align: center; vertical-align: middle;">
+                            <img src="https://img.shields.io/badge/한국투자증권_API-ED1C24?style=for-the-badge&logo=koreaninvestment&logoColor=white"><br>
+                            <img src="https://img.shields.io/badge/FinanceDataReader-0066CC?style=for-the-badge&logo=finance&logoColor=white"><br>
+                            <img src="https://img.shields.io/badge/BeautifulSoup4-FF5722?style=for-the-badge&logo=beautifulsoup&logoColor=white">
+                        </td>
+                        <td style="text-align: center; vertical-align: middle;">
+                            <img src="https://img.shields.io/badge/OpenAI_GPT4-412991?style=for-the-badge&logo=openai&logoColor=white"><br>
+                            <img src="https://img.shields.io/badge/Google_Gemini_Pro-4285F4?style=for-the-badge&logo=google&logoColor=white"><br>
+                            <img src="https://img.shields.io/badge/WordCloud-FF6B6B?style=for-the-badge&logo=wordcloud&logoColor=white">
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
 
