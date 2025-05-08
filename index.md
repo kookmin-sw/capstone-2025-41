@@ -89,10 +89,6 @@ title: Fynai - AI 기반 자산 관리 대시보드
         <img src="assets/etf.png" alt="ETF 분석" style="max-width: 100%; border-radius: 8px;">
     </div>
     <div style="text-align: center; padding: 1.5rem; background: white; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
-        <h4>📰 뉴스 & 마켓 인텔리전스</h4>
-        <img src="assets/news.png" alt="뉴스 분석" style="max-width: 100%; border-radius: 8px;">
-    </div>
-    <div style="text-align: center; padding: 1.5rem; background: white; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
         <h4>🤖 AI 투자 어시스턴트</h4>
         <img src="assets/ai.png" alt="AI 어시스턴트" style="max-width: 100%; border-radius: 8px;">
     </div>
@@ -110,9 +106,11 @@ title: Fynai - AI 기반 자산 관리 대시보드
 
 ## 🛠 기술 스택
 
+<div style="text-align: center; max-width: 1200px; margin: 0 auto;">
+
 ### 💻 Core Technologies
 
-<table style="border: none; background: transparent;">
+<table style="border: none; background: transparent; margin: 0 auto;">
   <tr>
     <td align="center" width="25%"><h4>프론트엔드</h4></td>
     <td align="center" width="25%"><h4>백엔드</h4></td>
@@ -141,7 +139,7 @@ title: Fynai - AI 기반 자산 관리 대시보드
 
 ### 🔌 External APIs
 
-<table style="border: none; background: transparent;">
+<table style="border: none; background: transparent; margin: 0 auto;">
   <tr>
     <td align="center" width="50%"><h4>금융 데이터</h4></td>
     <td align="center" width="50%"><h4>AI & 분석</h4></td>
@@ -158,6 +156,8 @@ title: Fynai - AI 기반 자산 관리 대시보드
     </td>
   </tr>
 </table>
+
+</div>
 
 ## 💫 사용 방법
 
@@ -199,7 +199,7 @@ title: Fynai - AI 기반 자산 관리 대시보드
 - 💬 GitHub: [Repository](https://github.com/kookmin-sw/capstone-2025-41)
 
 <div style="text-align: center; margin-top: 4rem; padding: 3rem; background: linear-gradient(135deg, #2E4057 0%, #1a2634 100%); color: white; border-radius: 20px;">
-    <img src="assets/Fynai_white.png" alt="Fynai Logo" style="max-width: 140px; margin-bottom: 1.5rem; filter: brightness(0) invert(1); border-radius: 16px;">
+    <img src="assets/Fynai.png" alt="Fynai Logo" style="max-width: 140px; margin-bottom: 1.5rem; filter: brightness(0) invert(1); border-radius: 16px;">
     <h2 style="margin-bottom: 1rem; font-size: 2rem;">Fynai와 함께 시작하세요</h2>
     <p style="margin-bottom: 2rem; font-size: 1.2rem; color: #E0E0E0;">AI 기반의 스마트한 자산 관리를 경험해보세요</p>
     <a href="https://capstone-2025-41-assetmanagementdashboard.streamlit.app/" style="display: inline-block; background-color: #4CAF50; color: white; padding: 1rem 2.5rem; text-decoration: none; border-radius: 50px; font-weight: bold; font-size: 1.1rem; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">지금 시작하기</a>
