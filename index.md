@@ -1,3 +1,32 @@
+---
+layout: default
+title: Fynai - AI 기반 자산 관리 대시보드
+---
+
+<div style="text-align: center; margin-bottom: 2rem;">
+    <img src="assets/logo.png" alt="Fynai Logo" style="max-width: 200px; margin-bottom: 1rem;">
+    <h1 style="color: #2E4057; font-size: 2.5rem; margin-bottom: 1rem;">Fynai</h1>
+    <p style="font-size: 1.2rem; color: #666;">AI 기반 스마트 자산 관리 솔루션</p>
+</div>
+
+<div style="background-color: #f8f9fa; padding: 2rem; border-radius: 10px; margin-bottom: 2rem;">
+    <h2 style="color: #2E4057;">주요 기능</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 1rem;">
+        <div style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+            <h3 style="color: #2E4057;">📊 실시간 자산 분석</h3>
+            <p>AI 기반 실시간 자산 분석 및 추천</p>
+        </div>
+        <div style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+            <h3 style="color: #2E4057;">📈 포트폴리오 최적화</h3>
+            <p>최적의 자산 배분 전략 제시</p>
+        </div>
+        <div style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+            <h3 style="color: #2E4057;">🔍 시장 인사이트</h3>
+            <p>실시간 시장 동향 및 뉴스 분석</p>
+        </div>
+    </div>
+</div>
+
 # 💰 Asset Management Dashboard
 
 <div align="center">
@@ -197,7 +226,7 @@
       <a href="https://github.com/username1"><img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white"/></a>
     </td>
     <td align="center">
-      <img src="https://github.com/username2.png" width="100"/><br />
+      <img src="https://github.com/username5.png" width="100"/><br />
       <b>박규민</b><br />
       프론트엔드 & 백엔드<br/>
       <a href="https://github.com/gyumin4726"><img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white"/></a>
@@ -214,11 +243,19 @@
 ## 📬 문의하기
 
 프로젝트에 대한 문의나 제안이 있으시다면 언제든 연락주세요:
-- 📧 Email: gyumin1129@kookmin.ac.kr
+- 📧 Email: 
+  - ???@kookmin.ac.kr (김남훈)
+  - gyumin1129@kookmin.ac.kr (박규민)
 - 💬 GitHub: [Repository](https://github.com/kookmin-sw/capstone-2025-41)
 
 ---
 
 <div align="center">
     <p>© 2024 Asset Management Dashboard Team. All rights reserved.</p>
+</div>
+
+<div style="text-align: center; margin-top: 3rem; padding: 2rem; background-color: #2E4057; color: white; border-radius: 10px;">
+    <h2 style="margin-bottom: 1rem;">Fynai와 함께 시작하세요</h2>
+    <p style="margin-bottom: 1.5rem;">AI 기반의 스마트한 자산 관리를 경험해보세요</p>
+    <a href="https://fynai.streamlit.app" style="display: inline-block; background-color: #4CAF50; color: white; padding: 1rem 2rem; text-decoration: none; border-radius: 5px; font-weight: bold;">지금 시작하기</a>
 </div>
