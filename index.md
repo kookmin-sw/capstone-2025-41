@@ -93,7 +93,7 @@ title: Fynai - AI 기반 자산 관리 대시보드
 
             <!-- 2. ETF 마켓 인사이트 -->
             <div style="background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-left: 4px solid #2196F3;">
-                <h3 style="color: #2E4057; margin-bottom: 1rem; font-size: 1.3rem;">2. ETF 마켓 인사이트 📈</h3>
+                <h3 style="color: #2E4057; margin-bottom: 1rem; font-size: 1.3rem;">2. ETF 마켓 인사이트 📊</h3>
                 <div style="margin-bottom: 1rem;">
                     <h4 style="color: #2196F3; font-size: 1.1rem; margin-bottom: 0.5rem;">글로벌 ETF 분석</h4>
                     <ul style="list-style-type: none; padding-left: 0;">
@@ -119,7 +119,7 @@ title: Fynai - AI 기반 자산 관리 대시보드
 
             <!-- 4. 자산 진단 리포트 -->
             <div style="background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-left: 4px solid #673AB7;">
-                <h3 style="color: #2E4057; margin-bottom: 1rem; font-size: 1.3rem;">4. 자산 진단 리포트 📊</h3>
+                <h3 style="color: #2E4057; margin-bottom: 1rem; font-size: 1.3rem;">4. 자산 진단 리포트 📑</h3>
                 <div style="margin-bottom: 1rem;">
                     <h4 style="color: #673AB7; font-size: 1.1rem; margin-bottom: 0.5rem;">종합 자산 분석</h4>
                     <ul style="list-style-type: none; padding-left: 0;">
@@ -147,7 +147,7 @@ title: Fynai - AI 기반 자산 관리 대시보드
 
             <!-- 6. 백테스팅 시스템 -->
             <div style="background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-left: 4px solid #F44336;">
-                <h3 style="color: #2E4057; margin-bottom: 1rem; font-size: 1.3rem;">6. 백테스팅 시스템 📊</h3>
+                <h3 style="color: #2E4057; margin-bottom: 1rem; font-size: 1.3rem;">6. 백테스팅 시스템 📈</h3>
                 <div style="margin-bottom: 1rem;">
                     <h4 style="color: #F44336; font-size: 1.1rem; margin-bottom: 0.5rem;">투자 전략 검증</h4>
                     <ul style="list-style-type: none; padding-left: 0;">
@@ -185,7 +185,7 @@ title: Fynai - AI 기반 자산 관리 대시보드
             <img src="assets/portfolio_preview.png" width="100%" alt="포트폴리오 분석"/>
         </div>
         <div>
-            <h4>📈 ETF 마켓 인사이트</h4>
+            <h4>📊 ETF 마켓 인사이트</h4>
             <img src="assets/etf_preview.png" width="100%" alt="ETF 분석"/>
         </div>
         <div>
@@ -193,11 +193,15 @@ title: Fynai - AI 기반 자산 관리 대시보드
             <img src="assets/news_preview.png" width="100%" alt="뉴스 분석"/>
         </div>
         <div>
-            <h4>🤖 AI 투자 어드바이저</h4>
+            <h4>📑 자산 진단 리포트</h4>
+            <img src="assets/report_preview.png" width="100%" alt="자산 진단"/>
+        </div>
+        <div>
+            <h4>🤖 AI 어드바이저</h4>
             <img src="assets/ai_preview.png" width="100%" alt="AI 어드바이저"/>
         </div>
         <div>
-            <h4>📊 백테스팅 시스템</h4>
+            <h4>📈 백테스팅 시스템</h4>
             <img src="assets/backtesting_preview.png" width="100%" alt="백테스팅 분석"/>
         </div>
     </div>
