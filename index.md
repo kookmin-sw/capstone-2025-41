@@ -117,7 +117,7 @@ title: Fynai - AI 기반 자산 관리 대시보드
                 </div>
             </div>
 
-            <!-- 4. 자산 진단 리포트 -->
+            <!-- 4. 자산 진단 및 경제 동향 리포트 -->
             <div style="background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-left: 4px solid #673AB7;">
                 <h3 style="color: #2E4057; margin-bottom: 1rem; font-size: 1.3rem;">4. 자산 진단 리포트 📑</h3>
                 <div style="margin-bottom: 1rem;">
