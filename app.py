@@ -15,6 +15,7 @@ from modules.chatbot_report import chatbot_page2
 from modules.mypage import MyPage
 from modules.AI_report import get_real_estate_report
 from modules.backtest import main as backtest_page
+import base64
 
 # 페이지 설정
 st.set_page_config(
@@ -24,8 +25,12 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+def get_base64_encoded_image(image_path):
+    with open(image_path, "rb") as img_file:
+        return base64.b64encode(img_file.read()).decode()
+
 # 로고 이미지 경로 설정
-LOGO_PATH = os.path.join("assets", "Fynai.png")
+LOGO_PATH = os.path.join("assets", "Fynai_white.png")
 
 # CSS 스타일 추가
 st.markdown("""
@@ -122,7 +127,7 @@ st.markdown("""
 def load_logo():
     try:
         if os.path.exists(LOGO_PATH):
-            return LOGO_PATH
+            return get_base64_encoded_image(LOGO_PATH)
         else:
             st.error("로고 이미지를 찾을 수 없습니다.")
             return None
@@ -198,13 +203,14 @@ class App():
 
         # 랜딩 페이지
         if st.session_state["page"] == "landing":
-            st.markdown('''
+            logo_base64 = load_logo()
+            st.markdown(f'''
             <div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
-                <div style="background: linear-gradient(135deg, #2E4057 0%, #1a2634 100%); padding: 4rem 0 3rem 0; border-radius: 0 0 24px 24px; margin-bottom: 3rem;">
+                <div style="background: linear-gradient(135deg, #2E4057 0%, #1a2634 100%); padding: 4rem 0 1.5rem 0; border-radius: 0 0 24px 24px; margin-bottom: 3rem;">
                     <div style="text-align: center; max-width: 900px; margin: 0 auto;">
-                        <img src="assets/Fynai_white.png" alt="Fynai Logo" style="max-width: 240px; margin-bottom: 2rem; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.18)); border-radius: 18px; transition: transform 0.3s;">
-                        <h1 style="color: white; font-size: 3.2rem; margin-bottom: 1.2rem; font-weight: 800;">Fynai</h1>
-                        <p style="font-size: 1.5rem; color: #E0E0E0; margin-bottom: 2.5rem;">AI 기반 스마트 자산 관리 솔루션</p>
+                        <img src="data:image/png;base64,{logo_base64}" alt="Fynai Logo" style="max-width: 240px; margin-bottom: 1.5rem; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.18)); border-radius: 18px; transition: transform 0.3s;">
+                        <h1 style="color: white; font-size: 3.2rem; margin-bottom: 0.8rem; font-weight: 800;">Fynai</h1>
+                        <p style="font-size: 1.5rem; color: #E0E0E0; margin-bottom: 1.5rem;">AI 기반 스마트 자산 관리 솔루션</p>
                     </div>
                     <div style="display: flex; justify-content: center; gap: 1rem; margin-top: 1.5rem;">
                         <div style="flex: 1; max-width: 200px;">
