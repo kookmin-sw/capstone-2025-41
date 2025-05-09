@@ -125,11 +125,27 @@ class SupabaseDB:
         return self.client.table("real_estate_report").upsert(data).execute()
 
     def get_real_estate_report(self):
-        """AI 리포트를 Supabase에서 가져오기"""
+        """부동산 동향 리포트를 Supabase에서 가져오기"""
         response = self.client.table("real_estate_report").select("real_estate_report").\
             eq("date", datetime.today().strftime("%Y-%m")).execute()
         if response.data:
             return json.loads(response.data[0]["real_estate_report"])
+        return []
+
+    def insert_macro_report(self, macro_report):
+        """거시경제 동향 리포트를 Supabase에 저장"""
+        data = {
+            "date": datetime.today().strftime("%Y-%m"),
+            "macro_report": json.dumps(macro_report, ensure_ascii=False)
+        }
+        return self.client.table("macro_report").upsert(data).execute()
+    
+    def get_macro_report(self):
+        """거시경제 리포트를 Supabase에서 가져오기"""
+        response = self.client.table("macro_report").select("macro_report").\
+            eq("date", datetime.today().strftime("%Y-%m")).execute()
+        if response.data:
+            return json.loads(response.data[0]["macro_report"])
         return []
 
     def insert_user_personal(self, username, personal_data):

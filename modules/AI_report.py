@@ -180,20 +180,29 @@ def create_macro_report():
     # 데이터 수집
     economic_summary = get_economic_summary_text()
 
+    macro_report = generate_macroeconomic_content(
+        st.session_state["openai"],
+        economic_summary
+    )
+    # 생성된 보고서 캐시
+    st.session_state["macro_report"] = macro_report
+
+    supabase.insert_macro_report(macro_report)
+
+def get_real_estate_report():
+    supabase = SupabaseDB()
+
     # 캐시된 보고서가 없거나 재생성이 요청된 경우에만 새로 생성
     if "macro_report" not in st.session_state:
-        with st.spinner("포트폴리오 분석 보고서를 생성하고 있습니다..."):
-            macro_report = generate_macroeconomic_content(
-                st.session_state["openai"],
-                economic_summary
-            )
+        with st.spinner("로딩 중..."):
+            macro_report = supabase.get_macro_report()
+
             # 생성된 보고서 캐시
             st.session_state["macro_report"] = macro_report
     else:
         macro_report = st.session_state["macro_report"]
 
     st.markdown(macro_report)
-
 
 def create_real_estate_report():
     init_llm()
