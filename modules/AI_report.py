@@ -168,7 +168,7 @@ jj: 제주
     return response
 
 
-def chatbot_page3():
+def create_macro_report():
     init_llm()
     supabase = SupabaseDB()
 
@@ -190,20 +190,28 @@ def chatbot_page3():
     st.markdown(macro_report)
 
 
-def chatbot_page4():
+def create_real_estate_report():
     init_llm()
     supabase = SupabaseDB()
 
     # 데이터 수집
     real_estate_summary = get_real_estate_summary_text()
 
+    real_estate_report = generate_real_estate_content(
+        st.session_state["openai"],
+        real_estate_summary
+    )
+
+    supabase.insert_real_estate_report(real_estate_report)
+
+def get_real_estate_report():
+    supabase = SupabaseDB()
+
     # 캐시된 보고서가 없거나 재생성이 요청된 경우에만 새로 생성
     if "real_estate_report" not in st.session_state:
-        with st.spinner("부동산 동향 보고서를 생성하고 있습니다..."):
-            real_estate_report = generate_real_estate_content(
-                st.session_state["openai"],
-                real_estate_summary
-            )
+        with st.spinner("로딩 중..."):
+            real_estate_report = supabase.get_real_estate_report()
+
             # 생성된 보고서 캐시
             st.session_state["real_estate_report"] = real_estate_report
     else:
