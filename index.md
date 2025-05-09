@@ -117,23 +117,37 @@ title: Fynai - AI 기반 자산 관리 대시보드
                 </div>
             </div>
 
-            <!-- 4. AI 투자 어시스턴트 -->
-            <div style="background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-left: 4px solid #9C27B0;">
-                <h3 style="color: #2E4057; margin-bottom: 1rem; font-size: 1.3rem;">4. AI 투자 어시스턴트 🤖</h3>
+            <!-- 4. 자산 진단 리포트 -->
+            <div style="background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-left: 4px solid #673AB7;">
+                <h3 style="color: #2E4057; margin-bottom: 1rem; font-size: 1.3rem;">4. 자산 진단 리포트 📊</h3>
                 <div style="margin-bottom: 1rem;">
-                    <h4 style="color: #9C27B0; font-size: 1.1rem; margin-bottom: 0.5rem;">맞춤형 포트폴리오 분석</h4>
+                    <h4 style="color: #673AB7; font-size: 1.1rem; margin-bottom: 0.5rem;">종합 자산 분석</h4>
                     <ul style="list-style-type: none; padding-left: 0;">
-                        <li style="margin-bottom: 0.5rem; color: #495057;">• 개인 투자 성향 기반 포트폴리오 분석</li>
-                        <li style="margin-bottom: 0.5rem; color: #495057;">• 거시경제 동향 리포트 제공</li>
+                        <li style="margin-bottom: 0.5rem; color: #495057;">• 맞춤형 포트폴리오 분석</li>
+                        <li style="margin-bottom: 0.5rem; color: #495057;">• 거시경제 동향 및 시장 전망 리포트</li>
                         <li style="margin-bottom: 0.5rem; color: #495057;">• 부동산 시장 동향 분석</li>
-                        <li style="color: #495057;">• AI 기반 투자 상담 서비스</li>
+                        <li style="color: #495057;">• 자산 배분 최적화 제안</li>
                     </ul>
                 </div>
             </div>
 
-            <!-- 5. 백테스팅 시스템 -->
+            <!-- 5. AI 어드바이저 -->
+            <div style="background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-left: 4px solid #9C27B0;">
+                <h3 style="color: #2E4057; margin-bottom: 1rem; font-size: 1.3rem;">5. AI 어드바이저 🤖</h3>
+                <div style="margin-bottom: 1rem;">
+                    <h4 style="color: #9C27B0; font-size: 1.1rem; margin-bottom: 0.5rem;">맞춤형 투자 상담</h4>
+                    <ul style="list-style-type: none; padding-left: 0;">
+                        <li style="margin-bottom: 0.5rem; color: #495057;">• 실시간 투자 상담</li>
+                        <li style="margin-bottom: 0.5rem; color: #495057;">• 개인 투자 성향 기반 맞춤 조언</li>
+                        <li style="margin-bottom: 0.5rem; color: #495057;">• 투자 관련 질문 답변</li>
+                        <li style="color: #495057;">• 투자 전략 및 포트폴리오 구성 가이드</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 6. 백테스팅 시스템 -->
             <div style="background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-left: 4px solid #F44336;">
-                <h3 style="color: #2E4057; margin-bottom: 1rem; font-size: 1.3rem;">5. 백테스팅 시스템 📊</h3>
+                <h3 style="color: #2E4057; margin-bottom: 1rem; font-size: 1.3rem;">6. 백테스팅 시스템 📊</h3>
                 <div style="margin-bottom: 1rem;">
                     <h4 style="color: #F44336; font-size: 1.1rem; margin-bottom: 0.5rem;">투자 전략 검증</h4>
                     <ul style="list-style-type: none; padding-left: 0;">
@@ -179,8 +193,8 @@ title: Fynai - AI 기반 자산 관리 대시보드
             <img src="assets/news_preview.png" width="100%" alt="뉴스 분석"/>
         </div>
         <div>
-            <h4>🤖 AI 투자 어시스턴트</h4>
-            <img src="assets/ai_preview.png" width="100%" alt="AI 어시스턴트"/>
+            <h4>🤖 AI 투자 어드바이저</h4>
+            <img src="assets/ai_preview.png" width="100%" alt="AI 어드바이저"/>
         </div>
         <div>
             <h4>📊 백테스팅 시스템</h4>
@@ -266,13 +280,62 @@ title: Fynai - AI 기반 자산 관리 대시보드
                 </li>
                 <li>
                     <strong>주요 기능 사용하기</strong>
-                    <ul style="margin-top: 1rem;">
-                        <li><strong>회원가입 및 로그인</strong>: 한국투자증권 API 키를 등록하여 실시간 자산 관리 시작</li>
-                        <li><strong>포트폴리오 관리</strong>: 실시간 자산 현황 모니터링 및 분석</li>
-                        <li><strong>ETF 분석</strong>: 국내외 ETF 섹터별 분석 및 시각화 확인</li>
-                        <li><strong>AI 투자 조언</strong>: AI 어시스턴트를 통한 맞춤형 투자 상담</li>
-                        <li><strong>뉴스 분석</strong>: 실시간 경제 뉴스 및 키워드 트렌드 확인</li>
-                    </ul>
+                    <div style="margin-top: 1.5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                        <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                            <h4 style="color: #4CAF50; margin-bottom: 1rem;">🔐 회원가입 및 로그인</h4>
+                            <ul style="list-style-type: none; padding-left: 0;">
+                                <li style="margin-bottom: 0.5rem;">• 한국투자증권 API 키 등록</li>
+                                <li style="margin-bottom: 0.5rem;">• 투자자 프로필 설정</li>
+                                <li>• 실시간 자산 관리 시작</li>
+                            </ul>
+                        </div>
+
+                        <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                            <h4 style="color: #2196F3; margin-bottom: 1rem;">💼 포트폴리오 관리</h4>
+                            <ul style="list-style-type: none; padding-left: 0;">
+                                <li style="margin-bottom: 0.5rem;">• 실시간 자산 현황 모니터링</li>
+                                <li style="margin-bottom: 0.5rem;">• 자산 배분 분석</li>
+                                <li>• 수익률 및 위험 지표 확인</li>
+                            </ul>
+                        </div>
+
+                        <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                            <h4 style="color: #FF9800; margin-bottom: 1rem;">📊 ETF 분석</h4>
+                            <ul style="list-style-type: none; padding-left: 0;">
+                                <li style="margin-bottom: 0.5rem;">• 국내외 ETF 섹터별 분석</li>
+                                <li style="margin-bottom: 0.5rem;">• 트리맵 시각화 확인</li>
+                                <li>• 실시간 ETF 데이터 분석</li>
+                            </ul>
+                        </div>
+
+                        <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                            <h4 style="color: #9C27B0; margin-bottom: 1rem;">🤖 AI 투자 어드바이저</h4>
+                            <h4 style="color: #9C27B0; margin-bottom: 1rem;">🤖 AI 투자 조언</h4>
+                            <ul style="list-style-type: none; padding-left: 0;">
+                                <li style="margin-bottom: 0.5rem;">• AI 어시스턴트 상담</li>
+                                <li style="margin-bottom: 0.5rem;">• 맞춤형 포트폴리오 분석</li>
+                                <li>• 투자 전략 추천</li>
+                            </ul>
+                        </div>
+
+                        <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                            <h4 style="color: #F44336; margin-bottom: 1rem;">📰 뉴스 분석</h4>
+                            <ul style="list-style-type: none; padding-left: 0;">
+                                <li style="margin-bottom: 0.5rem;">• 실시간 경제 뉴스 확인</li>
+                                <li style="margin-bottom: 0.5rem;">• 키워드 트렌드 분석</li>
+                                <li>• 시장 동향 파악</li>
+                            </ul>
+                        </div>
+
+                        <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                            <h4 style="color: #607D8B; margin-bottom: 1rem;">📈 백테스팅</h4>
+                            <ul style="list-style-type: none; padding-left: 0;">
+                                <li style="margin-bottom: 0.5rem;">• 투자 전략 템플릿 선택</li>
+                                <li style="margin-bottom: 0.5rem;">• 과거 데이터 기반 시뮬레이션</li>
+                                <li>• 전략 성과 분석</li>
+                            </ul>
+                        </div>
+                    </div>
                 </li>
             </ol>
             <p style="margin-top: 1.5rem; color: #4CAF50; font-weight: bold;">💡 별도의 설치 과정 없이 웹 브라우저에서 바로 이용 가능합니다!</p>
