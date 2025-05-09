@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
+import os
 from modules.user_manager import UserManager
 from modules.account_manager import AccountManager
 from modules.visualization import Visualization
@@ -22,6 +23,9 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
+
+# 로고 이미지 경로 설정
+LOGO_PATH = os.path.join("assets", "Fynai.png")
 
 # CSS 스타일 추가
 st.markdown("""
@@ -61,6 +65,17 @@ st.markdown("""
     }
 </style>
 """, unsafe_allow_html=True)
+
+def load_logo():
+    try:
+        if os.path.exists(LOGO_PATH):
+            return LOGO_PATH
+        else:
+            st.error("로고 이미지를 찾을 수 없습니다.")
+            return None
+    except Exception as e:
+        st.error(f"로고 로딩 중 오류가 발생했습니다: {str(e)}")
+        return None
 
 class App():
     def __init__(self):
@@ -133,7 +148,9 @@ class App():
             col1, col2, col3 = st.columns([1,2,1])
             with col2:
                 st.markdown('<div class="main-header">', unsafe_allow_html=True)
-                st.image("assets/Fynai.png", use_column_width=True)
+                logo_path = load_logo()
+                if logo_path:
+                    st.image(logo_path, use_column_width=True)
                 st.markdown('<h1 class="main-title">Fynai</h1>', unsafe_allow_html=True)
                 st.markdown('<p class="sub-title">AI 기반 스마트 자산 관리 솔루션</p>', unsafe_allow_html=True)
                 st.markdown('</div>', unsafe_allow_html=True)
@@ -144,7 +161,9 @@ class App():
             col1, col2, col3 = st.columns([1,2,1])
             with col2:
                 st.markdown('<div class="main-header">', unsafe_allow_html=True)
-                st.image("assets/Fynai.png", use_column_width=True)
+                logo_path = load_logo()
+                if logo_path:
+                    st.image(logo_path, use_column_width=True)
                 st.markdown('<h1 class="main-title">Fynai</h1>', unsafe_allow_html=True)
                 st.markdown('<p class="sub-title">AI 기반 스마트 자산 관리 솔루션</p>', unsafe_allow_html=True)
                 st.markdown('</div>', unsafe_allow_html=True)
@@ -153,7 +172,9 @@ class App():
         # 메인 페이지 (자산 관리)
         if st.session_state["page"] == "main":
             st.markdown('<div class="main-header">', unsafe_allow_html=True)
-            st.image("assets/Fynai.png", width=150)
+            logo_path = load_logo()
+            if logo_path:
+                st.image(logo_path, width=150)
             st.markdown('<h1 class="main-title">자산 현황</h1>', unsafe_allow_html=True)
             st.markdown('</div>', unsafe_allow_html=True)
 
