@@ -312,17 +312,7 @@ title: Fynai - AI 기반 자산 관리 대시보드
                             </ul>
                         </div>
 
-                        <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
-                            <h4 style="color: #9C27B0; margin-bottom: 1rem;">🤖 AI 투자 어드바이저</h4>
-                            <h4 style="color: #9C27B0; margin-bottom: 1rem;">🤖 AI 투자 조언</h4>
-                            <ul style="list-style-type: none; padding-left: 0;">
-                                <li style="margin-bottom: 0.5rem;">• AI 어시스턴트 상담</li>
-                                <li style="margin-bottom: 0.5rem;">• 맞춤형 포트폴리오 분석</li>
-                                <li>• 투자 전략 추천</li>
-                            </ul>
-                        </div>
-
-                        <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                         <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
                             <h4 style="color: #F44336; margin-bottom: 1rem;">📰 뉴스 분석</h4>
                             <ul style="list-style-type: none; padding-left: 0;">
                                 <li style="margin-bottom: 0.5rem;">• 실시간 경제 뉴스 확인</li>
@@ -330,6 +320,16 @@ title: Fynai - AI 기반 자산 관리 대시보드
                                 <li>• 시장 동향 파악</li>
                             </ul>
                         </div>
+
+                        <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                            <h4 style="color: #9C27B0; margin-bottom: 1rem;">🤖 AI 어드바이저</h4>
+                            <ul style="list-style-type: none; padding-left: 0;">
+                                <li style="margin-bottom: 0.5rem;">• AI 어시스턴트 상담</li>
+                                <li style="margin-bottom: 0.5rem;">• 맞춤형 포트폴리오 분석</li>
+                                <li>• 투자 전략 추천</li>
+                            </ul>
+                        </div>
+
 
                         <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
                             <h4 style="color: #607D8B; margin-bottom: 1rem;">📈 백테스팅</h4>
