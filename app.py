@@ -13,7 +13,7 @@ from modules.collect_economic_data import collectEconomicData
 from modules.chatbot_question import chatbot_page
 from modules.chatbot_report import chatbot_page2
 from modules.mypage import MyPage
-from modules.AI_report import get_real_estate_report
+from modules.AI_report import get_real_estate_report, get_macro_report
 from modules.backtest import main as backtest_page
 import base64
 
@@ -425,8 +425,8 @@ class App():
             with real_estate:
                 get_real_estate_report()
 
-            # with macro:
-            #     chatbot_page4()
+            with macro:
+                get_macro_report()
 
         if st.session_state["page"] == "my_page":
                 my_page = MyPage()

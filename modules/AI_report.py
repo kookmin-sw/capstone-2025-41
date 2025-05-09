@@ -189,7 +189,7 @@ def create_macro_report():
 
     supabase.insert_macro_report(macro_report)
 
-def get_real_estate_report():
+def get_macro_report():
     supabase = SupabaseDB()
 
     # 캐시된 보고서가 없거나 재생성이 요청된 경우에만 새로 생성
