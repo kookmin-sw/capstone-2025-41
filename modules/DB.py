@@ -116,6 +116,22 @@ class SupabaseDB:
 
         response = self.client.table(table_nm).upsert(data_to_store).execute()
 
+    def insert_real_estate_report(self, real_estate_report):
+        """부동산 동향 리포트를 Supabase에 저장"""
+        data = {
+            "date": datetime.today().strftime("%Y-%m"),
+            "real_estate_report": json.dumps(real_estate_report, ensure_ascii=False)
+        }
+        return self.client.table("real_estate_report").upsert(data).execute()
+
+    def get_real_estate_report(self):
+        """AI 리포트를 Supabase에서 가져오기"""
+        response = self.client.table("real_estate_report").select("real_estate_report").\
+            eq("date", datetime.today().strftime("%Y-%m")).execute()
+        if response.data:
+            return json.loads(response.data[0]["real_estate_report"])
+        return []
+
     def insert_user_personal(self, username, personal_data):
         """사용자 개인 투자 성향 JSON 데이터 저장"""
         json_string = json.dumps(personal_data, ensure_ascii=False)

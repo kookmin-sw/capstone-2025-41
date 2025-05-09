@@ -1,0 +1,29 @@
+name: Collect Monthly Report Data
+
+on:
+  schedule:
+    - cron: '0 0 1 1 *'    # 한국 시간 1월 1일 09:00
+  workflow_dispatch:
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run fetch script
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
+        run: python monthly_report_collector.py
