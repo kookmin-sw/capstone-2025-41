@@ -1,4 +1,4 @@
-name: Collect Article Data
+name: Collect Monthly Report Data
 
 on:
   schedule:
@@ -25,4 +25,5 @@ jobs:
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
         run: python monthly_report_collector.py

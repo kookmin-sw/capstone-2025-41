@@ -3,10 +3,15 @@ from langchain_openai import ChatOpenAI
 from modules.DB import SupabaseDB
 from langchain_core.prompts import PromptTemplate
 from modules.tools import get_economic_summary_text, get_real_estate_summary_text
+from dotenv import load_dotenv
+import os
+
+# .env 파일의 환경 변수 불러오기
+load_dotenv()
 
 def init_llm():
     if "openai" not in st.session_state:
-        openai_api = st.secrets["openai"]["api_key"]
+        openai_api = os.getenv("OPENAI_KEY")
         openai = ChatOpenAI(
             model_name="gpt-4.1",
             temperature=0,
