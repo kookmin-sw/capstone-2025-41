@@ -15,6 +15,53 @@ from modules.mypage import MyPage
 from modules.AI_report import chatbot_page3, chatbot_page4
 from modules.backtest import main as backtest_page
 
+# 페이지 설정
+st.set_page_config(
+    page_title="Fynai - AI 기반 자산 관리 대시보드",
+    page_icon="💰",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
+# CSS 스타일 추가
+st.markdown("""
+<style>
+    .main-header {
+        text-align: center;
+        padding: 1rem 0;
+        margin-bottom: 2rem;
+    }
+    .logo-img {
+        max-width: 200px;
+        margin-bottom: 1rem;
+    }
+    .main-title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: #1E88E5;
+        margin-bottom: 0.5rem;
+    }
+    .sub-title {
+        font-size: 1.2rem;
+        color: #666;
+        margin-bottom: 2rem;
+    }
+    .stButton>button {
+        width: 100%;
+        border-radius: 5px;
+        height: 3em;
+        font-weight: bold;
+    }
+    .info-box {
+        background-color: #ffffff;
+        border-radius: 10px;
+        padding: 20px;
+        margin: 10px 0;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+</style>
+""", unsafe_allow_html=True)
+
 class App():
     def __init__(self):
         if "page" not in st.session_state:
@@ -83,14 +130,33 @@ class App():
 
         # 로그인 페이지
         if st.session_state["page"] == "login":
+            col1, col2, col3 = st.columns([1,2,1])
+            with col2:
+                st.markdown('<div class="main-header">', unsafe_allow_html=True)
+                st.image("assets/Fynai.png", use_column_width=True)
+                st.markdown('<h1 class="main-title">Fynai</h1>', unsafe_allow_html=True)
+                st.markdown('<p class="sub-title">AI 기반 스마트 자산 관리 솔루션</p>', unsafe_allow_html=True)
+                st.markdown('</div>', unsafe_allow_html=True)
             self.user_manager.login()
 
         # 회원가입 페이지
         if st.session_state["page"] == "sign_up":
+            col1, col2, col3 = st.columns([1,2,1])
+            with col2:
+                st.markdown('<div class="main-header">', unsafe_allow_html=True)
+                st.image("assets/Fynai.png", use_column_width=True)
+                st.markdown('<h1 class="main-title">Fynai</h1>', unsafe_allow_html=True)
+                st.markdown('<p class="sub-title">AI 기반 스마트 자산 관리 솔루션</p>', unsafe_allow_html=True)
+                st.markdown('</div>', unsafe_allow_html=True)
             self.user_manager.sign_up()
 
         # 메인 페이지 (자산 관리)
         if st.session_state["page"] == "main":
+            st.markdown('<div class="main-header">', unsafe_allow_html=True)
+            st.image("assets/Fynai.png", width=150)
+            st.markdown('<h1 class="main-title">자산 현황</h1>', unsafe_allow_html=True)
+            st.markdown('</div>', unsafe_allow_html=True)
+
             user = self.user_manager.get_user_info(st.session_state["id"])  # Supabase에서 사용자 정보 가져오기
 
             if not user:
