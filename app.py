@@ -32,36 +32,89 @@ st.markdown("""
 <style>
     .main-header {
         text-align: center;
-        padding: 1rem 0;
-        margin-bottom: 2rem;
+        padding: 1.5rem 0 2rem 0;
+        margin-bottom: 0;
+        background: linear-gradient(135deg, #2E4057 0%, #1a2634 100%);
+        border-radius: 24px;
+        margin-bottom: 3rem;
     }
     .logo-img {
-        max-width: 200px;
+        max-width: 180px;
         margin-bottom: 1rem;
+        filter: drop-shadow(0 6px 12px rgba(0,0,0,0.18));
+        border-radius: 18px;
+        transition: transform 0.3s;
     }
     .main-title {
-        font-size: 2.5rem;
+        font-size: 2.8rem;
         font-weight: 800;
-        color: #1E88E5;
-        margin-bottom: 0.5rem;
+        color: white;
+        margin-bottom: 0.8rem;
     }
     .sub-title {
-        font-size: 1.2rem;
-        color: #666;
-        margin-bottom: 2rem;
+        font-size: 1.3rem;
+        color: #E0E0E0;
+        margin-bottom: 1.5rem;
     }
-    .stButton>button {
-        width: 100%;
-        border-radius: 5px;
-        height: 3em;
+    .landing-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+    .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+        margin: 2rem 0;
+    }
+    .feature-item {
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        padding: 1.5rem;
+        border-radius: 12px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        transition: transform 0.3s ease;
+        border-left: 4px solid #4CAF50;
+    }
+    .feature-item:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(30, 136, 229, 0.15);
+    }
+    .feature-icon {
+        font-size: 2rem;
+        margin-bottom: 0.8rem;
+    }
+    .feature-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: #2E4057;
+    }
+    .feature-description {
+        font-size: 0.9rem;
+        color: #495057;
+        line-height: 1.4;
+    }
+    .auth-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        margin-top: 2rem;
+    }
+    .auth-button {
+        display: inline-block;
+        background-color: #4CAF50;
+        color: white;
+        padding: 1.2rem 2.8rem;
+        text-decoration: none;
+        border-radius: 50px;
         font-weight: bold;
+        font-size: 1.2rem;
+        transition: all 0.3s;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.13);
     }
-    .info-box {
-        background-color: #ffffff;
-        border-radius: 10px;
-        padding: 20px;
-        margin: 10px 0;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    .auth-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(0,0,0,0.2);
     }
 </style>
 """, unsafe_allow_html=True)
@@ -80,7 +133,7 @@ def load_logo():
 class App():
     def __init__(self):
         if "page" not in st.session_state:
-            st.session_state["page"] = "login"
+            st.session_state["page"] = "landing"
         if "logged_in" not in st.session_state:
             st.session_state["logged_in"] = False
         if "username" not in st.session_state:
@@ -140,41 +193,75 @@ class App():
                 st.session_state["page"] = "backtest"
             elif menu == "로그아웃":
                 st.session_state.clear()
-                st.session_state["page"] = "login"
+                st.session_state["page"] = "landing"
                 st.rerun()
+
+        # 랜딩 페이지
+        if st.session_state["page"] == "landing":
+            st.markdown('''
+            <div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
+                <div style="background: linear-gradient(135deg, #2E4057 0%, #1a2634 100%); padding: 4rem 0 3rem 0; border-radius: 0 0 24px 24px; margin-bottom: 3rem;">
+                    <div style="text-align: center; max-width: 900px; margin: 0 auto;">
+                        <img src="assets/Fynai_white.png" alt="Fynai Logo" style="max-width: 240px; margin-bottom: 2rem; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.18)); border-radius: 18px; transition: transform 0.3s;">
+                        <h1 style="color: white; font-size: 3.2rem; margin-bottom: 1.2rem; font-weight: 800;">Fynai</h1>
+                        <p style="font-size: 1.5rem; color: #E0E0E0; margin-bottom: 2.5rem;">AI 기반 스마트 자산 관리 솔루션</p>
+                    </div>
+                    <div style="display: flex; justify-content: center; gap: 1rem; margin-top: 1.5rem;">
+                        <div style="flex: 1; max-width: 200px;">
+                            ''' , unsafe_allow_html=True)
+            col1, col2 = st.columns([1,1])
+            with col1:
+                if st.button('🔐 로그인', use_container_width=True):
+                    st.session_state["page"] = "login"
+                    st.rerun()
+            with col2:
+                if st.button('📝 회원가입', use_container_width=True):
+                    st.session_state["page"] = "sign_up"
+                    st.rerun()
+            
+            # 주요 기능 소개
+            st.markdown('<div class="feature-grid">', unsafe_allow_html=True)
+            
+            # 기능 1
+            st.markdown('''
+                <div class="feature-item">
+                    <div class="feature-icon">📊</div>
+                    <div class="feature-title">실시간 자산 분석</div>
+                    <div class="feature-description">AI 기반 실시간 자산 분석<br>최적 투자 전략 제안</div>
+                </div>
+            ''', unsafe_allow_html=True)
+            
+            # 기능 2
+            st.markdown('''
+                <div class="feature-item">
+                    <div class="feature-icon">🤖</div>
+                    <div class="feature-title">AI 투자 어드바이저</div>
+                    <div class="feature-description">맞춤형 투자 조언<br>포트폴리오 최적화</div>
+                </div>
+            ''', unsafe_allow_html=True)
+            
+            # 기능 3
+            st.markdown('''
+                <div class="feature-item">
+                    <div class="feature-icon">📈</div>
+                    <div class="feature-title">백테스팅 시스템</div>
+                    <div class="feature-description">과거 데이터 기반<br>투자 전략 검증</div>
+                </div>
+            ''', unsafe_allow_html=True)
+            
+            st.markdown('</div>', unsafe_allow_html=True)
 
         # 로그인 페이지
         if st.session_state["page"] == "login":
-            col1, col2, col3 = st.columns([1,2,1])
-            with col2:
-                st.markdown('<div class="main-header">', unsafe_allow_html=True)
-                logo_path = load_logo()
-                if logo_path:
-                    st.image(logo_path, use_column_width=True)
-                st.markdown('<h1 class="main-title">Fynai</h1>', unsafe_allow_html=True)
-                st.markdown('<p class="sub-title">AI 기반 스마트 자산 관리 솔루션</p>', unsafe_allow_html=True)
-                st.markdown('</div>', unsafe_allow_html=True)
             self.user_manager.login()
 
         # 회원가입 페이지
         if st.session_state["page"] == "sign_up":
-            col1, col2, col3 = st.columns([1,2,1])
-            with col2:
-                st.markdown('<div class="main-header">', unsafe_allow_html=True)
-                logo_path = load_logo()
-                if logo_path:
-                    st.image(logo_path, use_column_width=True)
-                st.markdown('<h1 class="main-title">Fynai</h1>', unsafe_allow_html=True)
-                st.markdown('<p class="sub-title">AI 기반 스마트 자산 관리 솔루션</p>', unsafe_allow_html=True)
-                st.markdown('</div>', unsafe_allow_html=True)
             self.user_manager.sign_up()
 
         # 메인 페이지 (자산 관리)
         if st.session_state["page"] == "main":
             st.markdown('<div class="main-header">', unsafe_allow_html=True)
-            logo_path = load_logo()
-            if logo_path:
-                st.image(logo_path, width=150)
             st.markdown('<h1 class="main-title">자산 현황</h1>', unsafe_allow_html=True)
             st.markdown('</div>', unsafe_allow_html=True)
 
