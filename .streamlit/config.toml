@@ -17,19 +17,3 @@ showSidebarNavigation = true  # 사이드바 네비게이션 표시
 
 [logger]
 level = "info"
-
-[theme.primaryColor]
-base = "#1E88E5"
-hover = "#1565C0"
-
-[theme.secondaryBackgroundColor]
-base = "#F0F2F6"
-hover = "#E3E6EC"
-
-[theme.textColor]
-base = "#262730"
-hover = "#1A1D24"
-
-[theme.font]
-base = "sans serif"
-heading = "sans serif"
