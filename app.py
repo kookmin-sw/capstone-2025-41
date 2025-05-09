@@ -261,9 +261,6 @@ class App():
 
         # 메인 페이지 (자산 관리)
         if st.session_state["page"] == "main":
-            st.markdown('<div class="main-header">', unsafe_allow_html=True)
-            st.markdown('<h1 class="main-title">자산 현황</h1>', unsafe_allow_html=True)
-            st.markdown('</div>', unsafe_allow_html=True)
 
             user = self.user_manager.get_user_info(st.session_state["id"])  # Supabase에서 사용자 정보 가져오기
 
