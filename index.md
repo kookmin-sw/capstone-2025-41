@@ -154,13 +154,13 @@ title: Fynai - AI 기반 자산 관리 대시보드
                         <li style="margin-bottom: 0.5rem; color: #495057;">• 자산 진단 리포트 기반 상세 상담</li>
                         <li style="margin-bottom: 0.5rem; color: #495057;">• 실시간 투자 관련 질문 답변</li>
                         <li style="margin-bottom: 0.5rem; color: #495057;">• 포트폴리오 분석 및 개선 제안</li>
-                        <li style="color: #495057;">• 투자 전략 및 자산 배분 가이드</li>
+                        <li style="margin-bottom: 0.5rem; color: #495057;">• 투자 전략 및 자산 배분 가이드</li>
                     </ul>
                 </div>
             </div>
             <!-- 7. 백테스팅 시스템 -->
             <div style="background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-left: 4px solid #F44336;">
-                <h3 style="color: #2E4057; margin-bottom: 1rem; font-size: 1.3rem;">6. 백테스팅 시스템 📈</h3>
+                <h3 style="color: #2E4057; margin-bottom: 1rem; font-size: 1.3rem;">7. 백테스팅 시스템 📈</h3>
                 <div style="margin-bottom: 1rem;">
                     <h4 style="color: #F44336; font-size: 1.1rem; margin-bottom: 0.5rem;">투자 전략 검증</h4>
                     <ul style="list-style-type: none; padding-left: 0;">
@@ -340,12 +340,29 @@ title: Fynai - AI 기반 자산 관리 대시보드
                         <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
                             <h4 style="color: #9C27B0; margin-bottom: 1rem;">🤖 AI 어드바이저</h4>
                             <ul style="list-style-type: none; padding-left: 0;">
-                                <li style="margin-bottom: 0.5rem;">• AI 어시스턴트 상담</li>
-                                <li style="margin-bottom: 0.5rem;">• 맞춤형 포트폴리오 분석</li>
-                                <li>• 투자 전략 추천</li>
+                                <li style="margin-bottom: 0.5rem;">• 실시간 투자 관련 질문 답변</li>
+                                <li style="margin-bottom: 0.5rem;">• 포트폴리오 분석 및 개선 제안</li>
+                                <li>• 투자 전략 및 자산 배분 가이드</li>
                             </ul>
                         </div>
 
+                        <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                            <h4 style="color: #673AB7; margin-bottom: 1rem;">📑 자산 진단 리포트</h4>
+                            <ul style="list-style-type: none; padding-left: 0;">
+                                <li style="margin-bottom: 0.5rem;">• 맞춤형 포트폴리오 분석</li>
+                                <li style="margin-bottom: 0.5rem;">• 거시경제 동향 및 시장 전망</li>
+                                <li>• 부동산 시장 동향 분석</li>
+                            </ul>
+                        </div>
+
+                        <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                            <h4 style="color: #FF9800; margin-bottom: 1rem;">📧 일일 인사이트 메일</h4>
+                            <ul style="list-style-type: none; padding-left: 0;">
+                                <li style="margin-bottom: 0.5rem;">• 매일 오전 시장 동향 알림</li>
+                                <li style="margin-bottom: 0.5rem;">• 포트폴리오 수익률 변동 알림</li>
+                                <li>• 맞춤형 투자 액션 제안</li>
+                            </ul>
+                        </div>
 
                         <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
                             <h4 style="color: #607D8B; margin-bottom: 1rem;">📈 백테스팅</h4>
@@ -382,35 +399,44 @@ title: Fynai - AI 기반 자산 관리 대시보드
 
     <div style="background-color: #f8f9fa; padding: 2rem; border-radius: 15px; margin: 2rem 0;">
         <h2 style="color: #2E4057; margin-bottom: 1.5rem;">📚 문서 & 리소스</h2>
-        <ul style="list-style-type: none; padding-left: 0;">
-            <li style="margin-bottom: 1rem;">
-                <a href="docs/user-guide.md" style="text-decoration: none; color: #2E4057; font-weight: 500;">발표 자료</a>
-            </li>
-            <li>
-                <a href="docs/api-docs.md" style="text-decoration: none; color: #2E4057; font-weight: 500;">포스터</a>
-            </li>
-        </ul>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+            <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); text-align: center;">
+                <h3 style="color: #4CAF50; margin-bottom: 1rem;">📊 발표 자료</h3>
+                <p style="color: #666; margin-bottom: 1rem;">프로젝트 발표 자료를 확인하세요</p>
+                <a href="docs/user-guide.md" style="display: inline-block; background-color: #4CAF50; color: white; padding: 0.8rem 1.5rem; text-decoration: none; border-radius: 50px; font-weight: 500; transition: all 0.3s ease;">자료 보기</a>
+            </div>
+            <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); text-align: center;">
+                <h3 style="color: #2196F3; margin-bottom: 1rem;">🖼️ 포스터</h3>
+                <p style="color: #666; margin-bottom: 1rem;">프로젝트 포스터를 확인하세요</p>
+                <a href="docs/api-docs.md" style="display: inline-block; background-color: #2196F3; color: white; padding: 0.8rem 1.5rem; text-decoration: none; border-radius: 50px; font-weight: 500; transition: all 0.3s ease;">포스터 보기</a>
+            </div>
+        </div>
     </div>
 
     <div style="background-color: #f8f9fa; padding: 2rem; border-radius: 15px; margin: 2rem 0;">
         <h2 style="color: #2E4057; margin-bottom: 1.5rem;">📬 문의하기</h2>
         <p style="margin-bottom: 1.5rem;">프로젝트에 대한 문의나 제안이 있으시다면 언제든 연락주세요:</p>
-        <div style="margin-bottom: 1rem;">
-            <h3 style="color: #2E4057; font-size: 1.2rem; margin-bottom: 1rem;">📧 Email</h3>
-            <ul style="list-style-type: none; padding-left: 0;">
-                <li style="margin-bottom: 0.5rem;">
-                    <a href="mailto:kimnh1220@kookmin.ac.kr" style="text-decoration: none; color: #2E4057;">kimnh1220@kookmin.ac.kr</a> (김남훈)
-                </li>
-                <li>
-                    <a href="mailto:gyumin1129@kookmin.ac.kr" style="text-decoration: none; color: #2E4057;">gyumin1129@kookmin.ac.kr</a> (박규민)
-                </li>
-            </ul>
-        </div>
-        <div>
-            <h3 style="color: #2E4057; font-size: 1.2rem; margin-bottom: 1rem;">💬 GitHub</h3>
-            <a href="https://github.com/kookmin-sw/capstone-2025-41" style="text-decoration: none;">
-                <img src="https://img.shields.io/badge/GitHub_Repository-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub Repository"/>
-            </a>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+            <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                <h3 style="color: #2E4057; font-size: 1.2rem; margin-bottom: 1rem;">📧 Email</h3>
+                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px;">
+                        <p style="margin: 0; color: #666; font-size: 0.9rem;">김남훈</p>
+                        <a href="mailto:kimnh1220@kookmin.ac.kr" style="text-decoration: none; color: #2E4057; font-weight: 500; display: block; margin-top: 0.3rem;">kimnh1220@kookmin.ac.kr</a>
+                    </div>
+                    <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px;">
+                        <p style="margin: 0; color: #666; font-size: 0.9rem;">박규민</p>
+                        <a href="mailto:gyumin1129@kookmin.ac.kr" style="text-decoration: none; color: #2E4057; font-weight: 500; display: block; margin-top: 0.3rem;">gyumin1129@kookmin.ac.kr</a>
+                    </div>
+                </div>
+            </div>
+            <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                <h3 style="color: #2E4057; font-size: 1.2rem; margin-bottom: 1rem;">💬 GitHub</h3>
+                <p style="color: #666; margin-bottom: 1rem;">프로젝트 저장소를 방문하세요</p>
+                <a href="https://github.com/kookmin-sw/capstone-2025-41" style="display: inline-block; background-color: #2E4057; color: white; padding: 0.8rem 1.5rem; text-decoration: none; border-radius: 50px; font-weight: 500; transition: all 0.3s ease;">
+                    <img src="https://img.shields.io/badge/GitHub_Repository-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub Repository" style="margin: 0;"/>
+                </a>
+            </div>
         </div>
     </div>
 
