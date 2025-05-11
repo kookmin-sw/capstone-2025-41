@@ -131,30 +131,30 @@ title: Fynai - AI 기반 자산 관리 대시보드
                 </div>
             </div>
 
-            <!-- 5. AI 어드바이저 -->
-            <div style="background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-left: 4px solid #9C27B0;">
-                <h3 style="color: #2E4057; margin-bottom: 1rem; font-size: 1.3rem;">5. AI 어드바이저 🤖</h3>
+            <!-- 5. 일일 인사이트 메일 -->
+            <div style="background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-left: 4px solid #FF9800;">
+                <h3 style="color: #2E4057; margin-bottom: 1rem; font-size: 1.3rem;">5. 일일 인사이트 메일 📧</h3>
                 <div style="margin-bottom: 1rem;">
-                    <h4 style="color: #9C27B0; font-size: 1.1rem; margin-bottom: 0.5rem;">맞춤형 투자 상담</h4>
+                    <h4 style="color: #FF9800; font-size: 1.1rem; margin-bottom: 0.5rem;">맞춤형 일일 리포트</h4>
                     <ul style="list-style-type: none; padding-left: 0;">
-                        <li style="margin-bottom: 0.5rem; color: #495057;">• 실시간 투자 상담</li>
-                        <li style="margin-bottom: 0.5rem; color: #495057;">• 개인 투자 성향 기반 맞춤 조언</li>
-                        <li style="margin-bottom: 0.5rem; color: #495057;">• 투자 관련 질문 답변</li>
-                        <li style="color: #495057;">• 투자 전략 및 포트폴리오 구성 가이드</li>
+                        <li style="margin-bottom: 0.5rem; color: #495057;">• 매일 오전 시장 동향 및 투자 기회 알림</li>
+                        <li style="margin-bottom: 0.5rem; color: #495057;">• 포트폴리오 수익률 및 주요 변동 알림</li>
+                        <li style="margin-bottom: 0.5rem; color: #495057;">• 투자 리스크 및 주의사항 안내</li>
+                        <li style="color: #495057;">• 맞춤형 투자 액션 제안</li>
                     </ul>
                 </div>
             </div>
 
-            <!-- 6. 백테스팅 시스템 -->
-            <div style="background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-left: 4px solid #F44336;">
-                <h3 style="color: #2E4057; margin-bottom: 1rem; font-size: 1.3rem;">6. 백테스팅 시스템 📈</h3>
+            <!-- 6. AI 어드바이저 -->
+            <div style="background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-left: 4px solid #9C27B0;">
+                <h3 style="color: #2E4057; margin-bottom: 1rem; font-size: 1.3rem;">6. AI 어드바이저 🤖</h3>
                 <div style="margin-bottom: 1rem;">
-                    <h4 style="color: #F44336; font-size: 1.1rem; margin-bottom: 0.5rem;">투자 전략 검증</h4>
+                    <h4 style="color: #9C27B0; font-size: 1.1rem; margin-bottom: 0.5rem;">맞춤형 투자 상담</h4>
                     <ul style="list-style-type: none; padding-left: 0;">
-                        <li style="margin-bottom: 0.5rem; color: #495057;">• 다양한 투자 전략 템플릿 제공</li>
-                        <li style="margin-bottom: 0.5rem; color: #495057;">• 과거 데이터 기반 전략 성과 시뮬레이션</li>
-                        <li style="margin-bottom: 0.5rem; color: #495057;">• 수익률, 위험 지표 등 종합 분석</li>
-                        <li style="color: #495057;">• 벤치마크 대비 성과 비교</li>
+                        <li style="margin-bottom: 0.5rem; color: #495057;">• 자산 진단 리포트 기반 상세 상담</li>
+                        <li style="margin-bottom: 0.5rem; color: #495057;">• 실시간 투자 관련 질문 답변</li>
+                        <li style="margin-bottom: 0.5rem; color: #495057;">• 포트폴리오 분석 및 개선 제안</li>
+                        <li style="color: #495057;">• 투자 전략 및 자산 배분 가이드</li>
                     </ul>
                 </div>
             </div>
@@ -255,19 +255,20 @@ title: Fynai - AI 기반 자산 관리 대시보드
             <div style="display: flex; justify-content: center;">
                 <table style="width: 90%; border: none; background: transparent;">
                     <tr>
-                        <td style="width: 50%; text-align: center;"><h4>금융 데이터</h4></td>
-                        <td style="width: 50%; text-align: center;"><h4>AI & 분석</h4></td>
+                        <td style="width: 50%; text-align: center;"><h4>금융 & 경제 데이터</h4></td>
+                        <td style="width: 50%; text-align: center;"><h4>AI</h4></td>
                     </tr>
                     <tr style="background: transparent;">
                         <td style="text-align: center; vertical-align: middle;">
                             <img src="https://img.shields.io/badge/한국투자증권_API-ED1C24?style=for-the-badge&logo=koreaninvestment&logoColor=white"><br>
                             <img src="https://img.shields.io/badge/FinanceDataReader-0066CC?style=for-the-badge&logo=finance&logoColor=white"><br>
-                            <img src="https://img.shields.io/badge/BeautifulSoup4-FF5722?style=for-the-badge&logo=beautifulsoup&logoColor=white">
+                            <img src="https://img.shields.io/badge/ECOS_API-00A19C?style=for-the-badge&logo=bank&logoColor=white"><br>
+                            <img src="https://img.shields.io/badge/FRED_API-00A19C?style=for-the-badge&logo=federalreserve&logoColor=white"><br>
+                            <img src="https://img.shields.io/badge/KRX_API-00A19C?style=for-the-badge&logo=krx&logoColor=white">
                         </td>
                         <td style="text-align: center; vertical-align: middle;">
                             <img src="https://img.shields.io/badge/OpenAI_GPT4-412991?style=for-the-badge&logo=openai&logoColor=white"><br>
                             <img src="https://img.shields.io/badge/Google_Gemini_Pro-4285F4?style=for-the-badge&logo=google&logoColor=white"><br>
-                            <img src="https://img.shields.io/badge/WordCloud-FF6B6B?style=for-the-badge&logo=wordcloud&logoColor=white">
                         </td>
                     </tr>
                 </table>
