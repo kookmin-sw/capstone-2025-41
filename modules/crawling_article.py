@@ -74,6 +74,7 @@ class crawlingArticle:
             art_dic = {}
             art_dic["title"] = title_str
             art_dic["main"] = main_str
+            art_dic["url"] = url
 
             art_lst.append(art_dic)
 
