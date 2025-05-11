@@ -353,7 +353,7 @@ title: Fynai - AI 기반 자산 관리 대시보드
                 <img src="https://github.com/username1.png" width="100" style="border-radius: 50%; margin-bottom: 1rem;"/><br />
                 <b>김남훈</b><br />
                 프론트엔드 & 백엔드<br/>
-                <a href="https://github.com/username1"><img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white"/></a>
+                <a href="https://github.com/TrainingDataSet/Capstone_AssetManagementDashboard"><img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white"/></a>
             </div>
             <div style="text-align: center;">
                 <img src="https://github.com/username5.png" width="100" style="border-radius: 50%; margin-bottom: 1rem;"/><br />
@@ -383,7 +383,7 @@ title: Fynai - AI 기반 자산 관리 대시보드
             <h3 style="color: #2E4057; font-size: 1.2rem; margin-bottom: 1rem;">📧 Email</h3>
             <ul style="list-style-type: none; padding-left: 0;">
                 <li style="margin-bottom: 0.5rem;">
-                    <a href="mailto:???@kookmin.ac.kr" style="text-decoration: none; color: #2E4057;">???@kookmin.ac.kr</a> (김남훈)
+                    <a href="mailto:kimnh1220@kookmin.ac.kr" style="text-decoration: none; color: #2E4057;">kimnh1220@kookmin.ac.kr</a> (김남훈)
                 </li>
                 <li>
                     <a href="mailto:gyumin1129@kookmin.ac.kr" style="text-decoration: none; color: #2E4057;">gyumin1129@kookmin.ac.kr</a> (박규민)
