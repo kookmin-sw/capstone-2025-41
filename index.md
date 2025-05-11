@@ -63,16 +63,25 @@ title: Fynai - AI 기반 자산 관리 대시보드
                 "복잡한 자산 관리를 간단하게, 어려운 투자 결정을 스마트하게"
             </blockquote>
             
-            <p style="margin-bottom: 1.5rem; line-height: 1.6;">
-                자산 관리 대시보드는 개인 투자자를 위한 올인원 자산 관리 플랫폼입니다.<br>
-                매일 아침, 당신의 관심사를 반영한 시장 인사이트로 하루를 시작하고,<br>
-                실시간 포트폴리오 분석과 AI 기반 투자 조언을 통해 현명한 투자 결정을 내리세요.<br>
-                궁금한 점이 있다면 언제든 AI 어드바이저와 대화하며 더 깊은 인사이트를 얻을 수 있습니다.
-            </p>
-        </div>
-
-        <div style="text-align: center;">
-            <img src="assets/dashboard_preview.png" width="80%" alt="대시보드 미리보기" style="border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"/>
+            <div style="background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); padding: 2rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                <p style="margin-bottom: 1.5rem; line-height: 1.6; color: #2E4057; font-size: 1.1rem;">
+                    <span style="font-weight: 600; color: #4CAF50;">자산 관리 대시보드</span>는 개인 투자자를 위한 올인원 자산 관리 플랫폼입니다.
+                </p>
+                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <span style="font-size: 1.5rem;">🌅</span>
+                        <p style="margin: 0; line-height: 1.6; color: #495057;">매일 아침, 당신의 관심사를 반영한 시장 인사이트로 하루를 시작하고,</p>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <span style="font-size: 1.5rem;">📊</span>
+                        <p style="margin: 0; line-height: 1.6; color: #495057;">실시간 포트폴리오 분석과 AI 기반 투자 조언을 통해 현명한 투자 결정을 내리세요.</p>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <span style="font-size: 1.5rem;">💡</span>
+                        <p style="margin: 0; line-height: 1.6; color: #495057;">궁금한 점이 있다면 언제든 AI 어드바이저와 대화하며 더 깊은 인사이트를 얻을 수 있습니다.</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
