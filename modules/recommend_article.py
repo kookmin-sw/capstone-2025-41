@@ -7,6 +7,11 @@ from langchain.chains import LLMChain
 from pydantic import BaseModel, RootModel
 from typing import List
 from DB import SupabaseDB
+from dotenv import load_dotenv
+import os
+
+# .env 파일의 환경 변수 불러오기
+load_dotenv()
 
 # 1. Supabase에서 데이터 불러오기
 db = SupabaseDB()
@@ -14,7 +19,7 @@ id_lst = db.get_all_user_id()
 articles = db.get_article_data_today()
 
 # 2. Gemini LLM 설정
-api_key = st.secrets["gemini"]["api_key"]
+api_key = os.getenv("GEMINI_KEY")
 llm = ChatGoogleGenerativeAI(
     model="gemini-2.0-flash",
     temperature=0,
