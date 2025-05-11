@@ -16,6 +16,12 @@ from modules.mypage import MyPage
 from modules.AI_report import get_real_estate_report, get_macro_report
 from modules.backtest import main as backtest_page
 import base64
+from modules.llm_models.market_headline import MarketHeadlineLLM
+from modules.llm_models.portfolio_alert import PortfolioAlertLLM
+from modules.llm_models.risk_warning import RiskWarningLLM
+from modules.llm_models.action_required import ActionRequiredLLM
+from modules.llm_models.data_processor import DataProcessor
+from modules.email_sender import EmailSender
 
 # 페이지 설정
 st.set_page_config(
@@ -179,6 +185,7 @@ class App():
                 "📑 자산 진단",
                 "🤖 AI 어드바이저",
                 "📈 백테스팅",
+                "🧪 LLM 테스트",
                 "로그아웃"
             ])
             
@@ -196,6 +203,8 @@ class App():
                 st.session_state["page"] = "portfolio_report"
             elif menu == "📈 백테스팅":
                 st.session_state["page"] = "backtest"
+            elif menu == "🧪 LLM 테스트":
+                st.session_state["page"] = "llm_test"
             elif menu == "로그아웃":
                 st.session_state.clear()
                 st.session_state["page"] = "landing"
@@ -435,6 +444,106 @@ class App():
         # 백테스팅 페이지
         if st.session_state["page"] == "backtest":
             backtest_page()
+        elif st.session_state["page"] == "llm_test":
+            self.llm_test_page()
+
+    def llm_test_page(self):
+        st.title("🧪 LLM 모델 테스트")
+        
+        # session_state 초기화
+        if "market_headline" not in st.session_state:
+            st.session_state.market_headline = ""
+        if "portfolio_alert" not in st.session_state:
+            st.session_state.portfolio_alert = ""
+        if "risk_warning" not in st.session_state:
+            st.session_state.risk_warning = ""
+        if "action_required" not in st.session_state:
+            st.session_state.action_required = ""
+        
+        # 사용자 ID 입력
+        user_id = st.text_input("사용자 ID를 입력하세요", value="test")
+        
+        # 현재 날짜 가져오기
+        current_date = datetime.now().strftime("%Y년 %m월 %d일")
+        
+        # 데이터 프로세서 초기화
+        data_processor = DataProcessor(user_id)
+        
+        # 모든 모델 결과를 한 번에 생성하는 버튼
+        if st.button("모든 LLM 모델 실행하기", type="primary"):
+            # 컨테이너 생성
+            with st.container():
+                # 4개의 컬럼 생성
+                col1, col2, col3, col4 = st.columns(4)
+                
+                # 1. 시장 헤드라인
+                with col1:
+                    st.subheader("📰 시장 헤드라인")
+                    with st.spinner("시장 헤드라인 생성 중..."):
+                        market_data = data_processor.get_market_data()
+                        model = MarketHeadlineLLM()
+                        st.session_state.market_headline = model.generate(**market_data, current_date=current_date)
+                        st.success(st.session_state.market_headline)
+                
+                # 2. 포트폴리오 알림
+                with col2:
+                    st.subheader("💼 포트폴리오 알림")
+                    with st.spinner("포트폴리오 알림 생성 중..."):
+                        portfolio_data = data_processor.get_portfolio_data()
+                        model = PortfolioAlertLLM()
+                        st.session_state.portfolio_alert = model.generate(**portfolio_data, current_date=current_date)
+                        st.success(st.session_state.portfolio_alert)
+                
+                # 3. 리스크 경고
+                with col3:
+                    st.subheader("⚠️ 리스크 경고")
+                    with st.spinner("리스크 경고 생성 중..."):
+                        risk_data = data_processor.get_risk_data()
+                        model = RiskWarningLLM()
+                        st.session_state.risk_warning = model.generate(**risk_data, current_date=current_date)
+                        st.success(st.session_state.risk_warning)
+                
+                # 4. 투자 액션
+                with col4:
+                    st.subheader("🎯 투자 액션")
+                    with st.spinner("투자 액션 생성 중..."):
+                        investment_data = data_processor.get_investment_data()
+                        model = ActionRequiredLLM()
+                        st.session_state.action_required = model.generate(**investment_data, current_date=current_date)
+                        st.success(st.session_state.action_required)
+
+        # 이메일 발송 섹션
+        st.markdown("---")
+        st.subheader("📧 이메일 발송")
+        
+        # 이메일 주소 입력
+        user_email = st.text_input("이메일 주소를 입력하세요")
+        
+        # 이메일 발송 버튼
+        if st.button("이메일 발송하기"):
+            if not user_email:
+                st.error("이메일 주소를 입력해주세요.")
+                return
+                
+            if not all([st.session_state.market_headline, 
+                       st.session_state.portfolio_alert, 
+                       st.session_state.risk_warning, 
+                       st.session_state.action_required]):
+                st.error("먼저 '모든 LLM 모델 실행하기' 버튼을 눌러 알림을 생성해주세요.")
+                return
+            
+            # 이메일 발송
+            email_sender = EmailSender()
+            if email_sender.send_daily_alerts(
+                user_email, 
+                st.session_state.market_headline,
+                st.session_state.portfolio_alert,
+                st.session_state.risk_warning,
+                st.session_state.action_required
+            ):
+                st.success("이메일이 성공적으로 발송되었습니다!")
+            else:
+                st.error("이메일 발송 중 오류가 발생했습니다.")
 
 
 if __name__ == "__main__":

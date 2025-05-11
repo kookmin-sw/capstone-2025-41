@@ -46,6 +46,7 @@ class UserManager:
             new_id = st.text_input("아이디")
             new_password = st.text_input("비밀번호", type="password")
             confirm_password = st.text_input("비밀번호 확인", type="password")
+            email = st.text_input("이메일")
 
             # API 정보
             key = st.text_input("한국투자증권 APP Key")
@@ -196,6 +197,7 @@ class UserManager:
                 user_data = {
                     "username": new_id,
                     "password": new_password,
+                    "email": email,
                     "api_key": key,
                     "api_secret": secret,
                     "account_no": acc_no,

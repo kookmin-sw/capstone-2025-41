@@ -51,7 +51,10 @@ class MyPage:
 
         user = user[0]
         personal_data = user.get("personal", {})
+        if isinstance(personal_data, str):
+            personal_data = json.loads(personal_data)
         financial_data = personal_data.get("financial", {})
+        personal_info = personal_data.get("personal_info", {})
         investment_profile = personal_data.get("investment_profile", {})
 
         if st.session_state["editing_mode"]:
@@ -63,6 +66,7 @@ class MyPage:
                     st.markdown('<div class="section-title">계정 정보</div>', unsafe_allow_html=True)
                     username = st.text_input("아이디", value=user.get("username", ""))
                     password = st.text_input("비밀번호", value="", type="password")
+                    email = st.text_input("이메일", value=user.get("email", ""))
                     st.markdown('</div>', unsafe_allow_html=True)
 
                     st.markdown('<div class="section-title">API 정보</div>', unsafe_allow_html=True)
@@ -232,6 +236,7 @@ class MyPage:
                     updated_data = {
                         "username": username,
                         "password": password if password else user.get("password", ""),
+                        "email": email,
                         "api_key": api_key if api_key else user.get("api_key", ""),
                         "api_secret": api_secret if api_secret else user.get("api_secret", ""),
                         "account_no": account_no,
@@ -262,6 +267,7 @@ class MyPage:
                 st.markdown('<div class="section-title">계정 정보</div>', unsafe_allow_html=True)
                 st.write(f"**아이디:** {user.get('username', '')}")
                 st.write("**비밀번호:** ********")
+                st.write(f"**이메일:** {user.get('email', '')}")
                 st.markdown('</div>', unsafe_allow_html=True)
 
                 st.markdown('<div class="section-title">API 정보</div>', unsafe_allow_html=True)
@@ -275,18 +281,18 @@ class MyPage:
                 st.markdown('<div class="section-title">기본 정보</div>', unsafe_allow_html=True)
                 col1, col2 = st.columns(2)
                 with col1:
-                    st.write(f"**직업:** {financial_data.get('occupation', '-')}")
-                    st.write(f"**현재 나이:** {financial_data.get('age', 0)}세")
-                    st.write(f"**가족 구성:** {financial_data.get('family_structure', '-')}")
+                    st.write(f"**직업:** {personal_info.get('occupation', '-')}")
+                    st.write(f"**현재 나이:** {personal_info.get('age', 0)}세")
+                    st.write(f"**가족 구성:** {personal_info.get('family_structure', '-')}")
                 with col2:
-                    st.write(f"**은퇴 예정 연령:** {financial_data.get('retirement_age', 65)}세")
-                    st.write(f"**주거 형태:** {financial_data.get('housing_type', '-')}")
+                    st.write(f"**은퇴 예정 연령:** {personal_info.get('retirement_age', 65)}세")
+                    st.write(f"**주거 형태:** {personal_info.get('housing_type', '-')}")
                 st.markdown('</div>', unsafe_allow_html=True)
 
                 st.markdown('<div class="section-title">재무 목표</div>', unsafe_allow_html=True)
-                st.write(f"**단기 목표 (1~2년):** {financial_data.get('short_term_goal', '-')}")
-                st.write(f"**중기 목표 (3~5년):** {financial_data.get('mid_term_goal', '-')}")
-                st.write(f"**장기 목표 (10년 이상):** {financial_data.get('long_term_goal', '-')}")
+                st.write(f"**단기 목표 (1~2년):** {personal_info.get('short_term_goal', '-')}")
+                st.write(f"**중기 목표 (3~5년):** {personal_info.get('mid_term_goal', '-')}")
+                st.write(f"**장기 목표 (10년 이상):** {personal_info.get('long_term_goal', '-')}")
                 st.markdown('</div>', unsafe_allow_html=True)
 
             with tab3:
