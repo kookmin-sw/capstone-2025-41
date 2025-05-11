@@ -5,6 +5,7 @@ import os
 import pandas as pd
 from dotenv import load_dotenv
 from datetime import datetime, timedelta
+from typing import List
 
 # .env 파일의 환경 변수 불러오기
 load_dotenv()
@@ -77,6 +78,11 @@ class SupabaseDB:
         """Supabase에서 특정 사용자의 계좌 데이터 가져오기"""
         response = self.client.table("accounts").select("*").eq("user_id", user_id).execute()
         return response.data[0] if response.data else None
+
+    def get_all_user_id(self):
+        """Supabase에서 모든 사용자의 user_id 가져오기"""
+        response = self.client.table("accounts").select("user_id").execute()
+        return [r["user_id"] for r in response.data]
 
     def insert_etf_data_json(self, etf_data):
         """ETF 데이터를 Supabase에 JSON 형태로 저장"""
@@ -191,3 +197,15 @@ class SupabaseDB:
         """Supabase에서 한국 ETF JSON 데이터를 불러오기"""
         response = self.client.table("etf_data_kr_json").select("*").execute()
         return {row["etf_name"]: json.loads(row["data"]) for row in response.data} if response.data else {}
+
+    def insert_recommended_articles(self, user_id: str, articles: List[dict]):
+        """추천 뉴스 기사 데이터를 Supabase에 JSON 형태로 저장 (user_id 기준 덮어쓰기)"""
+        data_to_store = {
+            "user_id": user_id,
+            "articles": json.dumps(articles, ensure_ascii=False)
+        }
+
+        print("📌 저장할 JSON 데이터:", data_to_store)
+
+        return self.client.table("recommended_articles").upsert(data_to_store, on_conflict=["user_id"]).execute()
+
