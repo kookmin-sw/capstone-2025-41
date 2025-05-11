@@ -25,5 +25,5 @@ jobs:
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
-          OPENAI_KEY: ${{ secrets.GEMINI_KEY }}
+          GEMINI_KEY: ${{ secrets.GEMINI_KEY }}
         run: python modules/recommend_article.py
