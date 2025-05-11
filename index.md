@@ -37,7 +37,7 @@ title: Fynai - AI 기반 자산 관리 대시보드
         <div style="text-align: center; margin-bottom: 3rem;">
             <h2 style="color: #2E4057; margin-bottom: 1rem;">당신의 자산을 스마트하게 관리하세요</h2>
             <p style="color: #666; margin-bottom: 1.5rem;">
-                실시간 포트폴리오 분석 | AI 기반 자산 관리 조언 | 글로벌 ETF 분석
+                실시간 포트폴리오 분석 | AI 기반 자산 관리 조언 | 일일 시장 키워드 인사이트
             </p>
             <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
                 <a href="#overview" style="text-decoration: none; color: #2E4057;">프로젝트 소개</a>
@@ -65,7 +65,9 @@ title: Fynai - AI 기반 자산 관리 대시보드
             
             <p style="margin-bottom: 1.5rem; line-height: 1.6;">
                 자산 관리 대시보드는 개인 투자자를 위한 올인원 자산 관리 플랫폼입니다.<br>
-                실시간 포트폴리오 분석부터 AI 기반 투자 조언까지, 여러분의 현명한 투자 결정을 도와드립니다.
+                매일 아침, 당신의 관심사를 반영한 시장 인사이트로 하루를 시작하고,<br>
+                실시간 포트폴리오 분석과 AI 기반 투자 조언을 통해 현명한 투자 결정을 내리세요.<br>
+                궁금한 점이 있다면 언제든 AI 어드바이저와 대화하며 더 깊은 인사이트를 얻을 수 있습니다.
             </p>
         </div>
 
