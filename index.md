@@ -110,7 +110,7 @@ title: Fynai - AI 기반 자산 관리 대시보드
                 <div style="margin-bottom: 1rem;">
                     <h4 style="color: #FF9800; font-size: 1.1rem; margin-bottom: 0.5rem;">실시간 경제 뉴스 분석</h4>
                     <ul style="list-style-type: none; padding-left: 0;">
-                        <li style="margin-bottom: 0.5rem; color: #495057;">• 네이버 뉴스 API를 통한 실시간 경제 뉴스 수집</li>
+                        <li style="margin-bottom: 0.5rem; color: #495057;">• 실시간 경제 뉴스 수집</li>
                         <li style="margin-bottom: 0.5rem; color: #495057;">• 워드클라우드를 통한 키워드 트렌드 분석</li>
                         <li style="color: #495057;">• 뉴스 데이터 시각화</li>
                     </ul>
@@ -155,6 +155,19 @@ title: Fynai - AI 기반 자산 관리 대시보드
                         <li style="margin-bottom: 0.5rem; color: #495057;">• 실시간 투자 관련 질문 답변</li>
                         <li style="margin-bottom: 0.5rem; color: #495057;">• 포트폴리오 분석 및 개선 제안</li>
                         <li style="color: #495057;">• 투자 전략 및 자산 배분 가이드</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 7. 백테스팅 시스템 -->
+            <div style="background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-left: 4px solid #F44336;">
+                <h3 style="color: #2E4057; margin-bottom: 1rem; font-size: 1.3rem;">6. 백테스팅 시스템 📈</h3>
+                <div style="margin-bottom: 1rem;">
+                    <h4 style="color: #F44336; font-size: 1.1rem; margin-bottom: 0.5rem;">투자 전략 검증</h4>
+                    <ul style="list-style-type: none; padding-left: 0;">
+                        <li style="margin-bottom: 0.5rem; color: #495057;">• 다양한 투자 전략 템플릿 제공</li>
+                        <li style="margin-bottom: 0.5rem; color: #495057;">• 과거 데이터 기반 전략 성과 시뮬레이션</li>
+                        <li style="margin-bottom: 0.5rem; color: #495057;">• 수익률, 위험 지표 등 종합 분석</li>
+                        <li style="color: #495057;">• 벤치마크 대비 성과 비교</li>
                     </ul>
                 </div>
             </div>
