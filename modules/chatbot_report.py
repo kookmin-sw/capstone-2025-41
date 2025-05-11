@@ -37,16 +37,11 @@ def init_llm():
 
 def generate_section_content(llm, user_info, asset_summary, economic_summary, stock_summary):
     # user_info에서 필요한 데이터 추출
-    if isinstance(user_info, str):
-        try:
-            user_info = json.loads(user_info)
-        except json.JSONDecodeError:
-            user_info = {}
-    
-    financial = user_info.get("financial", {})
+    personal_info = user_info.get("personal_info", {})
     investment_profile = user_info.get("investment_profile", {})
     investment_details = investment_profile.get("details", {})
-
+    financial = user_info.get("financial", {})
+    
     prompt = PromptTemplate.from_template("""
 당신은 15년 경력의 자산관리 전문가이자 포트폴리오 매니저입니다.
 당신의 주요 역할은 고객의 재무 상태를 종합적으로 분석하고, 맞춤형 자산관리 전략을 제시하는 것입니다.
@@ -197,11 +192,11 @@ def generate_section_content(llm, user_info, asset_summary, economic_summary, st
 """)
     
     formatted_prompt = prompt.format(
-        age=financial.get("age", "미입력"),
-        occupation=financial.get("occupation", "미입력"),
-        family_structure=financial.get("family_structure", "미입력"),
-        retirement_age=financial.get("retirement_age", "미입력"),
-        housing_type=financial.get("housing_type", "미입력"),
+        age=personal_info.get("age", "미입력"),
+        occupation=personal_info.get("occupation", "미입력"),
+        family_structure=personal_info.get("family_structure", "미입력"),
+        retirement_age=personal_info.get("retirement_age", "미입력"),
+        housing_type=personal_info.get("housing_type", "미입력"),
         investment_style=investment_profile.get("investment_style", "미입력"),
         total_score=investment_profile.get("total_score", "미입력"),
         investment_experience=investment_details.get("investment_experience", "미입력"),
@@ -210,9 +205,9 @@ def generate_section_content(llm, user_info, asset_summary, economic_summary, st
         expected_return=investment_details.get("expected_return", "미입력"),
         investment_priority=investment_details.get("investment_priority", "미입력"),
         financial_knowledge=investment_details.get("financial_knowledge", "미입력"),
-        short_term_goal=financial.get("short_term_goal", "미입력"),
-        mid_term_goal=financial.get("mid_term_goal", "미입력"),
-        long_term_goal=financial.get("long_term_goal", "미입력"),
+        short_term_goal=personal_info.get("short_term_goal", "미입력"),
+        mid_term_goal=personal_info.get("mid_term_goal", "미입력"),
+        long_term_goal=personal_info.get("long_term_goal", "미입력"),
         monthly_income=financial.get("monthly_income", 0),
         fixed_expenses=financial.get("fixed_expenses", 0),
         variable_expenses=financial.get("variable_expenses", 0),
@@ -300,13 +295,7 @@ def generate_portfolio_report(llm, user_info, asset_summary, economic_summary, s
         except json.JSONDecodeError:
             user_info = {}
     
-    # personal 필드가 문자열인 경우 JSON으로 파싱
-    if isinstance(user_info.get("personal"), str):
-        try:
-            user_info["personal"] = json.loads(user_info["personal"])
-        except json.JSONDecodeError:
-            user_info["personal"] = {}
-
+    # 섹션 제목 정의
     sections = {
         "summary": "요약 섹션",
         "mydata": "마이데이터 분석",
@@ -321,7 +310,7 @@ def generate_portfolio_report(llm, user_info, asset_summary, economic_summary, s
     # 한 번의 API 호출로 모든 섹션 생성
     section_contents = generate_section_content(
         llm,
-        user_info.get("personal", {}),  # personal 필드만 전달
+        user_info,  # 전체 user_info 전달
         asset_summary,
         economic_summary,
         stock_summary
@@ -555,9 +544,17 @@ def chatbot_page2():
             progress_text = "보고서 생성 중..."
             progress_bar = st.progress(0)
             
+            # personal 필드에서 데이터 추출
+            personal_data = user_info[0].get("personal", {})
+            user_data = {
+                "personal_info": personal_data.get("personal_info", {}),
+                "investment_profile": personal_data.get("investment_profile", {}),
+                "financial": personal_data.get("financial", {})
+            }
+            
             report = generate_portfolio_report(
                 llm,
-                user_info[0],
+                user_data,
                 asset_summary,
                 economic_summary,
                 stock_summary
