@@ -98,16 +98,34 @@ def convert_to_dataframe(stock_data):
     df = df.sort_index()
     return df
 
-def calculate_strategy_performance(df, initial_capital=10000000):
-    """이동평균선 교차 전략의 성과 계산"""
-    # 이동평균선 계산
-    df['MA20'] = df['Close'].rolling(window=20).mean()
-    df['MA60'] = df['Close'].rolling(window=60).mean()
+def calculate_bollinger_bands(df, window=20, num_std=2):
+    """볼린저 밴드 계산"""
+    df['MA20'] = df['Close'].rolling(window=window).mean()
+    df['std'] = df['Close'].rolling(window=window).std()
+    df['Upper'] = df['MA20'] + (df['std'] * num_std)
+    df['Lower'] = df['MA20'] - (df['std'] * num_std)
+    return df
+
+def calculate_strategy_performance(df, strategy='ma_crossover', initial_capital=10000000):
+    """선택된 전략의 성과 계산"""
+    if strategy == 'ma_crossover':
+        # 기존 이동평균선 전략
+        df['MA20'] = df['Close'].rolling(window=20).mean()
+        df['MA60'] = df['Close'].rolling(window=60).mean()
+        
+        # 매매 신호 생성
+        df['Signal'] = 0
+        df.loc[df['MA20'] > df['MA60'], 'Signal'] = 1  # 골든 크로스: 매수
+        df.loc[df['MA20'] < df['MA60'], 'Signal'] = -1  # 데드 크로스: 매도
     
-    # 매매 신호 생성
-    df['Signal'] = 0
-    df.loc[df['MA20'] > df['MA60'], 'Signal'] = 1  # 골든 크로스: 매수
-    df.loc[df['MA20'] < df['MA60'], 'Signal'] = -1  # 데드 크로스: 매도
+    elif strategy == 'bollinger_bands':
+        # 볼린저 밴드 전략
+        df = calculate_bollinger_bands(df)
+        
+        # 매매 신호 생성
+        df['Signal'] = 0
+        df.loc[df['Close'] < df['Lower'], 'Signal'] = 1  # 하단밴드 터치: 매수
+        df.loc[df['Close'] > df['Upper'], 'Signal'] = -1  # 상단밴드 터치: 매도
     
     # 포지션 변화 감지
     df['Position_Change'] = df['Signal'].diff()
@@ -118,7 +136,7 @@ def calculate_strategy_performance(df, initial_capital=10000000):
     buy_price = None
     
     for date, row in df[df['Position_Change'] != 0].iterrows():
-        if row['Position_Change'] > 0:  # 골든 크로스: 매수
+        if row['Position_Change'] > 0:  # 매수 신호
             if current_position is None:  # 포지션이 없을 때만 매수
                 current_position = 'buy'
                 buy_price = row['Close']
@@ -128,7 +146,7 @@ def calculate_strategy_performance(df, initial_capital=10000000):
                     'price': buy_price,
                     'return': None  # 매수 시점에는 수익률 없음
                 })
-        elif row['Position_Change'] < 0:  # 데드 크로스: 매도
+        elif row['Position_Change'] < 0:  # 매도 신호
             if current_position == 'buy':  # 매수 포지션이 있을 때만 매도
                 current_position = None
                 sell_price = row['Close']
@@ -329,6 +347,56 @@ def plot_performance_comparison(df, stock_name):
     
     return fig
 
+def plot_bollinger_bands(df, stock_name):
+    """볼린저 밴드 차트"""
+    fig = go.Figure()
+    
+    # 가격을 만원 단위로 변환
+    df_manwon = df.copy()
+    for col in ['Close', 'MA20', 'Upper', 'Lower']:
+        df_manwon[col] = df_manwon[col] / 10000
+    
+    # 종가 라인
+    fig.add_trace(go.Scatter(
+        x=df_manwon.index,
+        y=df_manwon['Close'],
+        name='종가',
+        line=dict(color='black', width=1)
+    ))
+    
+    # 이동평균선
+    fig.add_trace(go.Scatter(
+        x=df_manwon.index,
+        y=df_manwon['MA20'],
+        name='20일 이동평균',
+        line=dict(color='blue', width=2)
+    ))
+    
+    # 상단 밴드
+    fig.add_trace(go.Scatter(
+        x=df_manwon.index,
+        y=df_manwon['Upper'],
+        name='상단 밴드',
+        line=dict(color='red', width=1, dash='dash')
+    ))
+    
+    # 하단 밴드
+    fig.add_trace(go.Scatter(
+        x=df_manwon.index,
+        y=df_manwon['Lower'],
+        name='하단 밴드',
+        line=dict(color='green', width=1, dash='dash')
+    ))
+    
+    fig.update_layout(
+        title=f"{stock_name} 볼린저 밴드",
+        yaxis_title="주가 (만원)",
+        xaxis_title="날짜",
+        height=500
+    )
+    
+    return fig
+
 def get_period_data(df, months):
     """선택된 기간에 따라 데이터 필터링"""
     if months == 1:
@@ -344,8 +412,7 @@ def get_period_data(df, months):
         
     return df.tail(trading_days)
 
-def main():
-    st.title("📈 백테스팅 시스템")
+def main(strategy="이동평균선 교차"):
     
     if "id" not in st.session_state:
         st.warning("로그인이 필요합니다.")
@@ -461,14 +528,18 @@ def main():
                         }
                     
                     df = get_period_data(df, period_options[selected_period])
-                    df, trades = calculate_strategy_performance(df, initial_capital)
+                    
+                    # 전략 선택에 따라 다른 전략 적용
+                    strategy_key = 'ma_crossover' if strategy == "이동평균선 교차" else 'bollinger_bands'
+                    df, trades = calculate_strategy_performance(df, strategy=strategy_key, initial_capital=initial_capital)
                     
                     st.session_state['backtest_results'] = {
                         'df': df,
                         'trades': trades,
                         'stock_data': stock_data,
                         'initial_capital': initial_capital,
-                        'selected_period': selected_period
+                        'selected_period': selected_period,
+                        'strategy': strategy
                     }
                     st.success("백테스팅이 완료되었습니다! ✨")
 
@@ -483,6 +554,7 @@ def main():
         stock_data = results['stock_data']
         initial_capital = results['initial_capital']
         selected_period = results['selected_period']
+        strategy = results['strategy']
         
         # 분석 기간 정보
         period_col1, period_col2 = st.columns(2)
@@ -500,23 +572,23 @@ def main():
         metric_col1, metric_col2, metric_col3 = st.columns(3)
         with metric_col1:
             st.metric("총 거래 횟수", f"{total_trades}회")
-            st.caption("💡 골든 크로스(매수)와 데드 크로스(매도)가 발생한 총 횟수")
+            st.caption("💡 매수/매도 신호가 발생한 총 횟수")
         with metric_col2:
             st.metric("Buy & Hold 수익률", f"{final_market_return:.2f}%")
             st.caption(f"💡 {df.index[0].strftime('%Y-%m-%d')}에 매수 후 {df.index[-1].strftime('%Y-%m-%d')}까지 보유했을 때의 수익률")
         with metric_col3:
             st.metric("전략 수익률", f"{final_strategy_return:.2f}%")
-            st.caption("💡 이동평균선 교차 시점에 매매했을 때의 수익률")
+            st.caption(f"💡 {strategy} 전략을 적용했을 때의 수익률")
         
         # 수익률 비교 설명
         with st.expander("📈 수익률 비교 설명"):
             st.info(f"""
             **{selected_period} 기준 백테스팅 결과**
             - **Buy & Hold**: 시작일({df.index[0].strftime('%Y-%m-%d')})에 매수하고 종료일({df.index[-1].strftime('%Y-%m-%d')})까지 보유하는 단순 전략
-            - **전략 수익률**: MA20이 MA60을 상향돌파할 때 매수, 하향돌파할 때 매도하는 전략
+            - **{strategy} 전략**: {strategy} 전략을 적용한 수익률
             
-            두 수익률을 비교하면 이동평균선 전략의 효과를 확인할 수 있습니다.
-            전략 수익률이 더 높다면 이동평균선 전략이 단순 보유보다 효과적이었다는 의미입니다.
+            두 수익률을 비교하면 {strategy} 전략의 효과를 확인할 수 있습니다.
+            전략 수익률이 더 높다면 {strategy} 전략이 단순 보유보다 효과적이었다는 의미입니다.
             """)
         
         # 탭으로 차트 구분
@@ -536,7 +608,10 @@ def main():
             st.plotly_chart(plot_volume_chart(df, stock_data['stock_name']), use_container_width=True)
         
         with tab3:
-            st.plotly_chart(plot_moving_averages(df, stock_data['stock_name']), use_container_width=True)
+            if strategy == "이동평균선 교차":
+                st.plotly_chart(plot_moving_averages(df, stock_data['stock_name']), use_container_width=True)
+            else:
+                st.plotly_chart(plot_bollinger_bands(df, stock_data['stock_name']), use_container_width=True)
         
         with tab4:
             st.plotly_chart(plot_trading_signals(df, trades, stock_data['stock_name']), use_container_width=True)
@@ -545,24 +620,25 @@ def main():
             st.plotly_chart(plot_performance_comparison(df, stock_data['stock_name']), use_container_width=True)
         
         with tab6:
-            st.subheader("📊 이동평균선 전략 시뮬레이션 결과")
-            st.caption("MA20이 MA60을 상향돌파할 때 매수, 하향돌파할 때 매도하는 전략을 적용했을 경우의 시뮬레이션 결과입니다.")
+            st.subheader(f"📊 {strategy} 전략 시뮬레이션 결과")
+            if strategy == "이동평균선 교차":
+                st.caption("MA20이 MA60을 상향돌파할 때 매수, 하향돌파할 때 매도하는 전략을 적용했을 경우의 시뮬레이션 결과입니다.")
+            else:
+                st.caption("주가가 하단밴드를 터치할 때 매수, 상단밴드를 터치할 때 매도하는 전략을 적용했을 경우의 시뮬레이션 결과입니다.")
             
             trades_df = pd.DataFrame(trades)
             if not trades_df.empty:
                 trades_df['date'] = trades_df['date'].dt.strftime('%Y-%m-%d')
                 trades_df.columns = ['거래일자', '매매구분', '거래가격', '수익률']
-                # 거래가격을 만원 단위로 변환
                 trades_df['거래가격'] = (trades_df['거래가격'] / 10000).round(2)
-                # 수익률을 퍼센트로 변환
                 trades_df['수익률'] = trades_df['수익률'].apply(lambda x: f"{x*100:.2f}%" if pd.notnull(x) else "-")
                 
                 # 매매 구분에 따라 색상 적용
                 def highlight_trades(row):
                     if row['매매구분'] == '매수':
-                        return ['background-color: #e6f3ff'] * len(row)
+                        return ['background-color: #e8f5e9'] * len(row)
                     else:
-                        return ['background-color: #fff1f1'] * len(row)
+                        return ['background-color: #ffebee'] * len(row)
                 
                 # 스타일이 적용된 데이터프레임 표시
                 st.dataframe(
@@ -572,17 +648,23 @@ def main():
                     .set_properties(**{
                         'text-align': 'center',
                         'font-size': '14px',
-                        'padding': '10px'
+                        'padding': '12px',
+                        'border': '1px solid #e0e0e0'
                     })
                     .set_table_styles([
                         {'selector': 'th',
-                         'props': [('background-color', '#f0f2f6'),
-                                 ('color', '#2c3e50'),
+                         'props': [('background-color', '#f5f5f5'),
+                                 ('color', '#424242'),
                                  ('font-weight', 'bold'),
                                  ('text-align', 'center'),
-                                 ('padding', '10px')]},
+                                 ('padding', '12px'),
+                                 ('border', '1px solid #e0e0e0'),
+                                 ('font-size', '15px')]},
                         {'selector': 'td',
-                         'props': [('padding', '10px')]}
+                         'props': [('padding', '12px'),
+                                 ('border', '1px solid #e0e0e0')]},
+                        {'selector': 'tr:hover',
+                         'props': [('background-color', '#fafafa')]}
                     ]),
                     height=400
                 )

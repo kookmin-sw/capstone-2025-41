@@ -72,38 +72,61 @@ st.markdown("""
         margin: 0 auto;
         padding: 0 2rem;
     }
+    .feature-container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        text-align: center;
+        position: relative;
+    }
     .feature-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 1.5rem;
-        margin: 2rem 0;
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        align-items: stretch;
+        padding: 1rem 0;
     }
     .feature-item {
+        flex: 0 0 160px;
+        height: 160px;
         background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-        padding: 1.5rem;
+        padding: 1.2rem;
         border-radius: 12px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        transition: transform 0.3s ease;
-        border-left: 4px solid #4CAF50;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        transition: all 0.3s ease;
     }
     .feature-item:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 6px 20px rgba(30, 136, 229, 0.15);
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.12);
     }
     .feature-icon {
         font-size: 2rem;
-        margin-bottom: 0.8rem;
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+        border-radius: 10px;
+        margin: 0;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        text-align: center;
     }
     .feature-title {
-        font-size: 1.1rem;
-        font-weight: 600;
-        margin-bottom: 0.5rem;
+        font-size: 1rem;
+        font-weight: 700;
+        margin: 0.5rem 0;
+        padding-bottom: 0.3rem;
+        text-align: center;
         color: #2E4057;
     }
     .feature-description {
-        font-size: 0.9rem;
-        color: #495057;
-        line-height: 1.4;
+        font-size: 0.8rem;
+        line-height: 1.3;
+        text-align: center;
+        color: #666;
+        margin: 0;
     }
     .auth-buttons {
         display: flex;
@@ -126,6 +149,53 @@ st.markdown("""
     .auth-button:hover {
         transform: translateY(-2px);
         box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    }
+    .strategy-card {
+        background: white;
+        border-radius: 15px;
+        padding: 20px;
+        margin: 10px 0;
+        border: 2px solid #e0e0e0;
+        transition: all 0.3s ease;
+    }
+    .strategy-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        border-color: #4CAF50;
+    }
+    .strategy-card.selected {
+        border-color: #4CAF50;
+        background: #f8fff8;
+    }
+    .strategy-icon {
+        font-size: 2.5rem;
+        margin-bottom: 15px;
+    }
+    .strategy-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #2E4057;
+        margin-bottom: 10px;
+    }
+    .strategy-description {
+        font-size: 0.9rem;
+        color: #666;
+        line-height: 1.5;
+    }
+    .strategy-features {
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 1px solid #eee;
+    }
+    .strategy-feature {
+        display: flex;
+        align-items: center;
+        margin: 8px 0;
+        color: #555;
+    }
+    .strategy-feature-icon {
+        margin-right: 8px;
+        color: #4CAF50;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -235,36 +305,65 @@ class App():
                     st.rerun()
             
             # 주요 기능 소개
-            st.markdown('<div class="feature-grid">', unsafe_allow_html=True)
-            
-            # 기능 1
-            st.markdown('''
-                <div class="feature-item">
-                    <div class="feature-icon">📊</div>
-                    <div class="feature-title">실시간 자산 분석</div>
-                    <div class="feature-description">AI 기반 실시간 자산 분석<br>최적 투자 전략 제안</div>
-                </div>
-            ''', unsafe_allow_html=True)
-            
-            # 기능 2
-            st.markdown('''
-                <div class="feature-item">
-                    <div class="feature-icon">🤖</div>
-                    <div class="feature-title">AI 투자 어드바이저</div>
-                    <div class="feature-description">맞춤형 투자 조언<br>포트폴리오 최적화</div>
-                </div>
-            ''', unsafe_allow_html=True)
-            
-            # 기능 3
-            st.markdown('''
-                <div class="feature-item">
-                    <div class="feature-icon">📈</div>
-                    <div class="feature-title">백테스팅 시스템</div>
-                    <div class="feature-description">과거 데이터 기반<br>투자 전략 검증</div>
-                </div>
-            ''', unsafe_allow_html=True)
-            
-            st.markdown('</div>', unsafe_allow_html=True)
+            if "current_feature" not in st.session_state:
+                st.session_state.current_feature = 0
+
+            features = [
+                {
+                    "icon": "💼",
+                    "title": "통합 자산 관리",
+                    "description": "실시간 포트폴리오 모니터링<br>주식, ETF, 현금 자산의 통합 관리",
+                    "color": "#4CAF50"
+                },
+                {
+                    "icon": "📊",
+                    "title": "ETF 마켓 인사이트",
+                    "description": "글로벌 ETF 분석<br>섹터별 성과 시각화",
+                    "color": "#2196F3"
+                },
+                {
+                    "icon": "📰",
+                    "title": "뉴스 & 마켓 인텔리전스",
+                    "description": "실시간 경제 뉴스 분석<br>키워드 트렌드 분석",
+                    "color": "#FF9800"
+                },
+                {
+                    "icon": "📑",
+                    "title": "자산 진단 리포트",
+                    "description": "맞춤형 포트폴리오 분석<br>자산 배분 최적화 제안",
+                    "color": "#00BCD4"
+                },
+                {
+                    "icon": "📧",
+                    "title": "일일 인사이트 메일",
+                    "description": "맞춤형 일일 리포트<br>투자 리스크 및 주의사항 안내",
+                    "color": "#FF5722"
+                },
+                {
+                    "icon": "🤖",
+                    "title": "AI 어드바이저",
+                    "description": "맞춤형 투자 상담<br>포트폴리오 분석 및 개선 제안",
+                    "color": "#795548"
+                },
+                {
+                    "icon": "📈",
+                    "title": "백테스팅 시스템",
+                    "description": "투자 전략 검증<br>과거 데이터 기반 시뮬레이션",
+                    "color": "#607D8B"
+                }
+            ]
+
+            # 모든 카드 표시
+            cols = st.columns(7)
+            for idx, feature in enumerate(features):
+                with cols[idx]:
+                    st.markdown(f'''
+                        <div class="feature-item">
+                            <div class="feature-icon" style="color: {feature['color']};">{feature['icon']}</div>
+                            <div class="feature-title" style="--accent-color: {feature['color']};">{feature['title']}</div>
+                            <div class="feature-description">{feature['description']}</div>
+                        </div>
+                    ''', unsafe_allow_html=True)
 
         # 로그인 페이지
         if st.session_state["page"] == "login":
@@ -442,7 +541,154 @@ class App():
 
         # 백테스팅 페이지
         if st.session_state["page"] == "backtest":
-            backtest_page()
+            st.title("📈 백테스팅 시스템")
+            
+            # 전략이 선택되지 않은 경우에만 카드 표시
+            if "selected_strategy" not in st.session_state:
+                # 전략 선택 UI 스타일 추가
+                st.markdown("""
+                <style>
+                    .strategy-container {
+                        display: flex;
+                        gap: 20px;
+                        margin: 20px 0;
+                    }
+                    .strategy-card {
+                        flex: 1;
+                        background: white;
+                        border-radius: 15px;
+                        padding: 25px;
+                        border: 2px solid #e0e0e0;
+                        transition: all 0.3s ease;
+                        cursor: pointer;
+                    }
+                    .strategy-card:hover {
+                        transform: translateY(-5px);
+                        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+                    }
+                    .strategy-card.selected {
+                        border-color: #4CAF50;
+                        background: #f8fff8;
+                        box-shadow: 0 8px 20px rgba(76,175,80,0.15);
+                    }
+                    .strategy-icon {
+                        font-size: 2.5rem;
+                        margin-bottom: 15px;
+                        text-align: center;
+                    }
+                    .strategy-title {
+                        font-size: 1.3rem;
+                        font-weight: 600;
+                        color: #2E4057;
+                        margin-bottom: 10px;
+                        text-align: center;
+                    }
+                    .strategy-description {
+                        font-size: 1rem;
+                        color: #666;
+                        line-height: 1.6;
+                        margin-bottom: 15px;
+                    }
+                    .strategy-features {
+                        background: #f8f9fa;
+                        padding: 15px;
+                        border-radius: 10px;
+                        margin-top: 15px;
+                    }
+                    .strategy-feature {
+                        display: flex;
+                        align-items: center;
+                        margin: 10px 0;
+                        color: #555;
+                        font-size: 0.95rem;
+                    }
+                    .strategy-feature-icon {
+                        margin-right: 10px;
+                        color: #4CAF50;
+                        font-size: 1.1rem;
+                    }
+                </style>
+                """, unsafe_allow_html=True)
+                
+                # 전략 선택 컨테이너
+                st.markdown('<div class="strategy-container">', unsafe_allow_html=True)
+                
+                # 전략 1: 이동평균선 교차
+                st.markdown(f"""
+                <div class="strategy-card" onclick="document.querySelector('[data-testid=stButton] button').click()">
+                    <div class="strategy-icon">📈</div>
+                    <div class="strategy-title">이동평균선 교차 전략</div>
+                    <div class="strategy-description">
+                        단기와 장기 이동평균선의 교차를 이용한 추세 추종 전략입니다. 
+                        시장의 추세를 따라가는 전략으로, 장기적인 추세가 있을 때 효과적입니다.
+                    </div>
+                    <div class="strategy-features">
+                        <div class="strategy-feature">
+                            <span class="strategy-feature-icon">📊</span>
+                            MA20과 MA60 이동평균선 사용
+                        </div>
+                        <div class="strategy-feature">
+                            <span class="strategy-feature-icon">🟢</span>
+                            골든 크로스(MA20 > MA60): 매수
+                        </div>
+                        <div class="strategy-feature">
+                            <span class="strategy-feature-icon">🔴</span>
+                            데드 크로스(MA20 < MA60): 매도
+                        </div>
+                    </div>
+                </div>
+                """, unsafe_allow_html=True)
+                
+                if st.button("이동평균선 교차 전략 선택", key="ma_strategy", use_container_width=True):
+                    st.session_state["selected_strategy"] = "이동평균선 교차"
+                    st.rerun()
+                
+                # 전략 2: 볼린저 밴드
+                st.markdown(f"""
+                <div class="strategy-card" onclick="document.querySelector('[data-testid=stButton] button').click()">
+                    <div class="strategy-icon">🎯</div>
+                    <div class="strategy-title">볼린저 밴드 전략</div>
+                    <div class="strategy-description">
+                        가격의 변동성을 이용한 평균 회귀 전략입니다.
+                        주가가 과매수/과매도 구간에 도달했을 때 반전을 예상하는 전략입니다.
+                    </div>
+                    <div class="strategy-features">
+                        <div class="strategy-feature">
+                            <span class="strategy-feature-icon">📊</span>
+                            20일 이동평균선 ±2표준편차
+                        </div>
+                        <div class="strategy-feature">
+                            <span class="strategy-feature-icon">🟢</span>
+                            하단밴드 터치: 매수
+                        </div>
+                        <div class="strategy-feature">
+                            <span class="strategy-feature-icon">🔴</span>
+                            상단밴드 터치: 매도
+                        </div>
+                    </div>
+                </div>
+                """, unsafe_allow_html=True)
+                
+                if st.button("볼린저 밴드 전략 선택", key="bb_strategy", use_container_width=True):
+                    st.session_state["selected_strategy"] = "볼린저 밴드"
+                    st.rerun()
+                
+                st.markdown('</div>', unsafe_allow_html=True)
+            else:
+                # 전략이 선택된 경우
+                strategy = st.session_state["selected_strategy"]
+                
+                # 전략 변경 버튼
+                if st.button("🔄 전략 변경하기", type="secondary"):
+                    del st.session_state["selected_strategy"]
+                    st.rerun()
+                
+                # 선택된 전략 표시
+                st.success(f"선택된 전략: {strategy}")
+                
+                # 백테스팅 실행
+                from modules.backtest import main as backtest_main
+                backtest_main(strategy=strategy)
         elif st.session_state["page"] == "llm_test":
             self.llm_test_page()
 
@@ -544,6 +790,34 @@ class App():
             else:
                 st.error("이메일 발송 중 오류가 발생했습니다.")
 
+def backtest_page():
+    st.title("📈 백테스팅 시스템")
+    
+    # 전략 선택
+    strategy = st.radio(
+        "📊 백테스팅 전략",
+        ["이동평균선 교차", "볼린저 밴드"],
+        horizontal=True
+    )
+    
+    # 전략 설명
+    if strategy == "이동평균선 교차":
+        st.info("""
+        **이동평균선 교차 전략**
+        - 20일 이동평균선(MA20)과 60일 이동평균선(MA60)을 사용
+        - 골든 크로스(MA20 > MA60): 매수 신호
+        - 데드 크로스(MA20 < MA60): 매도 신호
+        """)
+    else:
+        st.info("""
+        **볼린저 밴드 전략**
+        - 20일 이동평균선을 중심으로 상하 2표준편차 범위 설정
+        - 하단밴드 터치: 매수 신호
+        - 상단밴드 터치: 매도 신호
+        """)
+    
+    # 백테스팅 실행
+    backtest_page(strategy=strategy)
 
 if __name__ == "__main__":
     app = App()
