@@ -6,7 +6,7 @@ from langchain.output_parsers import PydanticOutputParser
 from langchain.chains import LLMChain
 from pydantic import BaseModel, RootModel
 from typing import List
-from modules.DB import SupabaseDB
+from DB import SupabaseDB
 
 # 1. Supabase에서 데이터 불러오기
 db = SupabaseDB()
