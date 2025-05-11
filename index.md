@@ -338,15 +338,6 @@ title: Fynai - AI 기반 자산 관리 대시보드
                         </div>
 
                         <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
-                            <h4 style="color: #9C27B0; margin-bottom: 1rem;">🤖 AI 어드바이저</h4>
-                            <ul style="list-style-type: none; padding-left: 0;">
-                                <li style="margin-bottom: 0.5rem;">• 실시간 투자 관련 질문 답변</li>
-                                <li style="margin-bottom: 0.5rem;">• 포트폴리오 분석 및 개선 제안</li>
-                                <li>• 투자 전략 및 자산 배분 가이드</li>
-                            </ul>
-                        </div>
-
-                        <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
                             <h4 style="color: #673AB7; margin-bottom: 1rem;">📑 자산 진단 리포트</h4>
                             <ul style="list-style-type: none; padding-left: 0;">
                                 <li style="margin-bottom: 0.5rem;">• 맞춤형 포트폴리오 분석</li>
@@ -361,6 +352,15 @@ title: Fynai - AI 기반 자산 관리 대시보드
                                 <li style="margin-bottom: 0.5rem;">• 매일 오전 시장 동향 알림</li>
                                 <li style="margin-bottom: 0.5rem;">• 포트폴리오 수익률 변동 알림</li>
                                 <li>• 맞춤형 투자 액션 제안</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                            <h4 style="color: #9C27B0; margin-bottom: 1rem;">🤖 AI 어드바이저</h4>
+                            <ul style="list-style-type: none; padding-left: 0;">
+                                <li style="margin-bottom: 0.5rem;">• 실시간 투자 관련 질문 답변</li>
+                                <li style="margin-bottom: 0.5rem;">• 포트폴리오 분석 및 개선 제안</li>
+                                <li>• 투자 전략 및 자산 배분 가이드</li>
                             </ul>
                         </div>
 
@@ -408,7 +408,7 @@ title: Fynai - AI 기반 자산 관리 대시보드
             <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); text-align: center;">
                 <h3 style="color: #2196F3; margin-bottom: 1rem;">🖼️ 포스터</h3>
                 <p style="color: #666; margin-bottom: 1rem;">프로젝트 포스터를 확인하세요</p>
-                <a href="docs/api-docs.md" style="display: inline-block; background-color: #2196F3; color: white; padding: 0.8rem 1.5rem; text-decoration: none; border-radius: 50px; font-weight: 500; transition: all 0.3s ease;">포스터 보기</a>
+                <a href="assets/posters.png" style="display: inline-block; background-color: #2196F3; color: white; padding: 0.8rem 1.5rem; text-decoration: none; border-radius: 50px; font-weight: 500; transition: all 0.3s ease;">포스터 보기</a>
             </div>
         </div>
     </div>
