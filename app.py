@@ -409,13 +409,12 @@ class App():
 
             with st.spinner("뉴스 기사를 수집하는 중... ⏳"):
                 crawaling_article = crawlingArticle()
-                crawaling_article.save_article()
 
             # 워드 클라우드 시각화
             crawaling_article.visualize_wordcloud()
             
             # 뉴스 기사 데이터프레임
-            article = crawaling_article.get_article()
+            article = crawaling_article.load_article()
             st.write(article)
  
 

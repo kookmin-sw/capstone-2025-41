@@ -12,7 +12,6 @@ from urllib.parse import urlparse, parse_qs
 class crawlingArticle:
     def __init__(self):
         self.db = SupabaseDB()
-        self.article_df = self.collect_article()
 
     def collect_article(self):
         # 네이버 경제 뉴스 웹 페이지 파싱
@@ -83,7 +82,8 @@ class crawlingArticle:
 
     def visualize_wordcloud(self):
         font_path = os.path.join("assets", "NanumGothic-Bold.ttf")
-        text = " ".join(self.article_df["title"])
+        article_df = self.load_article()
+        text = " ".join(article_df["title"])
         word_counts = Counter(text.split())
         wordcloud = WordCloud(
             width=800, height=400, background_color='white', font_path=font_path
@@ -96,7 +96,8 @@ class crawlingArticle:
 
     def save_article(self):
         """Supabase에 기사 데이터 저장"""
-        article_data = self.article_df.to_dict(orient="records")
+        article_df = self.collect_article()
+        article_data = article_df.to_dict(orient="records")
         self.db.insert_article_data_json(article_data)
         print("뉴스 기사 데이터가 Supabase에 저장되었습니다.")
 
@@ -105,7 +106,8 @@ class crawlingArticle:
         data = self.db.get_article_data_today()
         if not data:
             print("Supabase에 저장된 데이터가 없습니다. 새로 수집합니다.")
-            return self.collect_article()
+            self.save_article()
+            data = self.db.get_article_data_today()
         return pd.DataFrame(data)
 
     def get_article(self):

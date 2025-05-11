@@ -4,7 +4,7 @@ import json
 import os
 import pandas as pd
 from dotenv import load_dotenv
-from datetime import datetime
+from datetime import datetime, timedelta
 
 # .env 파일의 환경 변수 불러오기
 load_dotenv()
@@ -107,6 +107,20 @@ class SupabaseDB:
         if response.data:
             return json.loads(response.data[0]["article"])
         return []
+
+    def get_article_data_today_and_yesterday(self):
+        """어제 및 오늘 날짜의 뉴스 기사 JSON 데이터를 Supabase에서 불러오기"""
+        today = datetime.today().strftime("%Y-%m-%d")
+        yesterday = (datetime.today() - timedelta(days=1)).strftime("%Y-%m-%d")
+
+        response = self.client.table("articles").select("article"). \
+            in_("date", [yesterday, today]).execute()
+
+        articles = []
+        if response.data:
+            for row in response.data:
+                articles.extend(json.loads(row["article"]))  # 기사 리스트를 병합
+        return articles
 
     def insert_economic(self, eco_df, table_nm):
         """경제 지표 데이터를 Supabase에 JSON 형태로 저장"""
