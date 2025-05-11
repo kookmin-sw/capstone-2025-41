@@ -12,7 +12,7 @@ from urllib.parse import urlparse, parse_qs
 class crawlingArticle:
     def __init__(self):
         self.db = SupabaseDB()
-        self.article_df = self.load_article()
+        self.article_df = self.collect_article()
 
     def collect_article(self):
         # 네이버 경제 뉴스 웹 페이지 파싱
