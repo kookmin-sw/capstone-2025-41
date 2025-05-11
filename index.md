@@ -65,7 +65,7 @@ title: Fynai - AI 기반 자산 관리 대시보드
             
             <div style="background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); padding: 2rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
                 <p style="margin-bottom: 1.5rem; line-height: 1.6; color: #2E4057; font-size: 1.1rem;">
-                    <span style="font-weight: 600; color: #4CAF50;">자산 관리 대시보드</span>는 개인 투자자를 위한 올인원 자산 관리 플랫폼입니다.
+                    <span style="font-weight: 600; color: #4CAF50;">Fynai</span>는 개인 투자자를 위한 올인원 자산 관리 플랫폼입니다.
                 </p>
                 <div style="display: flex; flex-direction: column; gap: 1rem;">
                     <div style="display: flex; align-items: center; gap: 1rem;">
