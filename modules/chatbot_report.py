@@ -522,72 +522,47 @@ def chatbot_page2():
                     del st.session_state[key]
             st.rerun()
 
-    # LLM 초기화
-    llm = init_llm()
-    
     username = get_user_id()
     supabase = SupabaseDB()
-    user_info = supabase.get_user(username)
 
-    if not user_info or "id" not in user_info[0]:
-        st.error("❌ Supabase에서 해당 사용자를 찾을 수 없습니다.")
-        st.stop()
-
-    # 데이터 수집
-    asset_summary = get_asset_summary_text()
-    economic_summary = get_economic_summary_text()
-    stock_summary = get_owned_stock_summary_text()
-
-    # 보고서 생성 프로세스 개선
+    # DB에서 리포트 불러오기
     if "report_data" not in st.session_state:
-        with st.spinner("🤖 AI가 포트폴리오를 분석하고 있습니다..."):
-            progress_text = "보고서 생성 중..."
-            progress_bar = st.progress(0)
-            
-            # personal 필드에서 데이터 추출
-            personal_data = user_info[0].get("personal", {})
-            user_data = {
-                "personal_info": personal_data.get("personal_info", {}),
-                "investment_profile": personal_data.get("investment_profile", {}),
-                "financial": personal_data.get("financial", {})
-            }
-            
-            report = generate_portfolio_report(
-                llm,
-                user_data,
-                asset_summary,
-                economic_summary,
-                stock_summary
-            )
-            
-            # 진행률 업데이트
-            progress_bar.progress(1.0)
-            progress_bar.empty()
-            
-            st.success("✅ 보고서 생성이 완료되었습니다!")
+        with st.spinner("📦 DB에서 리포트를 불러오는 중입니다..."):
+            report = supabase.get_individual_report(username)
+            if not report:
+                st.error("❌ DB에 저장된 리포트가 없습니다. 관리자에게 문의하세요.")
+                st.stop()
             st.session_state["report_data"] = report
     else:
         report = st.session_state["report_data"]
 
     # 섹션 헤더 디자인 개선
     sections = [
-        ("📋 요약", "summary"),
         ("📈 마이데이터 분석", "mydata"),
-        ("💰 재무 건전성 평가", "financial_status"),
-        ("👤 투자 성향 진단", "investment_style"),
-        ("📊 포트폴리오 전략", "portfolio"),
+        ("📋 요약", "summary"),
+        ("📚 부록", "appendix"),
         ("⚠️ 위험관리 전략", "scenario"),
+        ("📊 포트폴리오 전략", "portfolio"),
         ("📅 실행 로드맵", "action_guide"),
-        ("📚 부록", "appendix")
+        ("💰 재무 건전성 평가", "financial_status"),
+        ("👤 투자 성향 진단", "investment_style")
     ]
     
     # 모든 섹션을 하나의 expander로 통합
     with st.expander("📑 전체 보고서 보기", expanded=True):
         for title, key in sections:
-            st.markdown(f"### {title}")
-            content = report[key]["content"]
-            st.markdown(content)
-            st.markdown("---")
+            try:
+                if isinstance(report, dict) and key in report:
+                    st.markdown(f"### {title}")
+                    if isinstance(report[key], dict) and "content" in report[key]:
+                        content = report[key]["content"]
+                        st.markdown(content)
+                    else:
+                        content = report[key]  # 직접 내용이 있는 경우
+                        st.markdown(content)
+                    st.markdown("---")
+            except Exception as e:
+                st.error(f"섹션 '{key}' 표시 중 오류 발생: {str(e)}")
 
     # PDF 다운로드 버튼
     col1, col2, col3 = st.columns([6, 3, 6])

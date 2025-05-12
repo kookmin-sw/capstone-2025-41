@@ -225,3 +225,10 @@ class SupabaseDB:
         response = self.client.table("individual_report").upsert(data, on_conflict=["username"]).execute()
         return response
 
+    def get_individual_report(self, username):
+        """Supabase에서 특정 사용자의 개인 리포트(ind_report) 불러오기"""
+        response = self.client.table("individual_report").select("ind_report").eq("username", username).execute()
+        if response.data and response.data[0].get("ind_report"):
+            return response.data[0]["ind_report"]
+        return None
+

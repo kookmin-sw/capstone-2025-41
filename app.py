@@ -526,7 +526,6 @@ class App():
             personal, macro, real_estate = st.tabs(["📊 개인 포트폴리오 분석 리포트", "🌐 거시경제 동향 리포트", "🏠 부동산 동향 리포트"])
 
             with personal:
-                st.subheader("개인 포트폴리오 분석")
                 chatbot_page2()
 
             with real_estate:
@@ -713,7 +712,17 @@ class App():
         
         # 데이터 프로세서 초기화
         data_processor = DataProcessor(user_id)
-        
+
+        # 🔽🔽🔽 여기서부터 추가 🔽🔽🔽
+        st.markdown("---")
+        st.subheader("📝 개인 리포트 일괄 생성(DB저장)")
+        if st.button("개인 리포트 전체 생성 및 DB 저장", type="primary"):
+            from individual_report import save_individual_report
+            with st.spinner("모든 사용자의 개인 리포트를 생성하여 DB에 저장 중입니다..."):
+                save_individual_report()
+            st.success("✅ 전체 개인 리포트가 DB에 저장되었습니다!")
+        # 🔼🔼🔼 여기까지 추가 🔼🔼🔼
+
         # 모든 모델 결과를 한 번에 생성하는 버튼
         if st.button("모든 LLM 모델 실행하기", type="primary"):
             # 컨테이너 생성

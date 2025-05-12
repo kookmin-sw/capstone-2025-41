@@ -1,4 +1,5 @@
 import os
+import streamlit as st
 import json
 from dotenv import load_dotenv
 from langchain_google_genai import ChatGoogleGenerativeAI
@@ -12,15 +13,23 @@ from modules.tools import (
 
 # .env 파일의 환경 변수 불러오기
 load_dotenv()
-
 def init_llm():
+    api_key = st.secrets["gemini"]["api_key"]
+    llm = ChatGoogleGenerativeAI(
+        model="gemini-2.0-flash",
+        temperature=0,
+        google_api_key=api_key
+    )
+    st.session_state["report_llm"] = llm
+    return llm
+'''def init_llm():
     api_key = os.getenv("GEMINI_KEY")
     llm = ChatGoogleGenerativeAI(
         model="gemini-2.0-flash",
         temperature=0,
         google_api_key=api_key
     )
-    return llm
+    return llm'''
 
 def generate_section_content(llm, user_info, asset_summary, economic_summary, stock_summary):
     # user_info에서 필요한 데이터 추출
