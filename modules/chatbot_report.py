@@ -510,7 +510,9 @@ def generate_pdf_report(report_data):
         return tmp_file.name
 
 def chatbot_page2():
-    st.title("📊 개인 포트폴리오 분석 리포트")
+    from datetime import datetime
+    today_date = datetime.now().strftime("%Y-%m-%d")
+    st.title(f"📊 개인 포트폴리오 분석 리포트 - {today_date}")
 
     # 사이드바 개선
     with st.sidebar:
@@ -548,21 +550,20 @@ def chatbot_page2():
         ("👤 투자 성향 진단", "investment_style")
     ]
     
-    # 모든 섹션을 하나의 expander로 통합
-    with st.expander("📑 전체 보고서 보기", expanded=True):
-        for title, key in sections:
-            try:
-                if isinstance(report, dict) and key in report:
-                    st.markdown(f"### {title}")
-                    if isinstance(report[key], dict) and "content" in report[key]:
-                        content = report[key]["content"]
-                        st.markdown(content)
-                    else:
-                        content = report[key]  # 직접 내용이 있는 경우
-                        st.markdown(content)
-                    st.markdown("---")
-            except Exception as e:
-                st.error(f"섹션 '{key}' 표시 중 오류 발생: {str(e)}")
+    # 각 섹션을 직접 표시
+    for title, key in sections:
+        try:
+            if isinstance(report, dict) and key in report:
+                st.markdown(f"### {title}")
+                if isinstance(report[key], dict) and "content" in report[key]:
+                    content = report[key]["content"]
+                    st.markdown(content)
+                else:
+                    content = report[key]  # 직접 내용이 있는 경우
+                    st.markdown(content)
+                st.markdown("---")
+        except Exception as e:
+            st.error(f"섹션 '{key}' 표시 중 오류 발생: {str(e)}")
 
     # PDF 다운로드 버튼
     col1, col2, col3 = st.columns([6, 3, 6])
