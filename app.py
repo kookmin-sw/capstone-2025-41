@@ -723,8 +723,12 @@ class App():
             st.success("✅ 전체 개인 리포트가 DB에 저장되었습니다!")
         # 🔼🔼🔼 여기까지 추가 🔼🔼🔼
 
-        # 모든 모델 결과를 한 번에 생성하는 버튼
-        if st.button("모든 LLM 모델 실행하기", type="primary"):
+        # 이메일 발송 섹션
+        st.markdown("---")
+        st.subheader("📧 이메일 발송")
+        
+        # 이메일 발송 버튼
+        if st.button("이메일 발송하기", type="primary"):
             # 컨테이너 생성
             with st.container():
                 # 4개의 컬럼 생성
@@ -765,39 +769,31 @@ class App():
                         model = ActionRequiredLLM()
                         st.session_state.action_required = model.generate(**investment_data, current_date=current_date)
                         st.success(st.session_state.action_required)
-
-        # 이메일 발송 섹션
-        st.markdown("---")
-        st.subheader("📧 이메일 발송")
-        
-        # 이메일 주소 입력
-        user_email = st.text_input("이메일 주소를 입력하세요")
-        
-        # 이메일 발송 버튼
-        if st.button("이메일 발송하기"):
-            if not user_email:
-                st.error("이메일 주소를 입력해주세요.")
+            
+            # 사용자 이메일 가져오기
+            user_data = self.user_manager.get_user_info(st.session_state["id"])
+            if not user_data:
+                st.error("사용자 정보를 찾을 수 없습니다.")
                 return
                 
-            if not all([st.session_state.market_headline, 
-                       st.session_state.portfolio_alert, 
-                       st.session_state.risk_warning, 
-                       st.session_state.action_required]):
-                st.error("먼저 '모든 LLM 모델 실행하기' 버튼을 눌러 알림을 생성해주세요.")
+            user_email = user_data.get("email", "")
+            if not user_email:
+                st.error("사용자 이메일 정보를 찾을 수 없습니다.")
                 return
             
             # 이메일 발송
-            email_sender = EmailSender()
-            if email_sender.send_daily_alerts(
-                user_email, 
-                st.session_state.market_headline,
-                st.session_state.portfolio_alert,
-                st.session_state.risk_warning,
-                st.session_state.action_required
-            ):
-                st.success("이메일이 성공적으로 발송되었습니다!")
-            else:
-                st.error("이메일 발송 중 오류가 발생했습니다.")
+            with st.spinner("이메일 발송 중..."):
+                email_sender = EmailSender()
+                if email_sender.send_daily_alerts(
+                    user_email, 
+                    st.session_state.market_headline,
+                    st.session_state.portfolio_alert,
+                    st.session_state.risk_warning,
+                    st.session_state.action_required
+                ):
+                    st.success("이메일이 성공적으로 발송되었습니다!")
+                else:
+                    st.error("이메일 발송 중 오류가 발생했습니다.")
 
 def backtest_page():
     st.title("📈 백테스팅 시스템")
