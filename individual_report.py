@@ -1,5 +1,4 @@
 import os
-import streamlit as st
 import json
 from dotenv import load_dotenv
 from langchain_google_genai import ChatGoogleGenerativeAI
@@ -21,7 +20,6 @@ def init_llm():
         temperature=0,
         google_api_key=api_key
     )
-    st.session_state["report_llm"] = llm
     return llm
 
 def generate_section_content(llm, user_info, asset_summary, economic_summary, stock_summary):
@@ -331,34 +329,23 @@ def save_individual_report():
         economic_summary = get_economic_summary_text()
         stock_summary = get_owned_stock_summary_text()
 
-        # 보고서 생성 프로세스 개선
-        with st.spinner("🤖 AI가 포트폴리오를 분석하고 있습니다..."):
-            progress_text = "보고서 생성 중..."
-            progress_bar = st.progress(0)
+        # personal 필드에서 데이터 추출
+        personal_data = user_info[0].get("personal", {})
+        user_data = {
+            "personal_info": personal_data.get("personal_info", {}),
+            "investment_profile": personal_data.get("investment_profile", {}),
+            "financial": personal_data.get("financial", {})
+        }
 
-            # personal 필드에서 데이터 추출
-            personal_data = user_info[0].get("personal", {})
-            user_data = {
-                "personal_info": personal_data.get("personal_info", {}),
-                "investment_profile": personal_data.get("investment_profile", {}),
-                "financial": personal_data.get("financial", {})
-            }
+        report = generate_portfolio_report(
+            llm,
+            user_data,
+            asset_summary,
+            economic_summary,
+            stock_summary
+        )
 
-            report = generate_portfolio_report(
-                llm,
-                user_data,
-                asset_summary,
-                economic_summary,
-                stock_summary
-            )
-
-            supabase.insert_individual_report(username, report)
-
-            # 진행률 업데이트
-            progress_bar.progress(1.0)
-            progress_bar.empty()
-
-            st.success("✅ 보고서 생성이 완료되었습니다!")
+        supabase.insert_individual_report(username, report)
 
 if __name__ == "__main__":
     save_individual_report()
