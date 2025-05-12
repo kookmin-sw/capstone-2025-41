@@ -217,11 +217,11 @@ class SupabaseDB:
     def insert_individual_report(self, user_id: str, report_data: dict):
         """매일 생성되는 개인 보고서를 Supabase에 저장 (덮어쓰기 방식)"""
         data = {
-            "user_id": user_id,
+            "username": user_id,
             "ind_report": report_data
         }
 
         # user_id 기준으로 upsert 수행
-        response = self.client.table("individual_report").upsert(data, on_conflict=["user_id"]).execute()
+        response = self.client.table("individual_report").upsert(data, on_conflict=["username"]).execute()
         return response
 
