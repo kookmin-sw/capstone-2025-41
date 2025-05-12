@@ -84,6 +84,11 @@ class SupabaseDB:
         response = self.client.table("accounts").select("user_id").execute()
         return [r["user_id"] for r in response.data]
 
+    def get_all_user_name(self):
+        """Supabase에서 모든 사용자의 username 가져오기"""
+        response = self.client.table("users").select("username").execute()
+        return [r["username"] for r in response.data]
+
     def insert_etf_data_json(self, etf_data):
         """ETF 데이터를 Supabase에 JSON 형태로 저장"""
         data_to_store = [{"etf_name": name, "data": json.dumps(data)} for name, data in etf_data.items()]
@@ -208,4 +213,15 @@ class SupabaseDB:
         print("📌 저장할 JSON 데이터:", data_to_store)
 
         return self.client.table("recommended_articles").upsert(data_to_store, on_conflict=["user_id"]).execute()
+
+    def insert_individual_report(self, user_id: str, report_data: dict):
+        """매일 생성되는 개인 보고서를 Supabase에 저장 (덮어쓰기 방식)"""
+        data = {
+            "user_id": user_id,
+            "ind_report": report_data
+        }
+
+        # user_id 기준으로 upsert 수행
+        response = self.client.table("individual_report").upsert(data, on_conflict=["user_id"]).execute()
+        return response
 
