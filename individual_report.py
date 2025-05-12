@@ -31,12 +31,39 @@ def init_llm():
     )
     return llm'''
 
-def generate_section_content(llm, user_info, asset_summary, economic_summary, stock_summary):
+def generate_section_content(llm, user_info, asset_summary, economic_summary, stock_summary, macro_report, real_estate_report, recommended_articles):
+    # 디버깅: 프롬프트에 전달되는 데이터 확인
+    print("\n=== 프롬프트 데이터 확인 ===")
+    print("\n[세계 경제 지표 보고서]")
+    print(macro_report if macro_report else "None")
+    print("\n[부동산 시장 보고서]")
+    print(real_estate_report if real_estate_report else "None")
+    print("\n[추천 뉴스]")
+    print(recommended_articles if recommended_articles else "None")
+    print("========================\n")
+
     # user_info에서 필요한 데이터 추출
     personal_info = user_info.get("personal_info", {})
     investment_profile = user_info.get("investment_profile", {})
     investment_details = investment_profile.get("details", {})
     financial = user_info.get("financial", {})
+
+    # recommended_articles가 문자열인 경우 JSON으로 파싱
+    if isinstance(recommended_articles, str):
+        try:
+            recommended_articles = json.loads(recommended_articles)
+        except json.JSONDecodeError:
+            print("JSON 파싱 오류 발생")
+            recommended_articles = []
+    
+    # recommended_articles가 리스트인 경우 포맷팅
+    if isinstance(recommended_articles, list):
+        formatted_articles = "\n".join([
+            f"- {article['title']}\n  이유: {article['reason']}\n  요약: {article['summary']}\n  링크: {article['url']}"
+            for article in recommended_articles
+        ])
+    else:
+        formatted_articles = "데이터 없음"
 
     prompt = PromptTemplate.from_template("""
 당신은 15년 경력의 자산관리 전문가이자 포트폴리오 매니저입니다.
@@ -105,6 +132,15 @@ def generate_section_content(llm, user_info, asset_summary, economic_summary, st
 
 [시장 환경]
 {economic_summary}
+
+[세계 경제 지표 보고서]
+{macro_report}
+
+[부동산 시장 보고서]
+{real_estate_report}
+
+[추천 뉴스]
+{formatted_articles}
 
 [작성 가이드라인]
 1. 전문성: 모든 분석과 제안은 객관적 데이터와 전문적 지표에 기반해야 합니다.
@@ -231,7 +267,10 @@ def generate_section_content(llm, user_info, asset_summary, economic_summary, st
         cny=financial.get("foreign_currency", {}).get("cny", 0),
         stock_summary=stock_summary,
         asset_summary=asset_summary,
-        economic_summary=economic_summary
+        economic_summary=economic_summary,
+        macro_report=macro_report,
+        real_estate_report=real_estate_report,
+        formatted_articles=formatted_articles
     )
 
     response = llm.invoke(formatted_prompt).content
@@ -252,6 +291,18 @@ def generate_section_content(llm, user_info, asset_summary, economic_summary, st
     sections = {}
     current_section = None
     current_content = []
+
+    # 섹션 순서 정의
+    section_order = [
+        "summary",
+        "mydata",
+        "investment_style",
+        "financial_status",
+        "portfolio",
+        "scenario",
+        "action_guide",
+        "appendix"
+    ]
 
     for line in response.split('\n'):
         line = line.strip()
@@ -277,14 +328,20 @@ def generate_section_content(llm, user_info, asset_summary, economic_summary, st
         sections[current_section] = '\n'.join(current_content)
 
     # 누락된 섹션에 기본값 설정
-    for section_key in section_mapping.values():
+    for section_key in section_order:
         if section_key not in sections or not sections[section_key].strip():
             sections[section_key] = "섹션 내용이 생성되지 않았습니다. 새로고침을 시도해주세요."
 
-    return sections
+    # 정의된 순서대로 섹션 재정렬
+    ordered_sections = {}
+    for section_key in section_order:
+        if section_key in sections:
+            ordered_sections[section_key] = sections[section_key]
+
+    return ordered_sections
 
 
-def generate_portfolio_report(llm, user_info, asset_summary, economic_summary, stock_summary):
+def generate_portfolio_report(llm, user_info, asset_summary, economic_summary, stock_summary, macro_report, real_estate_report, recommended_articles):
     # user_info가 문자열인 경우 JSON으로 파싱
     if isinstance(user_info, str):
         try:
@@ -296,8 +353,8 @@ def generate_portfolio_report(llm, user_info, asset_summary, economic_summary, s
     sections = {
         "summary": "요약 섹션",
         "mydata": "마이데이터 분석",
-        "financial_status": "재무 건전성 평가",
         "investment_style": "투자 성향 진단",
+        "financial_status": "재무 건전성 평가",
         "portfolio": "포트폴리오 전략",
         "scenario": "위험관리 전략",
         "action_guide": "실행 로드맵",
@@ -307,10 +364,13 @@ def generate_portfolio_report(llm, user_info, asset_summary, economic_summary, s
     # 한 번의 API 호출로 모든 섹션 생성
     section_contents = generate_section_content(
         llm,
-        user_info,  # 전체 user_info 전달
+        user_info,
         asset_summary,
         economic_summary,
-        stock_summary
+        stock_summary,
+        macro_report,
+        real_estate_report,
+        recommended_articles
     )
 
     # 결과 포맷팅
@@ -337,6 +397,17 @@ def save_individual_report():
         asset_summary = get_asset_summary_text()
         economic_summary = get_economic_summary_text()
         stock_summary = get_owned_stock_summary_text()
+        
+        # 추가 데이터 수집
+        macro_report = supabase.get_macro_report()
+        real_estate_report = supabase.get_real_estate_report()
+        
+        # users 테이블의 id 가져오기
+        user_data = supabase.get_user(username)
+        user_id = user_data[0].get("id") if user_data else None
+        
+        # id로 추천 뉴스 가져오기
+        recommended_articles = supabase.get_recommended_articles(user_id) if user_id else None
 
         # personal 필드에서 데이터 추출
         personal_data = user_info[0].get("personal", {})
@@ -351,7 +422,10 @@ def save_individual_report():
             user_data,
             asset_summary,
             economic_summary,
-            stock_summary
+            stock_summary,
+            macro_report,
+            real_estate_report,
+            recommended_articles
         )
 
         supabase.insert_individual_report(username, report)

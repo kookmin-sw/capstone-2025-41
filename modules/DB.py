@@ -232,3 +232,10 @@ class SupabaseDB:
             return response.data[0]["ind_report"]
         return None
 
+    def get_recommended_articles(self, username):
+        """사용자별 추천 뉴스 기사를 Supabase에서 가져오기"""
+        response = self.client.table("recommended_articles").select("articles").eq("user_id", username).execute()
+        if response.data and response.data[0].get("articles"):
+            return json.loads(response.data[0]["articles"])
+        return []
+
