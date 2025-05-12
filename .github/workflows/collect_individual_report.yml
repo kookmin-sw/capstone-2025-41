@@ -26,4 +26,4 @@ jobs:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
           GEMINI_KEY: ${{ secrets.GEMINI_KEY }}
-        run: python modules/individual_report.py
+        run: python individual_report.py
