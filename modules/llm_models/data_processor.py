@@ -31,7 +31,8 @@ class DataProcessor:
             투자 성향: {investment_profile.get('investment_style', '미입력')}
             투자 기간: {investment_details.get('investment_horizon', '미입력')}
             위험 감수도: {investment_details.get('risk_tolerance', '미입력')}
-            """
+            """,
+            "username": self.user_id
         }
     
     def get_portfolio_data(self):
@@ -51,7 +52,8 @@ class DataProcessor:
             투자 목표: {investment_details.get('investment_priority', '미입력')}
             목표 수익률: {investment_details.get('expected_return', '미입력')}%
             현재 수익률: {financial.get('current_return', '미입력')}%
-            """
+            """,
+            "username": self.user_id
         }
     
     def get_risk_data(self):
@@ -72,7 +74,8 @@ class DataProcessor:
             투자 기간: {investment_details.get('investment_horizon', '미입력')}
             현재 변동성: {financial.get('current_volatility', '미입력')}%
             최대 손실 한도: {financial.get('max_loss_limit', '미입력')}%
-            """
+            """,
+            "username": self.user_id
         }
     
     def get_investment_data(self):
@@ -97,5 +100,6 @@ class DataProcessor:
             투자 기간: {investment_details.get('investment_horizon', '미입력')}
             위험 감수도: {investment_details.get('risk_tolerance', '미입력')}
             현재 수익률: {financial.get('current_return', '미입력')}%
-            """
+            """,
+            "username": self.user_id
         } 

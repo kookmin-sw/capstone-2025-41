@@ -221,6 +221,7 @@ def generate_section_content(llm, user_info, asset_summary, economic_summary, st
 (내용)
 
 각 섹션별로 체계적으로 정리해주세요. 가독성에 신경을 써 주세요.
+무엇보다 고객의 투자 성향과 현재 상황에 가장 큰 중점을 두어야 합니다.
 """)
 
     formatted_prompt = prompt.format(
