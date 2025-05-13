@@ -23,7 +23,7 @@ api_key = os.getenv("OPENAI_KEY")
 llm = ChatOpenAI(
     model="gpt-4.1",
     temperature=0,
-    google_api_key=api_key
+    api_key=api_key
 )
 
 # 3. Pydantic 스키마 정의
