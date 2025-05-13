@@ -14,7 +14,7 @@ from modules.tools import (
 # .env 파일의 환경 변수 불러오기
 load_dotenv()
 def init_llm():
-    api_key = st.secrets["gemini"]["api_key"]
+    api_key = os.getenv("GEMINI_KEY")
     llm = ChatGoogleGenerativeAI(
         model="gemini-2.0-flash",
         temperature=0,
