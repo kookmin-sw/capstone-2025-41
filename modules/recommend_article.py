@@ -21,7 +21,7 @@ articles = db.get_article_data_today_and_yesterday()
 # 2. Gemini LLM 설정
 api_key = os.getenv("OPENAI_KEY")
 llm = ChatOpenAI(
-    model="gpt-4.1",
+    model_name="gpt-4.1",
     temperature=0,
     api_key=api_key
 )
