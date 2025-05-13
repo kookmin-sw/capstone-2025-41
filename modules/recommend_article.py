@@ -18,7 +18,7 @@ db = SupabaseDB()
 id_lst = db.get_all_user_id()
 articles = db.get_article_data_today_and_yesterday()
 
-# 2. Gemini LLM 설정
+# 2. Openai LLM 설정
 api_key = os.getenv("OPENAI_KEY")
 llm = ChatOpenAI(
     model_name="gpt-4.1",
