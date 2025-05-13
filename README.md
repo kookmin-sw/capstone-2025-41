@@ -1,77 +1,124 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/gFPznrUY)
-# Welcome to GitHub
+# Fynai - AI 기반 자산 관리 대시보드
 
-캡스톤 팀 생성을 축하합니다.
+![Fynai Logo](assets/Fynai_white.png)
 
-## 팀소개 및 페이지를 꾸며주세요.
+> AI 기반 스마트 자산 관리 솔루션
 
-- 프로젝트 소개
-  - 프로젝트 설치방법 및 데모, 사용방법, 프리뷰등을 readme.md에 작성.
-  - Api나 사용방법등 내용이 많을경우 wiki에 꾸미고 링크 추가.
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://capstone-2025-41-assetmanagementdashboard.streamlit.app/)
 
-- 팀페이지 꾸미기
-  - 프로젝트 소개 및 팀원 소개
-  - index.md 예시보고 수정.
+## 주요 기능
 
-- GitHub Pages 리파지토리 Settings > Options > GitHub Pages 
-  - Source를 marster branch
-  - Theme Chooser에서 태마선택
-  - 수정후 팀페이지 확인하여 점검.
+- 📊 **실시간 자산 분석**: AI 기반 실시간 자산 분석 및 추천
+- 📈 **포트폴리오 최적화**: 최적의 자산 배분 전략 제시
+- 🔍 **시장 인사이트**: 실시간 시장 동향 및 뉴스 분석
 
-**팀페이지 주소** -> https://kookmin-sw.github.io/ '{{자신의 리파지토리 아이디}}'
+## 프로젝트 소개
 
-**예시)** 2023년 0조  https://kookmin-sw.github.io/capstone-2023-00/
+> "복잡한 자산 관리를 간단하게, 어려운 투자 결정을 스마트하게"
 
+**Fynai**는 개인 투자자를 위한 올인원 자산 관리 플랫폼입니다.
 
-## 내용에 아래와 같은 내용들을 추가하세요.
+- 🌅 매일 아침, 당신의 관심사를 반영한 시장 인사이트로 하루를 시작하고,
+- 📊 실시간 포트폴리오 분석과 AI 기반 투자 조언을 통해 현명한 투자 결정을 내리세요.
+- 💡 궁금한 점이 있다면 언제든 AI 어드바이저와 대화하며 더 깊은 인사이트를 얻을 수 있습니다.
 
-### 1. 프로잭트 소개
+## 핵심 기능
 
-프로젝트
+### 1. 통합 자산 관리 💼
+- 한국투자증권 API 연동을 통한 실시간 자산 조회
+- 주식, ETF, 현금 자산의 통합 관리
+- 자산 별 수익률 및 포트폴리오 구성 시각화
 
-### 2. 소개 영상
+### 2. ETF 마켓 인사이트 📊
+- S&P500 및 KOSPI 기반 ETF 섹터별 분석
+- 트리맵을 통한 직관적인 섹터 성과 시각화
+- 실시간 ETF 데이터 수집 및 분석
 
-프로젝트 소개하는 영상을 추가하세요
+### 3. 뉴스 & 마켓 인텔리전스 📰
+- 실시간 경제 뉴스 수집
+- 워드클라우드를 통한 키워드 트렌드 분석
+- 뉴스 데이터 시각화
 
-### 3. 팀 소개
+### 4. 자산 진단 리포트 📑
+- 맞춤형 포트폴리오 분석
+- 거시경제 동향 및 시장 전망 리포트
+- 부동산 시장 동향 분석
+- 자산 배분 최적화 제안
 
-팀을 소개하세요.
+### 5. 일일 인사이트 메일 📧
+- 매일 오전 시장 동향 및 투자 기회 알림
+- 포트폴리오 수익률 및 주요 변동 알림
+- 투자 리스크 및 주의사항 안내
+- 맞춤형 투자 액션 제안
 
-팀원정보 및 담당이나 사진 및 SNS를 이용하여 소개하세요.
+### 6. AI 어드바이저 🤖
+- 자산 진단 리포트 기반 상세 상담
+- 실시간 투자 관련 질문 답변
+- 포트폴리오 분석 및 개선 제안
+- 투자 전략 및 자산 배분 가이드
 
-### 4. 사용법
+### 7. 백테스팅 시스템 📈
+- 다양한 투자 전략 템플릿 제공
+- 과거 데이터 기반 전략 성과 시뮬레이션
+- 수익률, 위험 지표 등 종합 분석
+- 벤치마크 대비 성과 비교
 
-소스코드제출시 설치법이나 사용법을 작성하세요.
+## 기술 스택
 
-### 5. 기타
+### 💻 Core Technologies
 
-추가적인 내용은 자유롭게 작성하세요.
+#### 프론트엔드
+![Streamlit](https://img.shields.io/badge/streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
+![Plotly](https://img.shields.io/badge/plotly-3F4F75?style=for-the-badge&logo=plotly&logoColor=white)
 
+#### 백엔드
+![Python](https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Supabase](https://img.shields.io/badge/supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
 
-## Markdown을 사용하여 내용꾸미기
+#### 인프라 & 도구
+![GitHub Pages](https://img.shields.io/badge/github_pages-222222?style=for-the-badge&logo=github-pages&logoColor=white)
+![Git](https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white)
+![GitHub Actions](https://img.shields.io/badge/github_actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white)
 
-Markdown은 작문을 스타일링하기위한 가볍고 사용하기 쉬운 구문입니다. 여기에는 다음을위한 규칙이 포함됩니다.
+#### 기타 라이브러리
+![Pandas](https://img.shields.io/badge/pandas-150458?style=for-the-badge&logo=pandas&logoColor=white)
+![Matplotlib](https://img.shields.io/badge/matplotlib-11557C?style=for-the-badge&logo=matplotlib&logoColor=white)
+![FPDF](https://img.shields.io/badge/fpdf-FF0000?style=for-the-badge&logo=pdf&logoColor=white)
+![ReportLab](https://img.shields.io/badge/reportlab-000000?style=for-the-badge&logo=pdf&logoColor=white)
+![Python-dotenv](https://img.shields.io/badge/python_dotenv-000000?style=for-the-badge&logo=python&logoColor=white)
 
-```markdown
-Syntax highlighted code block
+### 🔌 External APIs
 
-# Header 1
-## Header 2
-### Header 3
+#### 금융 & 경제 데이터
+![한국투자증권 API](https://img.shields.io/badge/한국투자증권_API-ED1C24?style=for-the-badge&logo=koreaninvestment&logoColor=white)
+![FinanceDataReader](https://img.shields.io/badge/FinanceDataReader-0066CC?style=for-the-badge&logo=finance&logoColor=white)
+![BeautifulSoup4](https://img.shields.io/badge/BeautifulSoup4-FF5722?style=for-the-badge&logo=beautifulsoup&logoColor=white)
+![ECOS API](https://img.shields.io/badge/ECOS_API-0052A4?style=for-the-badge&logo=bank&logoColor=white)
+![FRED API](https://img.shields.io/badge/FRED_API-1E88E5?style=for-the-badge&logo=federalreserve&logoColor=white)
+![KRX API](https://img.shields.io/badge/KRX_API-FF6B6B?style=for-the-badge&logo=krx&logoColor=white)
 
-- Bulleted
-- List
+#### AI & LLM
+![OpenAI GPT4](https://img.shields.io/badge/OpenAI_GPT4-412991?style=for-the-badge&logo=openai&logoColor=white)
+![Google Gemini Pro](https://img.shields.io/badge/Google_Gemini_Pro-4285F4?style=for-the-badge&logo=google&logoColor=white)
+![LangChain](https://img.shields.io/badge/LangChain-339933?style=for-the-badge&logo=chainlink&logoColor=white)
 
-1. Numbered
-2. List
+## 팀 소개
 
-**Bold** and _Italic_ and `Code` text
+### 👥 팀원
 
-[Link](url) and ![Image](src)
-```
+#### 김남훈
+- 역할: 프론트엔드 & 백엔드
+- GitHub: [@TrainingDataSet](https://github.com/TrainingDataSet/Capstone_AssetManagementDashboard)
 
-자세한 내용은 [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+#### 박규민
+- 역할: 프론트엔드 & 백엔드
+- GitHub: [@gyumin4726](https://github.com/gyumin4726)
 
-### Support or Contact
+## 문의하기
 
-readme 파일 생성에 추가적인 도움이 필요하면 [도움말](https://help.github.com/articles/about-readmes/) 이나 [contact support](https://github.com/contact) 을 이용하세요.
+### 📧 Email
+- 김남훈: [kimnh1220@kookmin.ac.kr](mailto:kimnh1220@kookmin.ac.kr)
+- 박규민: [gyumin1129@kookmin.ac.kr](mailto:gyumin1129@kookmin.ac.kr)
+
+### 💬 GitHub
+[프로젝트 저장소 방문하기](https://github.com/kookmin-sw/capstone-2025-41)
