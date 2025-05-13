@@ -120,11 +120,3 @@ for user_id in id_lst:
         except Exception as e:
             print(f"⚠️ Supabase 저장 중 오류 발생: {e}")
 
-        # st.subheader(f"🔎 사용자 {user_id} 추천 뉴스 Top 3")
-        # for idx, item in enumerate(response, 1):
-        #     with st.container():
-        #         st.markdown(f"### {idx}. {item.title}")
-        #         st.markdown(f"📌 **추천 이유**: {item.reason}")
-        #         st.markdown(f"📝 **본문 요약**: {item.summary}")
-        #         st.markdown(f"🔗 [기사 링크 보기]({item.url})", unsafe_allow_html=True)
-        #         st.markdown("---")

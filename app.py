@@ -219,6 +219,8 @@ class App():
             st.session_state["logged_in"] = False
         if "username" not in st.session_state:
             st.session_state["username"] = None
+        if "user_id" not in st.session_state:
+            st.session_state["user_id"] = None
         if "stock_df" not in st.session_state:
             st.session_state["stock_df"] = None
         if "account_df" not in st.session_state:
@@ -251,7 +253,7 @@ class App():
                 "💰 자산 현황",
                 "👤 투자 프로필",
                 "📊 ETF 분석",
-                "📰 금융 뉴스",
+                "📰 경제 뉴스",
                 "📑 자산 진단",
                 "🤖 AI 어드바이저",
                 "📈 백테스팅",
@@ -265,7 +267,7 @@ class App():
                 st.session_state["page"] = "my_page"
             elif menu == "📊 ETF 분석":
                 st.session_state["page"] = "etf_analysis"
-            elif menu == "📰 금융 뉴스":
+            elif menu == "📰 경제 뉴스":
                 st.session_state["page"] = "economic_news"
             elif menu == "🤖 AI 어드바이저":
                 st.session_state["page"] = "chatbot"
@@ -392,6 +394,7 @@ class App():
                 acc_no = user["account_no"]
                 mock = user["mock"]
                 user_id = user["id"]  # `user_id` 가져오기
+                username = user["username"]
 
                 # `user_id`를 추가하여 AccountManager 객체 생성
                 account_manager = AccountManager(key, secret, acc_no, mock, user_id)    
@@ -407,6 +410,8 @@ class App():
                 st.session_state["stock_df"] = account_manager.get_stock()
                 st.session_state["account_df"] = account_manager.get_account()
                 st.session_state["cash"] = account_manager.get_cash()
+                st.session_state["username"] = username
+                st.session_state["user_id"] = user_id
             except Exception as e:
                 st.error("**⚠️ 데이터를 불러오는 데 실패했습니다**")
                 st.write(e)
@@ -504,17 +509,19 @@ class App():
 
         # 경제 뉴스 페이지
         if st.session_state["page"] == "economic_news":
-            st.title("오늘의 경제 뉴스")
-
             with st.spinner("뉴스 기사를 수집하는 중... ⏳"):
                 crawaling_article = crawlingArticle()
 
             # 워드 클라우드 시각화
             crawaling_article.visualize_wordcloud()
-            
-            # 뉴스 기사 데이터프레임
-            article = crawaling_article.load_article()
-            st.write(article)
+
+            # 추천 뉴스 기사
+            st.markdown("---")
+            crawaling_article.get_recommended_article(st.session_state["user_id"], st.session_state["username"])
+
+            # # 뉴스 기사 데이터프레임
+            # article = crawaling_article.load_article()
+            # st.write(article)
  
 
         # 챗봇 페이지

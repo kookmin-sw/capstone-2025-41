@@ -8,6 +8,8 @@ import streamlit as st
 from collections import Counter
 from modules.DB import SupabaseDB
 from urllib.parse import urlparse, parse_qs
+import re
+from io import BytesIO
 
 class crawlingArticle:
     def __init__(self):
@@ -81,18 +83,53 @@ class crawlingArticle:
         return article_df
 
     def visualize_wordcloud(self):
+        st.header("🔑 오늘의 뉴스 키워드")
         font_path = os.path.join("assets", "NanumGothic-Bold.ttf")
         article_df = self.load_article()
+
+        # 사용자 입력: 최대 단어 수 및 색상 테마
+        with st.expander("⚙️ 설정", expanded=False):
+            max_words = st.slider("단어 수", 50, 200, 150, 10)
+            colormap = st.selectbox("색상 테마", ["viridis", "Dark2", "plasma", "twilight", "cividis"])
+
+        # 텍스트 병합
         text = " ".join(article_df["title"])
-        word_counts = Counter(text.split())
+        
+        # 정규표현식으로 한글만 추출
+        words = re.findall(r'[가-힣a-zA-Z0-9%./]{2,}', text)  # 한글,영어,숫자만
+
+        # 불용어 제거
+        stopwords = {"투자360", "종목"}
+        filtered_words = [word for word in words if word not in stopwords]
+
+        # 단어 빈도 계산
+        word_counts = Counter(filtered_words)
+
+        # 워드클라우드 생성
         wordcloud = WordCloud(
-            width=800, height=400, background_color='white', font_path=font_path
+            font_path=font_path,
+            width=800,
+            height=400,
+            background_color="white",
+            max_words=max_words,
+            colormap=colormap
         ).generate_from_frequencies(word_counts)
 
-        fig = plt.figure()
-        plt.imshow(wordcloud, interpolation='bilinear')
-        plt.axis("off")
+        # Streamlit 시각화
+        fig, ax = plt.subplots()
+        ax.imshow(wordcloud, interpolation="bilinear")
+        ax.axis("off")
         st.pyplot(fig)
+
+        # 워드클라우드 이미지 다운로드 버튼
+        buf = BytesIO()
+        fig.savefig(buf, format="png", bbox_inches="tight")
+        st.download_button(
+            label="🖼️이미지 다운로드",
+            data=buf.getvalue(),
+            file_name="wordcloud.png",
+            mime="image/png"
+        )
 
     def save_article(self):
         """Supabase에 기사 데이터 저장"""
@@ -112,3 +149,17 @@ class crawlingArticle:
 
     def get_article(self):
         return self.article_df
+
+    def get_recommended_article(self, user_id, username):
+        recommended_article = self.db.get_recommended_articles(user_id)
+
+        st.header(f"🔎 {username}님의 추천 뉴스")
+        st.write("\n")
+        for idx, item in enumerate(recommended_article, 1):
+            with st.container():
+                st.markdown(f"### {idx}. {item['title']}")
+                st.markdown(f"📌 **추천 이유**: {item['reason']}")
+                st.markdown(f"📝 **본문 요약**: {item['summary']}")
+                st.markdown(f"🔗 [기사 링크 보기]({item['url']})", unsafe_allow_html=True)
+
+        # st.write(recommended_article)
