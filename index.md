@@ -221,16 +221,16 @@ title: Fynai - AI 기반 자산 관리 대시보드
             <img src="assets/report_preview.png" width="100%" alt="자산 진단"/>
         </div>
         <div>
+            <h4>📧 일일 인사이트 메일</h4>
+            <img src="assets/email_preview.png" width="100%" alt="일일 인사이트 메일"/>
+        </div>
+        <div>
             <h4>🤖 AI 어드바이저</h4>
             <img src="assets/ai_preview.png" width="100%" alt="AI 어드바이저"/>
         </div>
         <div>
             <h4>📈 백테스팅 시스템</h4>
             <img src="assets/backtesting_preview.png" width="100%" alt="백테스팅 분석"/>
-        </div>
-        <div>
-            <h4>📧 일일 인사이트 메일</h4>
-            <img src="assets/email_preview.png" width="100%" alt="일일 인사이트 메일"/>
         </div>
     </div>
 
