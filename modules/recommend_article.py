@@ -1,4 +1,5 @@
 from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_openai import ChatOpenAI
 from langchain_core.prompts import PromptTemplate
 from langchain.output_parsers import PydanticOutputParser
 from langchain.chains import LLMChain
@@ -18,9 +19,9 @@ id_lst = db.get_all_user_id()
 articles = db.get_article_data_today_and_yesterday()
 
 # 2. Gemini LLM 설정
-api_key = os.getenv("GEMINI_KEY")
+api_key = os.getenv("OPENAI_KEY")
 llm = ChatGoogleGenerativeAI(
-    model="gemini-2.0-flash",
+    model="gpt-4.1",
     temperature=0,
     google_api_key=api_key
 )
