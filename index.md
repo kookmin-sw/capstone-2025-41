@@ -42,7 +42,7 @@ title: Fynai - AI 기반 자산 관리 대시보드
             <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
                 <a href="#overview" style="text-decoration: none; color: #2E4057;">프로젝트 소개</a>
                 <span style="color: #666;">•</span>
-                <a href="#features" style="text-decoration: none; color: #2E4057;">핵심 기능</a>
+                <a href="#features" style="text-decoration: none; color: #2E4057;">주요 기능</a>
                 <span style="color: #666;">•</span>
                 <a href="#preview" style="text-decoration: none; color: #2E4057;">기능 미리보기</a>
                 <span style="color: #666;">•</span>
@@ -86,7 +86,7 @@ title: Fynai - AI 기반 자산 관리 대시보드
     </div>
 
     <div id="features" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 2rem; border-radius: 15px; margin-bottom: 3rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-        <h2 style="color: #2E4057; margin-bottom: 2rem; font-size: 2rem; text-align: center;">⚡ 핵심 기능</h2>
+        <h2 style="color: #2E4057; margin-bottom: 2rem; font-size: 2rem; text-align: center;">⚡ 주요 기능</h2>
         <div style="text-align: center; margin-bottom: 2.5rem;">
             <img src="assets/flow.png" alt="시나리오 플로우" style="max-width: 100%; height: auto; margin-bottom: 0.5rem;"/>
             <p style="color: #666; font-size: 1rem; margin-top: 0.5rem;">자산 관리의 시작부터 맞춤형 인사이트까지, Fynai의 핵심 시나리오 플로우</p>
@@ -203,7 +203,7 @@ title: Fynai - AI 기반 자산 관리 대시보드
       <img src="assets/Fynai.png" alt="Fynai Logo" style="max-width: 120px; min-width: 80px;">
       <div>
         <h3 style="margin: 0; color: #2E4057; font-size: 2rem; font-weight: 700;">주요 기능 미리보기</h3>
-        <p style="margin: 0; color: #444; font-size: 1.1rem;">Fynai의 핵심 기능을 한눈에 확인하세요.</p>
+        <p style="margin: 0; color: #444; font-size: 1.1rem;">Fynai의 주요 기능을 한눈에 확인하세요.</p>
       </div>
     </div>
 
@@ -416,11 +416,6 @@ title: Fynai - AI 기반 자산 관리 대시보드
                                 <img src="https://img.shields.io/badge/Google_GenAI-4285F4?style=for-the-badge&logo=google&logoColor=white" alt="Google-GenAI API"/>
                             </div>
                         </li>
-                        <li>
-                            <strong>Library</strong>
-                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
-                            </div>
-                        </li>
                     </ul>
                 </div>
 
@@ -461,7 +456,7 @@ title: Fynai - AI 기반 자산 관리 대시보드
                     <a href="https://capstone-2025-41-assetmanagementdashboard.streamlit.app/" style="text-decoration: none; color: #2E4057; font-weight: bold;">자산 관리 대시보드</a>에 접속합니다.
                 </li>
                 <li>
-                    <strong>핵심 기능 사용하기</strong>
+                    <strong>주요 기능 사용하기</strong>
                     <div style="margin-top: 1.5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
                         <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
                             <h4 style="color: #4CAF50; margin-bottom: 1rem;">🔐 회원가입 및 로그인</h4>
