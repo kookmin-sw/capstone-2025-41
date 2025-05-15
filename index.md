@@ -324,97 +324,145 @@ title: Fynai - AI 기반 자산 관리 대시보드
         <h2 style="color: #2E4057; margin-bottom: 2rem; font-size: 2rem;">🛠 기술 스택</h2>
         <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); max-width: 1000px; margin: 0 auto;">
             <h4 style="color: #2E4057; margin-top: 2rem;">Frontend</h4>
-            <div class="table-wrapper">
-              <table style="width:100%; text-align:left;">
+            <div class="table-wrapper" style="max-width: 500px; margin: 0 auto;">
+              <table style="width:100%; border-collapse: collapse;">
                 <thead>
                   <tr>
-                    <th>역할</th>
-                    <th>종류</th>
+                    <th style="width: 40%;">역할</th>
+                    <th style="width: 60%;">종류</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <td><strong>Programming Language</strong></td>
-                    <td><img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=white" alt="JavaScript"></td>
+                    <td style="text-align:center;"><img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=white" alt="JavaScript"></td>
                   </tr>
                   <tr>
                     <td><strong>Library</strong></td>
-                    <td><img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=white" alt="React"></td>
+                    <td style="text-align:center;"><img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=white" alt="React"></td>
                   </tr>
                   <tr>
                     <td><strong>UI Component Library</strong></td>
-                    <td><img src="https://img.shields.io/badge/ant%20design-0170FE?style=for-the-badge&logo=antdesign&logoColor=white" alt="Ant Design"></td>
+                    <td style="text-align:center;"><img src="https://img.shields.io/badge/ant%20design-0170FE?style=for-the-badge&logo=antdesign&logoColor=white" alt="Ant Design"></td>
                   </tr>
                   <tr>
                     <td><strong>Styling</strong></td>
-                    <td><img src="https://img.shields.io/badge/styled%20components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white" alt="Styled Components"></td>
+                    <td style="text-align:center;"><img src="https://img.shields.io/badge/styled%20components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white" alt="Styled Components"></td>
                   </tr>
                   <tr>
                     <td><strong>Formatting</strong></td>
-                    <td>
+                    <td style="text-align:center;">
                       <img src="https://img.shields.io/badge/eslint-4B32C3?style=for-the-badge&logo=eslint&logoColor=white" alt="ESLint">
                       <img src="https://img.shields.io/badge/prettier-F7B93E?style=for-the-badge&logo=prettier&logoColor=white" alt="Prettier">
                     </td>
                   </tr>
                   <tr>
                     <td><strong>Package Manager</strong></td>
-                    <td><img src="https://img.shields.io/badge/yarn-2C8EBB?style=for-the-badge&logo=yarn&logoColor=white" alt="Yarn"></td>
+                    <td style="text-align:center;"><img src="https://img.shields.io/badge/yarn-2C8EBB?style=for-the-badge&logo=yarn&logoColor=white" alt="Yarn"></td>
                   </tr>
                   <tr>
                     <td><strong>Web Server</strong></td>
-                    <td><img src="https://img.shields.io/badge/nginx-009639?style=for-the-badge&logo=nginx&logoColor=white" alt="Nginx"></td>
+                    <td style="text-align:center;"><img src="https://img.shields.io/badge/nginx-009639?style=for-the-badge&logo=nginx&logoColor=white" alt="Nginx"></td>
                   </tr>
                 </tbody>
               </table>
             </div>
 
             <h4 style="color: #2E4057; margin-top: 2rem;">Backend</h4>
-            <div class="table-wrapper">
-              <table style="width:100%; text-align:left;">
+            <div class="table-wrapper" style="max-width: 500px; margin: 0 auto;">
+              <table style="width:100%; border-collapse: collapse;">
                 <thead>
                   <tr>
-                    <th>역할</th>
-                    <th>종류</th>
+                    <th style="width: 40%;">역할</th>
+                    <th style="width: 60%;">종류</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <td><strong>Programming Language</strong></td>
-                    <td><img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white" alt="Java"></td>
+                    <td style="text-align:center;"><img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white" alt="Java"></td>
                   </tr>
                   <tr>
                     <td><strong>Framework</strong></td>
-                    <td><img src="https://img.shields.io/badge/spring%20boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white" alt="Spring Boot"></td>
+                    <td style="text-align:center;"><img src="https://img.shields.io/badge/spring%20boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white" alt="Spring Boot"></td>
                   </tr>
                   <tr>
                     <td><strong>Build Tool</strong></td>
-                    <td><img src="https://img.shields.io/badge/gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white" alt="Gradle"></td>
+                    <td style="text-align:center;"><img src="https://img.shields.io/badge/gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white" alt="Gradle"></td>
                   </tr>
                   <tr>
                     <td><strong>API</strong></td>
-                    <td><img src="https://img.shields.io/badge/rest%20api-000000?style=for-the-badge&logo=rest&logoColor=white" alt="REST API"></td>
+                    <td style="text-align:center;"><img src="https://img.shields.io/badge/rest%20api-000000?style=for-the-badge&logo=rest&logoColor=white" alt="REST API"></td>
                   </tr>
                   <tr>
                     <td><strong>Database</strong></td>
-                    <td>
+                    <td style="text-align:center;">
                       <img src="https://img.shields.io/badge/postgresql-4169E1?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL">
                       <img src="https://img.shields.io/badge/postgis-6BA539?style=for-the-badge&logo=postgis&logoColor=white" alt="PostGIS">
                     </td>
                   </tr>
                   <tr>
                     <td><strong>Database Service</strong></td>
-                    <td>
+                    <td style="text-align:center;">
                       <img src="https://img.shields.io/badge/amazon%20rds-527FFF?style=for-the-badge&logo=amazonrds&logoColor=white" alt="Amazon RDS">
                       <img src="https://img.shields.io/badge/amazon%20s3-569A31?style=for-the-badge&logo=amazons3&logoColor=white" alt="Amazon S3">
                     </td>
                   </tr>
                   <tr>
                     <td><strong>Application Service</strong></td>
-                    <td><img src="https://img.shields.io/badge/naver%20cloud-03C75A?style=for-the-badge&logo=naver&logoColor=white" alt="Naver Cloud"></td>
+                    <td style="text-align:center;"><img src="https://img.shields.io/badge/naver%20cloud-03C75A?style=for-the-badge&logo=naver&logoColor=white" alt="Naver Cloud"></td>
                   </tr>
                   <tr>
                     <td><strong>Message Queue</strong></td>
-                    <td><img src="https://img.shields.io/badge/apache%20kafka-231F20?style=for-the-badge&logo=apachekafka&logoColor=white" alt="Apache Kafka"></td>
+                    <td style="text-align:center;"><img src="https://img.shields.io/badge/apache%20kafka-231F20?style=for-the-badge&logo=apachekafka&logoColor=white" alt="Apache Kafka"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h4 style="color: #2E4057; margin-top: 2rem;">인프라 & 도구</h4>
+            <div class="table-wrapper" style="max-width: 500px; margin: 0 auto;">
+              <table style="width:100%; border-collapse: collapse;">
+                <thead>
+                  <tr>
+                    <th style="width: 40%;">역할</th>
+                    <th style="width: 60%;">종류</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Hosting</strong></td>
+                    <td style="text-align:center;"><img src="https://img.shields.io/badge/github_pages-222222?style=for-the-badge&logo=github-pages&logoColor=white" alt="GitHub Pages"></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Version Control</strong></td>
+                    <td style="text-align:center;"><img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white" alt="Git"></td>
+                  </tr>
+                  <tr>
+                    <td><strong>CI/CD</strong></td>
+                    <td style="text-align:center;"><img src="https://img.shields.io/badge/github_actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white" alt="GitHub Actions"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h4 style="color: #2E4057; margin-top: 2rem;">기타라이브러리</h4>
+            <div class="table-wrapper" style="max-width: 500px; margin: 0 auto;">
+              <table style="width:100%; border-collapse: collapse;">
+                <thead>
+                  <tr>
+                    <th style="width: 40%;">역할</th>
+                    <th style="width: 60%;">종류</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Data Analysis</strong></td>
+                    <td style="text-align:center;"><img src="https://img.shields.io/badge/pandas-150458?style=for-the-badge&logo=pandas&logoColor=white" alt="Pandas"></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Visualization</strong></td>
+                    <td style="text-align:center;"><img src="https://img.shields.io/badge/matplotlib-11557C?style=for-the-badge&logo=matplotlib&logoColor=white" alt="Matplotlib"></td>
                   </tr>
                 </tbody>
               </table>
