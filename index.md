@@ -326,7 +326,7 @@ title: Fynai - AI 기반 자산 관리 대시보드
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
                 <!-- Frontend -->
                 <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 12px; border-left: 4px solid #4CAF50;">
-                    <h3 style="color: #2E4057; margin-bottom: 1rem;">Frontend</h3>
+                    <h3 style="color: #2E4057; margin-bottom: 1.5rem; font-size: 1.8rem; font-weight: 700; text-align: center; padding-bottom: 0.5rem; border-bottom: 2px solid #4CAF50;">Frontend</h3>
                     <ul style="list-style-type: none; padding-left: 0;">
                         <li style="margin-bottom: 0.5rem;">
                             <strong>Programming Language</strong>
@@ -335,7 +335,7 @@ title: Fynai - AI 기반 자산 관리 대시보드
                             </div>
                         </li>
                         <li style="margin-bottom: 0.5rem;">
-                            <strong>UI Component Library</strong>
+                            <strong>UI Framework</strong>
                             <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
                                 <img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" alt="Streamlit"/>
                             </div>
@@ -344,12 +344,6 @@ title: Fynai - AI 기반 자산 관리 대시보드
                             <strong>Styling</strong>
                             <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
                                 <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3"/>
-                            </div>
-                        </li>
-                        <li style="margin-bottom: 0.5rem;">
-                            <strong>Formatting</strong>
-                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
-                                <img src="https://img.shields.io/badge/Black-000000?style=for-the-badge&logo=black&logoColor=white" alt="Black"/>
                             </div>
                         </li>
                         <li style="margin-bottom: 0.5rem;">
@@ -363,7 +357,7 @@ title: Fynai - AI 기반 자산 관리 대시보드
 
                 <!-- Backend -->
                 <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 12px; border-left: 4px solid #2196F3;">
-                    <h3 style="color: #2E4057; margin-bottom: 1rem;">Backend</h3>
+                    <h3 style="color: #2E4057; margin-bottom: 1.5rem; font-size: 1.8rem; font-weight: 700; text-align: center; padding-bottom: 0.5rem; border-bottom: 2px solid #2196F3;">Backend</h3>
                     <ul style="list-style-type: none; padding-left: 0;">
                         <li style="margin-bottom: 0.5rem;">
                             <strong>Programming Language</strong>
@@ -374,13 +368,16 @@ title: Fynai - AI 기반 자산 관리 대시보드
                         <li style="margin-bottom: 0.5rem;">
                             <strong>Framework</strong>
                             <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
-                                <img src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI"/>
+                                <img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" alt="Streamlit"/>
                             </div>
                         </li>
                         <li style="margin-bottom: 0.5rem;">
                             <strong>API</strong>
                             <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
                                 <img src="https://img.shields.io/badge/한국투자증권_API-000000?style=for-the-badge&logo=korea&logoColor=white" alt="한국투자증권 API"/>
+                                <img src="https://img.shields.io/badge/FRED-000000?style=for-the-badge&logo=fred&logoColor=white" alt="FRED API"/>
+                                <img src="https://img.shields.io/badge/ECOS-000000?style=for-the-badge&logo=ecos&logoColor=white" alt="ECOS API"/>
+                                <img src="https://img.shields.io/badge/KRX-000000?style=for-the-badge&logo=krx&logoColor=white" alt="KRX API"/>
                             </div>
                         </li>
                         <li style="margin-bottom: 0.5rem;">
@@ -394,12 +391,18 @@ title: Fynai - AI 기반 자산 관리 대시보드
 
                 <!-- AI -->
                 <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 12px; border-left: 4px solid #FF9800;">
-                    <h3 style="color: #2E4057; margin-bottom: 1rem;">AI (LLM)</h3>
+                    <h3 style="color: #2E4057; margin-bottom: 1.5rem; font-size: 1.8rem; font-weight: 700; text-align: center; padding-bottom: 0.5rem; border-bottom: 2px solid #FF9800;">AI (LLM)</h3>
                     <ul style="list-style-type: none; padding-left: 0;">
                         <li style="margin-bottom: 0.5rem;">
                             <strong>Programming Language</strong>
                             <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
                                 <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"/>
+                            </div>
+                        </li>
+                        <li style="margin-bottom: 0.5rem;">
+                            <strong>Framework</strong>
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
+                                <img src="https://img.shields.io/badge/LangChain-000000?style=for-the-badge&logo=langchain&logoColor=white" alt="LangChain"/>
                             </div>
                         </li>
                         <li style="margin-bottom: 0.5rem;">
@@ -412,17 +415,14 @@ title: Fynai - AI 기반 자산 관리 대시보드
                         <li>
                             <strong>Library</strong>
                             <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
-                                <img src="https://img.shields.io/badge/LangChain-000000?style=for-the-badge&logo=langchain&logoColor=white" alt="LangChain"/>
-                                <img src="https://img.shields.io/badge/pandas-150458?style=for-the-badge&logo=pandas&logoColor=white" alt="pandas"/>
-                                <img src="https://img.shields.io/badge/NumPy-013243?style=for-the-badge&logo=numpy&logoColor=white" alt="numpy"/>
                             </div>
                         </li>
                     </ul>
                 </div>
 
-                <!-- Deployment -->
+                <!-- Development & Deployment -->
                 <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 12px; border-left: 4px solid #673AB7;">
-                    <h3 style="color: #2E4057; margin-bottom: 1rem;">Deployment</h3>
+                    <h3 style="color: #2E4057; margin-bottom: 1.5rem; font-size: 1.8rem; font-weight: 700; text-align: center; padding-bottom: 0.5rem; border-bottom: 2px solid #673AB7;">Development & Deployment</h3>
                     <ul style="list-style-type: none; padding-left: 0;">
                         <li style="margin-bottom: 0.5rem;">
                             <strong>Web Service</strong>
@@ -430,10 +430,17 @@ title: Fynai - AI 기반 자산 관리 대시보드
                                 <img src="https://img.shields.io/badge/Streamlit_Cloud-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" alt="Streamlit Cloud"/>
                             </div>
                         </li>
-                        <li>
+                        <li style="margin-bottom: 0.5rem;">
                             <strong>CI/CD</strong>
                             <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
                                 <img src="https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white" alt="GitHub Actions"/>
+                            </div>
+                        </li>
+                        <li>
+                            <strong>Version Control</strong>
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
+                                <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white" alt="Git"/>
+                                <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"/>
                             </div>
                         </li>
                     </ul>
@@ -441,7 +448,7 @@ title: Fynai - AI 기반 자산 관리 대시보드
 
                 <!-- Common -->
                 <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 12px; border-left: 4px solid #9C27B0;">
-                    <h3 style="color: #2E4057; margin-bottom: 1rem;">Common</h3>
+                    <h3 style="color: #2E4057; margin-bottom: 1.5rem; font-size: 1.8rem; font-weight: 700; text-align: center; padding-bottom: 0.5rem; border-bottom: 2px solid #9C27B0;">Common</h3>
                     <ul style="list-style-type: none; padding-left: 0;">
                         <li style="margin-bottom: 0.5rem;">
                             <strong>Design</strong>
