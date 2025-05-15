@@ -96,10 +96,10 @@ class crawlingArticle:
         text = " ".join(article_df["title"])
         
         # 정규표현식으로 한글만 추출
-        words = re.findall(r'[가-힣a-zA-Z0-9%./]{2,}', text)  # 한글,영어,숫자만
+        words = re.findall(r'[가-힣a-zA-Z0-9%./&]{2,}', text)  # 한글,영어,숫자만
 
         # 불용어 제거
-        stopwords = {"투자360", "종목"}
+        stopwords = {"투자360", "종목", "종목Pick", "단독"}
         filtered_words = [word for word in words if word not in stopwords]
 
         # 단어 빈도 계산

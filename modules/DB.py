@@ -119,6 +119,15 @@ class SupabaseDB:
             return json.loads(response.data[0]["article"])
         return []
 
+    def get_article_data_yesterday(self):
+        """어제 일자 뉴스 기사 JSON 데이터를 Supabase에서 불러오기"""
+        yesterday = (datetime.today() - timedelta(days=1)).strftime("%Y-%m-%d")
+        response = self.client.table("articles").select("article").\
+            eq("date", yesterday).execute()
+        if response.data:
+            return json.loads(response.data[0]["article"])
+        return []
+
     def get_article_data_today_and_yesterday(self):
         """어제 및 오늘 날짜의 뉴스 기사 JSON 데이터를 Supabase에서 불러오기"""
         today = datetime.today().strftime("%Y-%m-%d")

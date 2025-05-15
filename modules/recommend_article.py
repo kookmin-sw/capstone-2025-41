@@ -16,7 +16,7 @@ load_dotenv()
 # 1. Supabase에서 데이터 불러오기
 db = SupabaseDB()
 id_lst = db.get_all_user_id()
-articles = db.get_article_data_today_and_yesterday()
+articles = db.get_article_data_yesterday()
 
 # 2. Openai LLM 설정
 api_key = os.getenv("OPENAI_KEY")
