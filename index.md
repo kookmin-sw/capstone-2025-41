@@ -203,36 +203,112 @@ title: Fynai - AI 기반 자산 관리 대시보드
       </div>
     </div>
 
-    <div align="center" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin: 20px 0;">
-        <div>
-            <h4>💼 통합 자산 관리</h4>
-            <img src="assets/portfolio_preview.png" width="100%" alt="포트폴리오 분석"/>
+    <div class="slideshow-container" style="max-width: 800px; position: relative; margin: auto; margin-bottom: 40px;">
+        <div class="mySlides fade" style="display: none;">
+            <h4 style="text-align: center; color: #2E4057; margin-bottom: 15px;">💼 통합 자산 관리</h4>
+            <img src="assets/portfolio_preview.png" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
         </div>
-        <div>
-            <h4>📊 ETF 마켓 인사이트</h4>
-            <img src="assets/etf_preview.png" width="100%" alt="ETF 분석"/>
+
+        <div class="mySlides fade" style="display: none;">
+            <h4 style="text-align: center; color: #2E4057; margin-bottom: 15px;">📊 ETF 마켓 인사이트</h4>
+            <img src="assets/etf_preview.png" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
         </div>
-        <div>
-            <h4>📰 뉴스 & 마켓 인텔리전스</h4>
-            <img src="assets/news_preview.png" width="100%" alt="뉴스 분석"/>
+
+        <div class="mySlides fade" style="display: none;">
+            <h4 style="text-align: center; color: #2E4057; margin-bottom: 15px;">📰 뉴스 & 마켓 인텔리전스</h4>
+            <img src="assets/news_preview.png" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
         </div>
-        <div>
-            <h4>📑 자산 진단 리포트</h4>
-            <img src="assets/report_preview.png" width="100%" alt="자산 진단"/>
+
+        <div class="mySlides fade" style="display: none;">
+            <h4 style="text-align: center; color: #2E4057; margin-bottom: 15px;">📑 자산 진단 리포트</h4>
+            <img src="assets/report_preview.png" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
         </div>
-        <div>
-            <h4>📧 일일 인사이트 메일</h4>
-            <img src="assets/email_preview.png" width="100%" alt="일일 인사이트 메일"/>
+
+        <div class="mySlides fade" style="display: none;">
+            <h4 style="text-align: center; color: #2E4057; margin-bottom: 15px;">📧 일일 인사이트 메일</h4>
+            <img src="assets/email_preview.png" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
         </div>
-        <div>
-            <h4>🤖 AI 어드바이저</h4>
-            <img src="assets/ai_preview.png" width="100%" alt="AI 어드바이저"/>
+
+        <div class="mySlides fade" style="display: none;">
+            <h4 style="text-align: center; color: #2E4057; margin-bottom: 15px;">🤖 AI 어드바이저</h4>
+            <img src="assets/ai_preview.png" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
         </div>
-        <div>
-            <h4>📈 백테스팅 시스템</h4>
-            <img src="assets/backtesting_preview.png" width="100%" alt="백테스팅 분석"/>
+
+        <div class="mySlides fade" style="display: none;">
+            <h4 style="text-align: center; color: #2E4057; margin-bottom: 15px;">📈 백테스팅 시스템</h4>
+            <img src="assets/backtesting_preview.png" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
         </div>
+
+        <a class="prev" onclick="plusSlides(-1)" style="cursor: pointer; position: absolute; top: 50%; width: auto; padding: 16px; margin-top: -22px; color: white; font-weight: bold; font-size: 18px; transition: 0.6s ease; border-radius: 0 3px 3px 0; user-select: none; background-color: rgba(0,0,0,0.3); left: 0;">❮</a>
+        <a class="next" onclick="plusSlides(1)" style="cursor: pointer; position: absolute; top: 50%; width: auto; padding: 16px; margin-top: -22px; color: white; font-weight: bold; font-size: 18px; transition: 0.6s ease; border-radius: 3px 0 0 3px; user-select: none; background-color: rgba(0,0,0,0.3); right: 0;">❯</a>
     </div>
+
+    <div style="text-align: center; margin-bottom: 40px;">
+        <span class="dot" onclick="currentSlide(1)" style="height: 12px; width: 12px; margin: 0 4px; background-color: #bbb; border-radius: 50%; display: inline-block; transition: background-color 0.6s ease; cursor: pointer;"></span>
+        <span class="dot" onclick="currentSlide(2)" style="height: 12px; width: 12px; margin: 0 4px; background-color: #bbb; border-radius: 50%; display: inline-block; transition: background-color 0.6s ease; cursor: pointer;"></span>
+        <span class="dot" onclick="currentSlide(3)" style="height: 12px; width: 12px; margin: 0 4px; background-color: #bbb; border-radius: 50%; display: inline-block; transition: background-color 0.6s ease; cursor: pointer;"></span>
+        <span class="dot" onclick="currentSlide(4)" style="height: 12px; width: 12px; margin: 0 4px; background-color: #bbb; border-radius: 50%; display: inline-block; transition: background-color 0.6s ease; cursor: pointer;"></span>
+        <span class="dot" onclick="currentSlide(5)" style="height: 12px; width: 12px; margin: 0 4px; background-color: #bbb; border-radius: 50%; display: inline-block; transition: background-color 0.6s ease; cursor: pointer;"></span>
+        <span class="dot" onclick="currentSlide(6)" style="height: 12px; width: 12px; margin: 0 4px; background-color: #bbb; border-radius: 50%; display: inline-block; transition: background-color 0.6s ease; cursor: pointer;"></span>
+        <span class="dot" onclick="currentSlide(7)" style="height: 12px; width: 12px; margin: 0 4px; background-color: #bbb; border-radius: 50%; display: inline-block; transition: background-color 0.6s ease; cursor: pointer;"></span>
+    </div>
+
+    <script>
+    let slideIndex = 1;
+    showSlides(slideIndex);
+
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
+
+    function currentSlide(n) {
+        showSlides(slideIndex = n);
+    }
+
+    function showSlides(n) {
+        let i;
+        let slides = document.getElementsByClassName("mySlides");
+        let dots = document.getElementsByClassName("dot");
+        
+        if (n > slides.length) {slideIndex = 1}
+        if (n < 1) {slideIndex = slides.length}
+        
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].style.backgroundColor = "#bbb";
+        }
+        
+        slides[slideIndex-1].style.display = "block";
+        dots[slideIndex-1].style.backgroundColor = "#717171";
+    }
+
+    // 자동 슬라이드쇼
+    setInterval(function() {
+        plusSlides(1);
+    }, 5000);
+    </script>
+
+    <style>
+    .fade {
+        animation-name: fade;
+        animation-duration: 1.5s;
+    }
+
+    @keyframes fade {
+        from {opacity: .4} 
+        to {opacity: 1}
+    }
+
+    .prev:hover, .next:hover {
+        background-color: rgba(0,0,0,0.8);
+    }
+
+    .dot.active {
+        background-color: #717171;
+    }
+    </style>
 
     <div style="background-color: #f8f9fa; padding: 2rem; border-radius: 15px; margin: 2rem 0;">
         <h3 style="color: #2E4057; font-size: 1.5rem; margin-bottom: 1.5rem;">🔄 시스템 구조도</h3>
@@ -246,62 +322,108 @@ title: Fynai - AI 기반 자산 관리 대시보드
         <h2 style="color: #2E4057; margin-bottom: 2rem; font-size: 2rem;">🛠 기술 스택</h2>
         <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); max-width: 1000px; margin: 0 auto;">
             <h3 style="color: #2E4057; margin-bottom: 1.5rem; text-align: center;">💻 Core Technologies</h3>
-            <div style="display: flex; justify-content: center;">
-                <table style="width: 90%; border: none; background: transparent;">
-                    <tr>
-                        <td style="width: 25%; text-align: center;"><h4>프론트엔드</h4></td>
-                        <td style="width: 25%; text-align: center;"><h4>백엔드</h4></td>
-                        <td style="width: 25%; text-align: center;"><h4>인프라 & 도구</h4></td>
-                        <td style="width: 25%; text-align: center;"><h4>기타 라이브러리</h4></td>
-                    </tr>
-                    <tr style="background: transparent;">
-                        <td style="text-align: center; vertical-align: middle;">
-                            <img src="https://img.shields.io/badge/streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white"><br>
-                            <img src="https://img.shields.io/badge/plotly-3F4F75?style=for-the-badge&logo=plotly&logoColor=white">
-                        </td>
-                        <td style="text-align: center; vertical-align: middle;">
-                            <img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white"><br>
-                            <img src="https://img.shields.io/badge/supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white">
-                        </td>
-                        <td style="text-align: center; vertical-align: middle;">
-                            <img src="https://img.shields.io/badge/github_pages-222222?style=for-the-badge&logo=github-pages&logoColor=white"><br>
-                            <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white"><br>
-                            <img src="https://img.shields.io/badge/github_actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white">
-                        </td>
-                        <td style="text-align: center; vertical-align: middle;">
-                            <img src="https://img.shields.io/badge/pandas-150458?style=for-the-badge&logo=pandas&logoColor=white"><br>
-                            <img src="https://img.shields.io/badge/matplotlib-11557C?style=for-the-badge&logo=matplotlib&logoColor=white"><br>
-                            <img src="https://img.shields.io/badge/fpdf-FF0000?style=for-the-badge&logo=pdf&logoColor=white"><br>
-                            <img src="https://img.shields.io/badge/reportlab-000000?style=for-the-badge&logo=pdf&logoColor=white"><br>
-                            <img src="https://img.shields.io/badge/python_dotenv-000000?style=for-the-badge&logo=python&logoColor=white">
-                        </td>
-                    </tr>
-                </table>
+
+            <h4 style="color: #2E4057; margin-top: 2rem;">Frontend</h4>
+            <div class="table-wrapper">
+              <table style="width:100%; text-align:left;">
+                <thead>
+                  <tr>
+                    <th>역할</th>
+                    <th>종류</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Web Framework</strong></td>
+                    <td><img src="https://img.shields.io/badge/streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" alt="Streamlit"></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Visualization</strong></td>
+                    <td><img src="https://img.shields.io/badge/plotly-3F4F75?style=for-the-badge&logo=plotly&logoColor=white" alt="Plotly"></td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
 
-            <h3 style="color: #2E4057; margin: 2rem 0 1.5rem 0; text-align: center;">🔌 External APIs</h3>
-            <div style="display: flex; justify-content: center;">
-                <table style="width: 90%; border: none; background: transparent;">
-                    <tr>
-                        <td style="width: 50%; text-align: center;"><h4>금융 & 경제 데이터</h4></td>
-                        <td style="width: 50%; text-align: center;"><h4>AI & LLM</h4></td>
-                    </tr>
-                    <tr style="background: transparent;">
-                        <td style="text-align: center; vertical-align: middle;">
-                            <img src="https://img.shields.io/badge/한국투자증권_API-ED1C24?style=for-the-badge&logo=koreaninvestment&logoColor=white"><br>
-                            <img src="https://img.shields.io/badge/FinanceDataReader-0066CC?style=for-the-badge&logo=finance&logoColor=white"><br>
-                            <img src="https://img.shields.io/badge/BeautifulSoup4-FF5722?style=for-the-badge&logo=beautifulsoup&logoColor=white"><br>
-                            <img src="https://img.shields.io/badge/ECOS_API-0052A4?style=for-the-badge&logo=bank&logoColor=white"><br>
-                            <img src="https://img.shields.io/badge/FRED_API-1E88E5?style=for-the-badge&logo=federalreserve&logoColor=white"><br>
-                            <img src="https://img.shields.io/badge/KRX_API-FF6B6B?style=for-the-badge&logo=krx&logoColor=white">
-                        </td>
-                        <td style="text-align: center; vertical-align: middle;">
-                            <img src="https://img.shields.io/badge/OpenAI_GPT4-412991?style=for-the-badge&logo=openai&logoColor=white"><br>
-                            <img src="https://img.shields.io/badge/Google_Gemini_Pro-4285F4?style=for-the-badge&logo=google&logoColor=white"><br>
-                            <img src="https://img.shields.io/badge/LangChain-339933?style=for-the-badge&logo=chainlink&logoColor=white">
-                        </td>
-                    </tr>
-                </table>
+            <h4 style="color: #2E4057; margin-top: 2rem;">Backend</h4>
+            <div class="table-wrapper">
+              <table style="width:100%; text-align:left;">
+                <thead>
+                  <tr>
+                    <th>역할</th>
+                    <th>종류</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Programming Language</strong></td>
+                    <td><img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Database/Backend</strong></td>
+                    <td><img src="https://img.shields.io/badge/supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white" alt="Supabase"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h4 style="color: #2E4057; margin-top: 2rem;">인프라 & 도구</h4>
+            <div class="table-wrapper">
+              <table style="width:100%; text-align:left;">
+                <thead>
+                  <tr>
+                    <th>역할</th>
+                    <th>종류</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Hosting</strong></td>
+                    <td><img src="https://img.shields.io/badge/github_pages-222222?style=for-the-badge&logo=github-pages&logoColor=white" alt="GitHub Pages"></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Version Control</strong></td>
+                    <td><img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white" alt="Git"></td>
+                  </tr>
+                  <tr>
+                    <td><strong>CI/CD</strong></td>
+                    <td><img src="https://img.shields.io/badge/github_actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white" alt="GitHub Actions"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h4 style="color: #2E4057; margin-top: 2rem;">기타 라이브러리</h4>
+            <div class="table-wrapper">
+              <table style="width:100%; text-align:left;">
+                <thead>
+                  <tr>
+                    <th>역할</th>
+                    <th>종류</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Data Analysis</strong></td>
+                    <td><img src="https://img.shields.io/badge/pandas-150458?style=for-the-badge&logo=pandas&logoColor=white" alt="Pandas"></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Visualization</strong></td>
+                    <td><img src="https://img.shields.io/badge/matplotlib-11557C?style=for-the-badge&logo=matplotlib&logoColor=white" alt="Matplotlib"></td>
+                  </tr>
+                  <tr>
+                    <td><strong>PDF Report</strong></td>
+                    <td>
+                      <img src="https://img.shields.io/badge/fpdf-FF0000?style=for-the-badge&logo=pdf&logoColor=white" alt="FPDF">
+                      <img src="https://img.shields.io/badge/reportlab-000000?style=for-the-badge&logo=pdf&logoColor=white" alt="ReportLab">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>환경 변수 관리</strong></td>
+                    <td><img src="https://img.shields.io/badge/python_dotenv-000000?style=for-the-badge&logo=python&logoColor=white" alt="python-dotenv"></td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
         </div>
     </div>
