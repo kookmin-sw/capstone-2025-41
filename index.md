@@ -14,7 +14,7 @@ title: Fynai - AI 기반 자산 관리 대시보드
     </div>
 
     <div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 2rem; border-radius: 15px; margin-bottom: 3rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-        <h2 style="color: #2E4057; text-align: center; margin-bottom: 2rem; font-size: 2rem;">주요 기능</h2>
+        <h2 style="color: #2E4057; text-align: center; margin-bottom: 2rem; font-size: 2rem;">핵심 기능</h2>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
             <div style="background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); transition: transform 0.3s ease; border-left: 4px solid #4CAF50;">
                 <h3 style="color: #2E4057;">📊 실시간 자산 분석</h3>
@@ -86,7 +86,11 @@ title: Fynai - AI 기반 자산 관리 대시보드
     </div>
 
     <div id="features" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 2rem; border-radius: 15px; margin-bottom: 3rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-        <h2 style="color: #2E4057; margin-bottom: 2rem; font-size: 2rem;">⚡ 핵심 기능</h2>
+        <h2 style="color: #2E4057; margin-bottom: 2rem; font-size: 2rem; text-align: center;">⚡ 핵심 기능</h2>
+        <div style="text-align: center; margin-bottom: 2.5rem;">
+            <img src="assets/flow.png" alt="시나리오 플로우" style="max-width: 100%; height: auto; margin-bottom: 0.5rem;"/>
+            <p style="color: #666; font-size: 1rem; margin-top: 0.5rem;">자산 관리의 시작부터 맞춤형 인사이트까지, Fynai의 핵심 시나리오 플로우</p>
+        </div>
         
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
             <!-- 1. 통합 자산 관리 -->
@@ -445,35 +449,6 @@ title: Fynai - AI 기반 자산 관리 대시보드
                         </li>
                     </ul>
                 </div>
-
-                <!-- Common -->
-                <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 12px; border-left: 4px solid #9C27B0;">
-                    <h3 style="color: #2E4057; margin-bottom: 1.5rem; font-size: 1.8rem; font-weight: 700; text-align: center; padding-bottom: 0.5rem; border-bottom: 2px solid #9C27B0;">Common</h3>
-                    <ul style="list-style-type: none; padding-left: 0;">
-                        <li style="margin-bottom: 0.5rem;">
-                            <strong>Design</strong>
-                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
-                                <img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white" alt="Figma"/>
-                            </div>
-                        </li>
-                        <li style="margin-bottom: 0.5rem;">
-                            <strong>Version Control</strong>
-                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
-                                <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white" alt="Git"/>
-                                <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"/>
-                            </div>
-                        </li>
-                        <li>
-                            <strong>기타 라이브러리</strong>
-                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
-                                <img src="https://img.shields.io/badge/yfinance-00C300?style=for-the-badge&logo=yfinance&logoColor=white" alt="yfinance"/>
-                                <img src="https://img.shields.io/badge/Plotly-3F4F75?style=for-the-badge&logo=plotly&logoColor=white" alt="plotly"/>
-                                <img src="https://img.shields.io/badge/Beautiful_Soup-000000?style=for-the-badge&logo=beautifulsoup&logoColor=white" alt="beautifulsoup4"/>
-                                <img src="https://img.shields.io/badge/Requests-000000?style=for-the-badge&logo=requests&logoColor=white" alt="requests"/>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
             </div>
         </div>
     </div>
@@ -486,7 +461,7 @@ title: Fynai - AI 기반 자산 관리 대시보드
                     <a href="https://capstone-2025-41-assetmanagementdashboard.streamlit.app/" style="text-decoration: none; color: #2E4057; font-weight: bold;">자산 관리 대시보드</a>에 접속합니다.
                 </li>
                 <li>
-                    <strong>주요 기능 사용하기</strong>
+                    <strong>핵심 기능 사용하기</strong>
                     <div style="margin-top: 1.5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
                         <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
                             <h4 style="color: #4CAF50; margin-bottom: 1rem;">🔐 회원가입 및 로그인</h4>
@@ -602,7 +577,7 @@ title: Fynai - AI 기반 자산 관리 대시보드
 
     <div style="background-color: #f8f9fa; padding: 2rem; border-radius: 15px; margin: 2rem 0;">
         <h2 style="color: #2E4057; margin-bottom: 1.5rem;">📬 문의하기</h2>
-        <p style="margin-bottom: 1.5rem;">프로젝트에 대한 문의나 제안이 있으시다면 언제든 연락주세요:</p>
+        <p style="margin-bottom: 1.5rem;">프로젝트에 대한 문의나 제안이 있으시다면 언제든 연락주세요</p>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
             <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
                 <h3 style="color: #2E4057; font-size: 1.2rem; margin-bottom: 1rem;">📧 Email</h3>
