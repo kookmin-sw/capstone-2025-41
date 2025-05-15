@@ -330,33 +330,33 @@ title: Fynai - AI 기반 자산 관리 대시보드
                     <ul style="list-style-type: none; padding-left: 0;">
                         <li style="margin-bottom: 0.5rem;">
                             <strong>Programming Language</strong>
-                            <ul>
-                                <li><img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"/></li>
-                            </ul>
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
+                                <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"/>
+                            </div>
                         </li>
                         <li style="margin-bottom: 0.5rem;">
                             <strong>UI Component Library</strong>
-                            <ul>
-                                <li><img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" alt="Streamlit"/></li>
-                            </ul>
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
+                                <img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" alt="Streamlit"/>
+                            </div>
                         </li>
                         <li style="margin-bottom: 0.5rem;">
                             <strong>Styling</strong>
-                            <ul>
-                                <li><img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3"/></li>
-                            </ul>
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
+                                <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3"/>
+                            </div>
                         </li>
                         <li style="margin-bottom: 0.5rem;">
                             <strong>Formatting</strong>
-                            <ul>
-                                <li><img src="https://img.shields.io/badge/Black-000000?style=for-the-badge&logo=black&logoColor=white" alt="Black"/></li>
-                            </ul>
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
+                                <img src="https://img.shields.io/badge/Black-000000?style=for-the-badge&logo=black&logoColor=white" alt="Black"/>
+                            </div>
                         </li>
                         <li style="margin-bottom: 0.5rem;">
                             <strong>Package Manager</strong>
-                            <ul>
-                                <li><img src="https://img.shields.io/badge/pip-3776AB?style=for-the-badge&logo=pypi&logoColor=white" alt="pip"/></li>
-                            </ul>
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
+                                <img src="https://img.shields.io/badge/pip-3776AB?style=for-the-badge&logo=pypi&logoColor=white" alt="pip"/>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -367,27 +367,27 @@ title: Fynai - AI 기반 자산 관리 대시보드
                     <ul style="list-style-type: none; padding-left: 0;">
                         <li style="margin-bottom: 0.5rem;">
                             <strong>Programming Language</strong>
-                            <ul>
-                                <li><img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"/></li>
-                            </ul>
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
+                                <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"/>
+                            </div>
                         </li>
                         <li style="margin-bottom: 0.5rem;">
                             <strong>Framework</strong>
-                            <ul>
-                                <li><img src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI"/></li>
-                            </ul>
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
+                                <img src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI"/>
+                            </div>
                         </li>
                         <li style="margin-bottom: 0.5rem;">
                             <strong>API</strong>
-                            <ul>
-                                <li><img src="https://img.shields.io/badge/한국투자증권_API-000000?style=for-the-badge&logo=korea&logoColor=white" alt="한국투자증권 API"/></li>
-                            </ul>
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
+                                <img src="https://img.shields.io/badge/한국투자증권_API-000000?style=for-the-badge&logo=korea&logoColor=white" alt="한국투자증권 API"/>
+                            </div>
                         </li>
                         <li style="margin-bottom: 0.5rem;">
                             <strong>Database</strong>
-                            <ul>
-                                <li><img src="https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white" alt="Supabase"/></li>
-                            </ul>
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
+                                <img src="https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white" alt="Supabase"/>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -398,24 +398,24 @@ title: Fynai - AI 기반 자산 관리 대시보드
                     <ul style="list-style-type: none; padding-left: 0;">
                         <li style="margin-bottom: 0.5rem;">
                             <strong>Programming Language</strong>
-                            <ul>
-                                <li><img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"/></li>
-                            </ul>
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
+                                <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"/>
+                            </div>
                         </li>
                         <li style="margin-bottom: 0.5rem;">
                             <strong>API</strong>
-                            <ul>
-                                <li><img src="https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white" alt="OpenAI API"/></li>
-                                <li><img src="https://img.shields.io/badge/Google_GenAI-4285F4?style=for-the-badge&logo=google&logoColor=white" alt="Google-GenAI API"/></li>
-                            </ul>
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
+                                <img src="https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white" alt="OpenAI API"/>
+                                <img src="https://img.shields.io/badge/Google_GenAI-4285F4?style=for-the-badge&logo=google&logoColor=white" alt="Google-GenAI API"/>
+                            </div>
                         </li>
                         <li>
                             <strong>Library</strong>
-                            <ul>
-                                <li><img src="https://img.shields.io/badge/LangChain-000000?style=for-the-badge&logo=langchain&logoColor=white" alt="LangChain"/></li>
-                                <li><img src="https://img.shields.io/badge/pandas-150458?style=for-the-badge&logo=pandas&logoColor=white" alt="pandas"/></li>
-                                <li><img src="https://img.shields.io/badge/NumPy-013243?style=for-the-badge&logo=numpy&logoColor=white" alt="numpy"/></li>
-                            </ul>
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
+                                <img src="https://img.shields.io/badge/LangChain-000000?style=for-the-badge&logo=langchain&logoColor=white" alt="LangChain"/>
+                                <img src="https://img.shields.io/badge/pandas-150458?style=for-the-badge&logo=pandas&logoColor=white" alt="pandas"/>
+                                <img src="https://img.shields.io/badge/NumPy-013243?style=for-the-badge&logo=numpy&logoColor=white" alt="numpy"/>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -426,15 +426,15 @@ title: Fynai - AI 기반 자산 관리 대시보드
                     <ul style="list-style-type: none; padding-left: 0;">
                         <li style="margin-bottom: 0.5rem;">
                             <strong>Web Service</strong>
-                            <ul>
-                                <li><img src="https://img.shields.io/badge/Streamlit_Cloud-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" alt="Streamlit Cloud"/></li>
-                            </ul>
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
+                                <img src="https://img.shields.io/badge/Streamlit_Cloud-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" alt="Streamlit Cloud"/>
+                            </div>
                         </li>
                         <li>
                             <strong>CI/CD</strong>
-                            <ul>
-                                <li><img src="https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white" alt="GitHub Actions"/></li>
-                            </ul>
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
+                                <img src="https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white" alt="GitHub Actions"/>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -445,25 +445,25 @@ title: Fynai - AI 기반 자산 관리 대시보드
                     <ul style="list-style-type: none; padding-left: 0;">
                         <li style="margin-bottom: 0.5rem;">
                             <strong>Design</strong>
-                            <ul>
-                                <li><img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white" alt="Figma"/></li>
-                            </ul>
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
+                                <img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white" alt="Figma"/>
+                            </div>
                         </li>
                         <li style="margin-bottom: 0.5rem;">
                             <strong>Version Control</strong>
-                            <ul>
-                                <li><img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white" alt="Git"/></li>
-                                <li><img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"/></li>
-                            </ul>
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
+                                <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white" alt="Git"/>
+                                <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"/>
+                            </div>
                         </li>
                         <li>
                             <strong>기타 라이브러리</strong>
-                            <ul>
-                                <li><img src="https://img.shields.io/badge/yfinance-00C300?style=for-the-badge&logo=yfinance&logoColor=white" alt="yfinance"/></li>
-                                <li><img src="https://img.shields.io/badge/Plotly-3F4F75?style=for-the-badge&logo=plotly&logoColor=white" alt="plotly"/></li>
-                                <li><img src="https://img.shields.io/badge/Beautiful_Soup-000000?style=for-the-badge&logo=beautifulsoup&logoColor=white" alt="beautifulsoup4"/></li>
-                                <li><img src="https://img.shields.io/badge/Requests-000000?style=for-the-badge&logo=requests&logoColor=white" alt="requests"/></li>
-                            </ul>
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
+                                <img src="https://img.shields.io/badge/yfinance-00C300?style=for-the-badge&logo=yfinance&logoColor=white" alt="yfinance"/>
+                                <img src="https://img.shields.io/badge/Plotly-3F4F75?style=for-the-badge&logo=plotly&logoColor=white" alt="plotly"/>
+                                <img src="https://img.shields.io/badge/Beautiful_Soup-000000?style=for-the-badge&logo=beautifulsoup&logoColor=white" alt="beautifulsoup4"/>
+                                <img src="https://img.shields.io/badge/Requests-000000?style=for-the-badge&logo=requests&logoColor=white" alt="requests"/>
+                            </div>
                         </li>
                     </ul>
                 </div>
