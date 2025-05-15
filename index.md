@@ -323,149 +323,150 @@ title: Fynai - AI 기반 자산 관리 대시보드
     <div id="tech" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 2rem; border-radius: 15px; margin-bottom: 3rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
         <h2 style="color: #2E4057; margin-bottom: 2rem; font-size: 2rem;">🛠 기술 스택</h2>
         <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); max-width: 1000px; margin: 0 auto;">
-            <h4 style="color: #2E4057; margin-top: 2rem;">Frontend</h4>
-            <div class="table-wrapper" style="max-width: 500px; margin: 0 auto;">
-              <table style="width:100%; border-collapse: collapse;">
-                <thead>
-                  <tr>
-                    <th style="width: 40%;">역할</th>
-                    <th style="width: 60%;">종류</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><strong>Programming Language</strong></td>
-                    <td style="text-align:center;"><img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=white" alt="JavaScript"></td>
-                  </tr>
-                  <tr>
-                    <td><strong>Library</strong></td>
-                    <td style="text-align:center;"><img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=white" alt="React"></td>
-                  </tr>
-                  <tr>
-                    <td><strong>UI Component Library</strong></td>
-                    <td style="text-align:center;"><img src="https://img.shields.io/badge/ant%20design-0170FE?style=for-the-badge&logo=antdesign&logoColor=white" alt="Ant Design"></td>
-                  </tr>
-                  <tr>
-                    <td><strong>Styling</strong></td>
-                    <td style="text-align:center;"><img src="https://img.shields.io/badge/styled%20components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white" alt="Styled Components"></td>
-                  </tr>
-                  <tr>
-                    <td><strong>Formatting</strong></td>
-                    <td style="text-align:center;">
-                      <img src="https://img.shields.io/badge/eslint-4B32C3?style=for-the-badge&logo=eslint&logoColor=white" alt="ESLint">
-                      <img src="https://img.shields.io/badge/prettier-F7B93E?style=for-the-badge&logo=prettier&logoColor=white" alt="Prettier">
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><strong>Package Manager</strong></td>
-                    <td style="text-align:center;"><img src="https://img.shields.io/badge/yarn-2C8EBB?style=for-the-badge&logo=yarn&logoColor=white" alt="Yarn"></td>
-                  </tr>
-                  <tr>
-                    <td><strong>Web Server</strong></td>
-                    <td style="text-align:center;"><img src="https://img.shields.io/badge/nginx-009639?style=for-the-badge&logo=nginx&logoColor=white" alt="Nginx"></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <!-- Frontend -->
+                <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 12px; border-left: 4px solid #4CAF50;">
+                    <h3 style="color: #2E4057; margin-bottom: 1rem;">Frontend</h3>
+                    <ul style="list-style-type: none; padding-left: 0;">
+                        <li style="margin-bottom: 0.5rem;">
+                            <strong>Programming Language</strong>
+                            <ul>
+                                <li><img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"/></li>
+                            </ul>
+                        </li>
+                        <li style="margin-bottom: 0.5rem;">
+                            <strong>UI Component Library</strong>
+                            <ul>
+                                <li><img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" alt="Streamlit"/></li>
+                            </ul>
+                        </li>
+                        <li style="margin-bottom: 0.5rem;">
+                            <strong>Styling</strong>
+                            <ul>
+                                <li><img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3"/></li>
+                            </ul>
+                        </li>
+                        <li style="margin-bottom: 0.5rem;">
+                            <strong>Formatting</strong>
+                            <ul>
+                                <li><img src="https://img.shields.io/badge/Black-000000?style=for-the-badge&logo=black&logoColor=white" alt="Black"/></li>
+                            </ul>
+                        </li>
+                        <li style="margin-bottom: 0.5rem;">
+                            <strong>Package Manager</strong>
+                            <ul>
+                                <li><img src="https://img.shields.io/badge/pip-3776AB?style=for-the-badge&logo=pypi&logoColor=white" alt="pip"/></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
 
-            <h4 style="color: #2E4057; margin-top: 2rem;">Backend</h4>
-            <div class="table-wrapper" style="max-width: 500px; margin: 0 auto;">
-              <table style="width:100%; border-collapse: collapse;">
-                <thead>
-                  <tr>
-                    <th style="width: 40%;">역할</th>
-                    <th style="width: 60%;">종류</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><strong>Programming Language</strong></td>
-                    <td style="text-align:center;"><img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white" alt="Java"></td>
-                  </tr>
-                  <tr>
-                    <td><strong>Framework</strong></td>
-                    <td style="text-align:center;"><img src="https://img.shields.io/badge/spring%20boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white" alt="Spring Boot"></td>
-                  </tr>
-                  <tr>
-                    <td><strong>Build Tool</strong></td>
-                    <td style="text-align:center;"><img src="https://img.shields.io/badge/gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white" alt="Gradle"></td>
-                  </tr>
-                  <tr>
-                    <td><strong>API</strong></td>
-                    <td style="text-align:center;"><img src="https://img.shields.io/badge/rest%20api-000000?style=for-the-badge&logo=rest&logoColor=white" alt="REST API"></td>
-                  </tr>
-                  <tr>
-                    <td><strong>Database</strong></td>
-                    <td style="text-align:center;">
-                      <img src="https://img.shields.io/badge/postgresql-4169E1?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL">
-                      <img src="https://img.shields.io/badge/postgis-6BA539?style=for-the-badge&logo=postgis&logoColor=white" alt="PostGIS">
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><strong>Database Service</strong></td>
-                    <td style="text-align:center;">
-                      <img src="https://img.shields.io/badge/amazon%20rds-527FFF?style=for-the-badge&logo=amazonrds&logoColor=white" alt="Amazon RDS">
-                      <img src="https://img.shields.io/badge/amazon%20s3-569A31?style=for-the-badge&logo=amazons3&logoColor=white" alt="Amazon S3">
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><strong>Application Service</strong></td>
-                    <td style="text-align:center;"><img src="https://img.shields.io/badge/naver%20cloud-03C75A?style=for-the-badge&logo=naver&logoColor=white" alt="Naver Cloud"></td>
-                  </tr>
-                  <tr>
-                    <td><strong>Message Queue</strong></td>
-                    <td style="text-align:center;"><img src="https://img.shields.io/badge/apache%20kafka-231F20?style=for-the-badge&logo=apachekafka&logoColor=white" alt="Apache Kafka"></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+                <!-- Backend -->
+                <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 12px; border-left: 4px solid #2196F3;">
+                    <h3 style="color: #2E4057; margin-bottom: 1rem;">Backend</h3>
+                    <ul style="list-style-type: none; padding-left: 0;">
+                        <li style="margin-bottom: 0.5rem;">
+                            <strong>Programming Language</strong>
+                            <ul>
+                                <li><img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"/></li>
+                            </ul>
+                        </li>
+                        <li style="margin-bottom: 0.5rem;">
+                            <strong>Framework</strong>
+                            <ul>
+                                <li><img src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI"/></li>
+                            </ul>
+                        </li>
+                        <li style="margin-bottom: 0.5rem;">
+                            <strong>API</strong>
+                            <ul>
+                                <li><img src="https://img.shields.io/badge/한국투자증권_API-000000?style=for-the-badge&logo=korea&logoColor=white" alt="한국투자증권 API"/></li>
+                            </ul>
+                        </li>
+                        <li style="margin-bottom: 0.5rem;">
+                            <strong>Database</strong>
+                            <ul>
+                                <li><img src="https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white" alt="Supabase"/></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
 
-            <h4 style="color: #2E4057; margin-top: 2rem;">인프라 & 도구</h4>
-            <div class="table-wrapper" style="max-width: 500px; margin: 0 auto;">
-              <table style="width:100%; border-collapse: collapse;">
-                <thead>
-                  <tr>
-                    <th style="width: 40%;">역할</th>
-                    <th style="width: 60%;">종류</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><strong>Hosting</strong></td>
-                    <td style="text-align:center;"><img src="https://img.shields.io/badge/github_pages-222222?style=for-the-badge&logo=github-pages&logoColor=white" alt="GitHub Pages"></td>
-                  </tr>
-                  <tr>
-                    <td><strong>Version Control</strong></td>
-                    <td style="text-align:center;"><img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white" alt="Git"></td>
-                  </tr>
-                  <tr>
-                    <td><strong>CI/CD</strong></td>
-                    <td style="text-align:center;"><img src="https://img.shields.io/badge/github_actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white" alt="GitHub Actions"></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+                <!-- AI -->
+                <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 12px; border-left: 4px solid #FF9800;">
+                    <h3 style="color: #2E4057; margin-bottom: 1rem;">AI (LLM)</h3>
+                    <ul style="list-style-type: none; padding-left: 0;">
+                        <li style="margin-bottom: 0.5rem;">
+                            <strong>Programming Language</strong>
+                            <ul>
+                                <li><img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"/></li>
+                            </ul>
+                        </li>
+                        <li style="margin-bottom: 0.5rem;">
+                            <strong>API</strong>
+                            <ul>
+                                <li><img src="https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white" alt="OpenAI API"/></li>
+                                <li><img src="https://img.shields.io/badge/Google_GenAI-4285F4?style=for-the-badge&logo=google&logoColor=white" alt="Google-GenAI API"/></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Library</strong>
+                            <ul>
+                                <li><img src="https://img.shields.io/badge/LangChain-000000?style=for-the-badge&logo=langchain&logoColor=white" alt="LangChain"/></li>
+                                <li><img src="https://img.shields.io/badge/pandas-150458?style=for-the-badge&logo=pandas&logoColor=white" alt="pandas"/></li>
+                                <li><img src="https://img.shields.io/badge/NumPy-013243?style=for-the-badge&logo=numpy&logoColor=white" alt="numpy"/></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
 
-            <h4 style="color: #2E4057; margin-top: 2rem;">기타라이브러리</h4>
-            <div class="table-wrapper" style="max-width: 500px; margin: 0 auto;">
-              <table style="width:100%; border-collapse: collapse;">
-                <thead>
-                  <tr>
-                    <th style="width: 40%;">역할</th>
-                    <th style="width: 60%;">종류</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><strong>Data Analysis</strong></td>
-                    <td style="text-align:center;"><img src="https://img.shields.io/badge/pandas-150458?style=for-the-badge&logo=pandas&logoColor=white" alt="Pandas"></td>
-                  </tr>
-                  <tr>
-                    <td><strong>Visualization</strong></td>
-                    <td style="text-align:center;"><img src="https://img.shields.io/badge/matplotlib-11557C?style=for-the-badge&logo=matplotlib&logoColor=white" alt="Matplotlib"></td>
-                  </tr>
-                </tbody>
-              </table>
+                <!-- Deployment -->
+                <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 12px; border-left: 4px solid #673AB7;">
+                    <h3 style="color: #2E4057; margin-bottom: 1rem;">Deployment</h3>
+                    <ul style="list-style-type: none; padding-left: 0;">
+                        <li style="margin-bottom: 0.5rem;">
+                            <strong>Web Service</strong>
+                            <ul>
+                                <li><img src="https://img.shields.io/badge/Streamlit_Cloud-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" alt="Streamlit Cloud"/></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>CI/CD</strong>
+                            <ul>
+                                <li><img src="https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white" alt="GitHub Actions"/></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Common -->
+                <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 12px; border-left: 4px solid #9C27B0;">
+                    <h3 style="color: #2E4057; margin-bottom: 1rem;">Common</h3>
+                    <ul style="list-style-type: none; padding-left: 0;">
+                        <li style="margin-bottom: 0.5rem;">
+                            <strong>Design</strong>
+                            <ul>
+                                <li><img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white" alt="Figma"/></li>
+                            </ul>
+                        </li>
+                        <li style="margin-bottom: 0.5rem;">
+                            <strong>Version Control</strong>
+                            <ul>
+                                <li><img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white" alt="Git"/></li>
+                                <li><img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"/></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>기타 라이브러리</strong>
+                            <ul>
+                                <li><img src="https://img.shields.io/badge/yfinance-00C300?style=for-the-badge&logo=yfinance&logoColor=white" alt="yfinance"/></li>
+                                <li><img src="https://img.shields.io/badge/Plotly-3F4F75?style=for-the-badge&logo=plotly&logoColor=white" alt="plotly"/></li>
+                                <li><img src="https://img.shields.io/badge/Beautiful_Soup-000000?style=for-the-badge&logo=beautifulsoup&logoColor=white" alt="beautifulsoup4"/></li>
+                                <li><img src="https://img.shields.io/badge/Requests-000000?style=for-the-badge&logo=requests&logoColor=white" alt="requests"/></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
