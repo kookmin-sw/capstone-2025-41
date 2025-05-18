@@ -211,8 +211,8 @@ def chatbot_page():
             st.markdown(response)
         st.session_state["chat_history"].append(("assistant", response))
     
-    
-    st.text(report_content)
+    # 디버깅용
+    #st.text(report_content)
     
 
     # 사이드바에 대화 초기화 버튼 추가
