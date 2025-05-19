@@ -248,12 +248,12 @@ class App():
             st.sidebar.title("📌 메뉴")
             menu = st.sidebar.radio("메뉴 선택", [
                 "💰 자산 현황",
-                "👤 투자 프로필",
-                "📊 ETF 분석",
+                "📊 섹터 분석",
                 "📰 경제 뉴스",
-                "📑 자산 진단",
-                "🤖 AI 어드바이저",
                 "📈 백테스팅",
+                "📑 AI 리포트",
+                "🤖 AI 어드바이저",
+                "👤 투자 프로필",
                 #"🧪 LLM 테스트",
                 "로그아웃"
             ])
@@ -262,13 +262,13 @@ class App():
                 st.session_state["page"] = "main"
             if menu == "👤 투자 프로필":
                 st.session_state["page"] = "my_page"
-            elif menu == "📊 ETF 분석":
+            elif menu == "📊 섹터 분석":
                 st.session_state["page"] = "etf_analysis"
             elif menu == "📰 경제 뉴스":
                 st.session_state["page"] = "economic_news"
             elif menu == "🤖 AI 어드바이저":
                 st.session_state["page"] = "chatbot"
-            elif menu == "📑 자산 진단":
+            elif menu == "📑 AI 리포트":
                 st.session_state["page"] = "portfolio_report"
             elif menu == "📈 백테스팅":
                 st.session_state["page"] = "backtest"

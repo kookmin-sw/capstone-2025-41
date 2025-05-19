@@ -429,7 +429,7 @@ def main(strategy="이동평균선 교차"):
             # 종목 선택 방식 선택
             selection_method = st.radio(
                 "🔍 종목 선택 방식",
-                ["보유 종목", "직접 검색"],
+                ["직접 검색", "보유 종목"],
                 horizontal=True
             )
             
