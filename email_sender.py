@@ -4,6 +4,13 @@ from email.mime.multipart import MIMEMultipart
 import streamlit as st
 import os
 from dotenv import load_dotenv
+from modules.llm_models.market_headline import MarketHeadlineLLM
+from modules.llm_models.portfolio_alert import PortfolioAlertLLM
+from modules.llm_models.risk_warning import RiskWarningLLM
+from modules.llm_models.action_required import ActionRequiredLLM
+from modules.llm_models.data_processor import DataProcessor
+from modules.user_manager import UserManager
+from datetime import datetime
 
 # .env 파일의 환경 변수 불러오기
 load_dotenv()
@@ -168,4 +175,75 @@ class EmailSender:
 
         except Exception as e:
             print(f"이메일 발송 중 오류 발생: {str(e)}")
-            return False 
+            return False
+
+if __name__ == "__main__":
+    # 현재 날짜 가져오기
+    current_date = datetime.now().strftime("%Y년 %m월 %d일")
+    
+    # 사용자 관리자 초기화
+    user_manager = UserManager()
+    
+    # 모든 사용자 이름 가져오기
+    all_usernames = user_manager.db.get_all_user_name()
+    if not all_usernames:
+        print("사용자 정보를 찾을 수 없습니다.")
+        exit()
+
+    # LLM 모델 초기화
+    market_headline_llm = MarketHeadlineLLM()
+    portfolio_alert_llm = PortfolioAlertLLM()
+    risk_warning_llm = RiskWarningLLM()
+    action_required_llm = ActionRequiredLLM()
+
+    # EmailSender 인스턴스 생성
+    email_sender = EmailSender()
+
+    # 각 사용자별로 이메일 발송
+    for username in all_usernames:
+        # 사용자 정보 가져오기
+        user_data = user_manager.get_user_info(username)
+        if not user_data:
+            print(f"사용자 {username}의 정보를 찾을 수 없습니다.")
+            continue
+            
+        user_email = user_data.get("email", "")
+        if not user_email:
+            print(f"사용자 {username}의 이메일 정보를 찾을 수 없습니다.")
+            continue
+
+        print(f"사용자 {username}에게 이메일 발송 중...")
+
+        # 데이터 프로세서 초기화
+        data_processor = DataProcessor(username)
+
+        # LLM을 통해 각 섹션의 내용 생성
+        market_data = data_processor.get_market_data()
+        portfolio_data = data_processor.get_portfolio_data()
+        risk_data = data_processor.get_risk_data()
+        investment_data = data_processor.get_investment_data()
+
+        # current_date 추가
+        market_data["current_date"] = current_date
+        portfolio_data["current_date"] = current_date
+        risk_data["current_date"] = current_date
+        investment_data["current_date"] = current_date
+
+        market_headline = market_headline_llm.generate(**market_data)
+        portfolio_alert = portfolio_alert_llm.generate(**portfolio_data)
+        risk_warning = risk_warning_llm.generate(**risk_data)
+        action_required = action_required_llm.generate(**investment_data)
+
+        # 이메일 발송
+        success = email_sender.send_daily_alerts(
+            user_email=user_email,
+            market_headline=market_headline,
+            portfolio_alert=portfolio_alert,
+            risk_warning=risk_warning,
+            action_required=action_required
+        )
+
+        if success:
+            print(f"사용자 {username}에게 이메일이 성공적으로 발송되었습니다.")
+        else:
+            print(f"사용자 {username}에게 이메일 발송에 실패했습니다.") 
