@@ -383,10 +383,10 @@ title: Fynai - AI 기반 자산 관리 대시보드
                         <li style="margin-bottom: 0.5rem;">
                             <strong>API</strong>
                             <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem;">
-                                <img src="https://img.shields.io/badge/한국투자증권_API-000000?style=for-the-badge&logo=korea&logoColor=white" alt="한국투자증권 API"/>
-                                <img src="https://img.shields.io/badge/FRED-000000?style=for-the-badge&logo=fred&logoColor=white" alt="FRED API"/>
-                                <img src="https://img.shields.io/badge/ECOS-000000?style=for-the-badge&logo=ecos&logoColor=white" alt="ECOS API"/>
-                                <img src="https://img.shields.io/badge/KRX-000000?style=for-the-badge&logo=krx&logoColor=white" alt="KRX API"/>
+                                <img src="https://img.shields.io/badge/한국투자증권_API-1E88E5?style=for-the-badge&logo=korea&logoColor=white" alt="한국투자증권 API"/>
+                                <img src="https://img.shields.io/badge/FRED_API-FF6F00?style=for-the-badge&logo=fred&logoColor=white" alt="FRED API"/>
+                                <img src="https://img.shields.io/badge/ECOS_API-43A047?style=for-the-badge&logo=ecos&logoColor=white" alt="ECOS API"/>
+                                <img src="https://img.shields.io/badge/KRX_API-8E24AA?style=for-the-badge&logo=krx&logoColor=white" alt="KRX API"/>
                             </div>
                         </li>
                         <li style="margin-bottom: 0.5rem;">
