@@ -2,12 +2,25 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import streamlit as st
+import os
+from dotenv import load_dotenv
+
+# .env 파일의 환경 변수 불러오기
+load_dotenv()
 
 class EmailSender:
     def __init__(self):
         """이메일 발송을 위한 초기화"""
-        self.sender_email = st.secrets["email"]["user"]
-        self.sender_password = st.secrets["email"]["password"]
+        if st.secrets["email"]["user"]:
+            self.sender_email = st.secrets["email"]["user"]
+        else:
+            self.sender_email = os.getenv("EMAIL_USER")
+
+        if st.secrets["email"]["password"]:
+            self.sender_password = st.secrets["email"]["password"]
+        else:
+            self.sender_password = os.getenv("EMAIL_PASSWORD")
+
         self.smtp_server = "smtp.gmail.com"
         self.smtp_port = 587
 

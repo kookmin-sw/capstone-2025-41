@@ -1,7 +1,5 @@
 import streamlit as st
-import pandas as pd
 from datetime import datetime
-from dateutil.relativedelta import relativedelta
 import os
 from modules.user_manager import UserManager
 from modules.account_manager import AccountManager
@@ -9,7 +7,6 @@ from modules.visualization import Visualization
 from modules.etf import ETFAnalyzer
 from modules.etf_kr import ETFAnalyzer as ETFAnalyzerKR
 from modules.crawling_article import crawlingArticle
-from modules.collect_economic_data import collectEconomicData
 from modules.chatbot_question import chatbot_page
 from modules.chatbot_report import chatbot_page2
 from modules.mypage import MyPage
@@ -21,7 +18,7 @@ from modules.llm_models.portfolio_alert import PortfolioAlertLLM
 from modules.llm_models.risk_warning import RiskWarningLLM
 from modules.llm_models.action_required import ActionRequiredLLM
 from modules.llm_models.data_processor import DataProcessor
-from modules.email_sender import EmailSender
+from email_sender import EmailSender
 
 # 페이지 설정
 st.set_page_config(
