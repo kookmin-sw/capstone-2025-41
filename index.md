@@ -192,8 +192,9 @@ title: Fynai - AI 기반 자산 관리 대시보드
     <div id="preview" style="background-color: #f8f9fa; padding: 2rem; border-radius: 15px; margin: 2rem 0;">
         <h3 style="color: #2E4057; font-size: 1.5rem; margin-bottom: 1.5rem;">🎥 시연 동영상</h3>
         <div style="text-align: center;">
-            <a href="https://youtu.be/your_video_id" style="text-decoration: none;">
-                <img src="assets/video_thumbnail.png" width="80%" alt="시연 동영상 썸네일" style="border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.3s ease;"/>
+            <a href="https://youtu.be/e9uSAZX3k3w" style="text-decoration: none;">
+                <img src="Fynai.png" width="80%" alt="시연 동영상 썸네일" 
+                style="border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.3s ease;"/>
             </a>
             <p style="margin-top: 1rem; color: #666; font-style: italic;">▶️ 이미지를 클릭하여 시연 동영상 보기</p>
         </div>
