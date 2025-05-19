@@ -437,8 +437,15 @@ def main(strategy="이동평균선 교차"):
                 # 기존 보유 종목 선택
                 stock_options = {f"{data['stock_name']} ({data['stock_code']})": data['stock_code'] 
                                 for data in stocks_data}
-                selected_stock = st.selectbox("📌 분석할 종목", options=list(stock_options.keys()))
-                stock_code = stock_options[selected_stock]
+                
+                if not stock_options:
+                    st.warning("⚠️ 보유 종목이 없습니다. 아래 '데이터 새로고침' 버튼을 클릭하여 주식 데이터를 먼저 수집해주세요.")
+                else:
+                    selected_stock = st.selectbox("📌 분석할 종목", options=list(stock_options.keys()))
+                    if not selected_stock:
+                        st.warning("⚠️ 종목을 선택해주세요.")
+                    else:
+                        stock_code = stock_options[selected_stock]
             else:
                 # 직접 검색
                 search_code = st.text_input("🔍 종목 코드 입력 (예: 005930)", 
@@ -503,12 +510,17 @@ def main(strategy="이동평균선 교차"):
                     result = collect_backtest_stock_data()
                     st.success(result)
                     st.session_state["backtest_data_loaded"] = True
+                    st.rerun()  # 페이지 새로고침
             
             st.write("")
             # 실행 버튼
             run_backtest = st.button("🚀 백테스팅 실행", type="primary", use_container_width=True)
             
             if run_backtest:
+                if selection_method == "보유 종목" and (not stock_options or not selected_stock):
+                    st.error("⚠️ 종목을 선택해주세요.")
+                    return
+                    
                 with st.spinner("백테스팅 분석 중..."):
                     # 세션 상태에 백테스팅 결과 저장
                     if selection_method == "보유 종목":
