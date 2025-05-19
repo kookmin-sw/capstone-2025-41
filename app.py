@@ -254,7 +254,7 @@ class App():
                 "📑 자산 진단",
                 "🤖 AI 어드바이저",
                 "📈 백테스팅",
-                "🧪 LLM 테스트",
+                #"🧪 LLM 테스트",
                 "로그아웃"
             ])
             
@@ -272,8 +272,8 @@ class App():
                 st.session_state["page"] = "portfolio_report"
             elif menu == "📈 백테스팅":
                 st.session_state["page"] = "backtest"
-            elif menu == "🧪 LLM 테스트":
-                st.session_state["page"] = "llm_test"
+            #elif menu == "🧪 LLM 테스트":
+            #   st.session_state["page"] = "llm_test"
             elif menu == "로그아웃":
                 st.session_state.clear()
                 st.session_state["page"] = "landing"
@@ -692,10 +692,11 @@ class App():
                 # 백테스팅 실행
                 from modules.backtest import main as backtest_main
                 backtest_main(strategy=strategy)
-        elif st.session_state["page"] == "llm_test":
-            self.llm_test_page()
 
-    def llm_test_page(self):
+        #elif st.session_state["page"] == "llm_test":
+        #    self.llm_test_page()
+
+    '''def llm_test_page(self):
         st.title("🧪 LLM 모델 테스트")
         
         # session_state 초기화
@@ -797,7 +798,7 @@ class App():
                 ):
                     st.success("이메일이 성공적으로 발송되었습니다!")
                 else:
-                    st.error("이메일 발송 중 오류가 발생했습니다.")
+                    st.error("이메일 발송 중 오류가 발생했습니다.")'''
 
 def backtest_page():
     st.title("📈 백테스팅 시스템")
