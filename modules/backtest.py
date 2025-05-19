@@ -439,7 +439,7 @@ def main(strategy="이동평균선 교차"):
                                 for data in stocks_data}
                 
                 if not stock_options:
-                    st.warning("⚠️ 보유 종목이 없습니다. 아래 '데이터 새로고침' 버튼을 클릭하여 주식 데이터를 먼저 수집해주세요.")
+                    st.warning("⚠️ 보유 종목이 없습니다. 옆의 '데이터 새로고침' 버튼을 클릭하여 주식 데이터를 먼저 수집해주세요.")
                 else:
                     selected_stock = st.selectbox("📌 분석할 종목", options=list(stock_options.keys()))
                     if not selected_stock:
