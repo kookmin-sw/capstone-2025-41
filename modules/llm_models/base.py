@@ -5,9 +5,15 @@ from dotenv import load_dotenv
 import os
 from modules.DB import SupabaseDB
 
+# .env 파일의 환경 변수 불러오기
+load_dotenv()
+
 class BaseLLM:
     def __init__(self):
-        api_key = st.secrets["gemini"]["api_key"] 
+        if st.secrets["gemini"]["api_key"]:
+            api_key = st.secrets["gemini"]["api_key"]
+        else:
+            api_key = os.getenv("GEMINI_KEY")
 
         # LLM 초기화
         self.model = ChatGoogleGenerativeAI(
