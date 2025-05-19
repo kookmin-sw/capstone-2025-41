@@ -13,15 +13,12 @@ load_dotenv()
 class SupabaseDB:
     def __init__(self):
         """Supabase 연결"""
-        if os.getenv("SUPABASE_URL"):
-            self.url = os.getenv("SUPABASE_URL")
-        else:
+        try:
             self.url = st.secrets["supabase"]["url"]
-
-        if os.getenv("SUPABASE_KEY"):
-            self.key = os.getenv("SUPABASE_KEY")
-        else:
             self.key = st.secrets["supabase"]["key"]
+        except FileNotFoundError:
+            self.url = os.getenv("SUPABASE_URL")
+            self.key = os.getenv("SUPABASE_KEY")
 
         self.client = create_client(self.url, self.key)
 

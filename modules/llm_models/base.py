@@ -10,9 +10,9 @@ load_dotenv()
 
 class BaseLLM:
     def __init__(self):
-        if st.secrets["gemini"]["api_key"]:
+        try:
             api_key = st.secrets["gemini"]["api_key"]
-        else:
+        except FileNotFoundError:
             api_key = os.getenv("GEMINI_KEY")
 
         # LLM 초기화

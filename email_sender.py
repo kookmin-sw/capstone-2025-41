@@ -18,9 +18,9 @@ load_dotenv()
 class EmailSender:
     def __init__(self):
         """이메일 발송을 위한 초기화"""
-        if st.secrets["email"]["user"]:
+        try:
             self.sender_email = st.secrets["email"]["user"]
-        else:
+        except FileNotFoundError:
             self.sender_email = os.getenv("EMAIL_USER")
 
         if st.secrets["email"]["password"]:
