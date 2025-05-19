@@ -20,12 +20,9 @@ class EmailSender:
         """이메일 발송을 위한 초기화"""
         try:
             self.sender_email = st.secrets["email"]["user"]
+            self.sender_password = st.secrets["email"]["password"]
         except FileNotFoundError:
             self.sender_email = os.getenv("EMAIL_USER")
-
-        if st.secrets["email"]["password"]:
-            self.sender_password = st.secrets["email"]["password"]
-        else:
             self.sender_password = os.getenv("EMAIL_PASSWORD")
 
         self.smtp_server = "smtp.gmail.com"
