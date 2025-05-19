@@ -192,18 +192,15 @@ title: Fynai - AI 기반 자산 관리 대시보드
     <div id="preview" style="background-color: #f8f9fa; padding: 2rem; border-radius: 15px; margin: 2rem 0;">
         <h3 style="color: #2E4057; font-size: 1.5rem; margin-bottom: 1.5rem;">🎥 시연 동영상</h3>
         <div style="text-align: center;">
-            <a href="https://youtu.be/e9uSAZX3k3w" style="text-decoration: none;">
-                <div style="position: relative; width: 80%; margin: 0 auto;">
-                    <img src="assets/Fynai.png" width="100%" alt="시연 동영상 썸네일" 
-                    style="border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.3s ease;"/>
-                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
-                         background-color: rgba(0,0,0,0.7); color: white; padding: 10px 20px; 
-                         border-radius: 25px; font-weight: bold; display: flex; align-items: center; gap: 8px;">
-                        <span style="font-size: 24px;">▶</span>
-                        <span>시연 영상 보기</span>
-                    </div>
-                </div>
-            </a>
+            <div style="position: relative; width: 80%; margin: 0 auto; padding-bottom: 45%;">
+                <iframe 
+                    src="https://www.youtube.com/embed/e9uSAZX3k3w" 
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            </div>
         </div>
     </div>
 
