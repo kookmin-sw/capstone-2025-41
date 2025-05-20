@@ -564,8 +564,8 @@ title: Fynai - AI 기반 자산 관리 대시보드
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
             <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); text-align: center;">
                 <h3 style="color: #4CAF50; margin-bottom: 1rem;">📊 발표 자료</h3>
-                <p style="color: #666; margin-bottom: 1rem;">프로젝트 발표 자료를 확인하세요</p>
-                <a href="docs/user-guide.md" style="display: inline-block; background-color: #4CAF50; color: white; padding: 0.8rem 1.5rem; text-decoration: none; border-radius: 50px; font-weight: 500; transition: all 0.3s ease;">자료 보기</a>
+                <p style="color: #666; margin-bottom: 1rem;">프로젝트 발표 자료를 PDF로 확인하세요</p>
+                <a href="assets/Fynai 최종발표자료.pdf" style="display: inline-block; background-color: #4CAF50; color: white; padding: 0.8rem 1.5rem; text-decoration: none; border-radius: 50px; font-weight: 500; transition: all 0.3s ease;">PDF 보기</a>
             </div>
             <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); text-align: center;">
                 <h3 style="color: #2196F3; margin-bottom: 1rem;">🖼️ 포스터</h3>
