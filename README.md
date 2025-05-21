@@ -65,42 +65,32 @@
 
 ## 기술 스택
 
-### 💻 Core Technologies
+### Frontend
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![pip](https://img.shields.io/badge/pip-3776AB?style=for-the-badge&logo=pypi&logoColor=white)
 
-#### 프론트엔드
-![Streamlit](https://img.shields.io/badge/streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
-![Plotly](https://img.shields.io/badge/plotly-3F4F75?style=for-the-badge&logo=plotly&logoColor=white)
+### Backend
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
+![한국투자증권 API](https://img.shields.io/badge/한국투자증권_API-1E88E5?style=for-the-badge&logo=korea&logoColor=white)
+![FRED API](https://img.shields.io/badge/FRED_API-FF6F00?style=for-the-badge&logo=fred&logoColor=white)
+![ECOS API](https://img.shields.io/badge/ECOS_API-43A047?style=for-the-badge&logo=ecos&logoColor=white)
+![KRX API](https://img.shields.io/badge/KRX_API-8E24AA?style=for-the-badge&logo=krx&logoColor=white)
+![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
 
-#### 백엔드
-![Python](https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![Supabase](https://img.shields.io/badge/supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
+### AI (LLM)
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![LangChain](https://img.shields.io/badge/LangChain-000000?style=for-the-badge&logo=langchain&logoColor=white)
+![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white)
+![Google GenAI](https://img.shields.io/badge/Google_GenAI-4285F4?style=for-the-badge&logo=google&logoColor=white)
 
-#### 인프라 & 도구
-![GitHub Pages](https://img.shields.io/badge/github_pages-222222?style=for-the-badge&logo=github-pages&logoColor=white)
-![Git](https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white)
-![GitHub Actions](https://img.shields.io/badge/github_actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white)
-
-#### 기타 라이브러리
-![Pandas](https://img.shields.io/badge/pandas-150458?style=for-the-badge&logo=pandas&logoColor=white)
-![Matplotlib](https://img.shields.io/badge/matplotlib-11557C?style=for-the-badge&logo=matplotlib&logoColor=white)
-![FPDF](https://img.shields.io/badge/fpdf-FF0000?style=for-the-badge&logo=pdf&logoColor=white)
-![ReportLab](https://img.shields.io/badge/reportlab-000000?style=for-the-badge&logo=pdf&logoColor=white)
-![Python-dotenv](https://img.shields.io/badge/python_dotenv-000000?style=for-the-badge&logo=python&logoColor=white)
-
-### 🔌 External APIs
-
-#### 금융 & 경제 데이터
-![한국투자증권 API](https://img.shields.io/badge/한국투자증권_API-ED1C24?style=for-the-badge&logo=koreaninvestment&logoColor=white)
-![FinanceDataReader](https://img.shields.io/badge/FinanceDataReader-0066CC?style=for-the-badge&logo=finance&logoColor=white)
-![BeautifulSoup4](https://img.shields.io/badge/BeautifulSoup4-FF5722?style=for-the-badge&logo=beautifulsoup&logoColor=white)
-![ECOS API](https://img.shields.io/badge/ECOS_API-0052A4?style=for-the-badge&logo=bank&logoColor=white)
-![FRED API](https://img.shields.io/badge/FRED_API-1E88E5?style=for-the-badge&logo=federalreserve&logoColor=white)
-![KRX API](https://img.shields.io/badge/KRX_API-FF6B6B?style=for-the-badge&logo=krx&logoColor=white)
-
-#### AI & LLM
-![OpenAI GPT4](https://img.shields.io/badge/OpenAI_GPT4-412991?style=for-the-badge&logo=openai&logoColor=white)
-![Google Gemini Pro](https://img.shields.io/badge/Google_Gemini_Pro-4285F4?style=for-the-badge&logo=google&logoColor=white)
-![LangChain](https://img.shields.io/badge/LangChain-339933?style=for-the-badge&logo=chainlink&logoColor=white)
+### Development & Deployment
+![Streamlit Cloud](https://img.shields.io/badge/Streamlit_Cloud-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
+![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white)
+![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
+![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)
 
 ## 팀 소개
 
